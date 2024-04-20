@@ -8,4 +8,5 @@ object MongoDbConstants {
     // Collection
     const val COLLECTION_WORDS = "words"
     const val COLLECTION_CATEGORIES = "categories"
+    const val COLLECTION_USERS = "users"
 }

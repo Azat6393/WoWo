@@ -4,10 +4,12 @@ import com.caelum.wowo.repository.WordRepository
 import com.caelum.wowo.mongodb.MongoDb
 import com.caelum.wowo.mongodb.MongoDbConstants
 import com.caelum.wowo.repository.CategoryRepository
+import com.caelum.wowo.repository.UserRepository
 import org.koin.dsl.module
 
 val appModule = module {
     single<MongoDb> { MongoDb(MongoDbConstants.DATABASE_WOWO) }
     single<WordRepository> { WordRepository(get()) }
     single<CategoryRepository> { CategoryRepository(get()) }
+    single<UserRepository> { UserRepository(get()) }
 }
