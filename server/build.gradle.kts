@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.kotlinJvm)
     alias(libs.plugins.ktor)
+    kotlin("plugin.serialization").version("1.9.10")
     application
 }
 
@@ -19,6 +20,8 @@ dependencies {
     testImplementation(libs.ktor.server.tests)
     testImplementation(libs.kotlin.test.junit)
 
+    implementation(libs.ktor.server.content.negotiation)
+    implementation(libs.kotlinx.serialization.json)
     implementation(libs.kotlinx.coroutines.core)
 
     //MongoDB

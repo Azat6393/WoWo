@@ -3,10 +3,6 @@ package com.caelum.wowo.mongodb
 import com.mongodb.MongoException
 import com.mongodb.kotlin.client.coroutine.MongoClient
 import com.mongodb.kotlin.client.coroutine.MongoDatabase
-import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import org.bson.BsonInt64
 import org.bson.Document
 
@@ -18,11 +14,7 @@ class MongoDb(
 ) {
 
     suspend fun setupConnection(): MongoDatabase? {
-        val connectString = if (System.getenv(connectionEnvVariable) != null) {
-            System.getenv(connectionEnvVariable)
-        } else {
-            "mongodb+srv://caelum6393:jXCYy57ouXcLRp26@wowo.3ehxnev.mongodb.net/?retryWrites=true&w=majority&appName=WoWo"
-        }
+        val connectString = System.getenv(connectionEnvVariable)
 
         val client = MongoClient.create(connectionString = connectString)
         val database = client.getDatabase(databaseName = databaseName)

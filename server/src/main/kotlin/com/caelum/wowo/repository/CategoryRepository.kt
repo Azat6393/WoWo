@@ -4,12 +4,9 @@ import com.caelum.wowo.mongodb.IsSuccess
 import com.caelum.wowo.mongodb.MongoDb
 import com.caelum.wowo.mongodb.MongoDbConstants
 import com.caelum.wowo.mongodb.dto.CategoryDto
-import com.caelum.wowo.utils.NullDocumentException
 import com.mongodb.client.model.Aggregates
 import com.mongodb.client.model.Filters
 import com.mongodb.kotlin.client.coroutine.MongoDatabase
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.firstOrNull
 import org.bson.types.ObjectId
 import java.util.UUID
 
