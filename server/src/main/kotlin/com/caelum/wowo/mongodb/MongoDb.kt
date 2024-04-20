@@ -1,4 +1,4 @@
-package com.caelum.wowo.service
+package com.caelum.wowo.mongodb
 
 import com.mongodb.MongoException
 import com.mongodb.kotlin.client.coroutine.MongoClient

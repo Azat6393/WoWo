@@ -1,4 +1,4 @@
-package com.caelum.wowo.service
+package com.caelum.wowo.mongodb
 
 object MongoDbConstants {
 
@@ -7,4 +7,5 @@ object MongoDbConstants {
 
     // Collection
     const val COLLECTION_WORDS = "words"
+    const val COLLECTION_CATEGORIES = "categories"
 }

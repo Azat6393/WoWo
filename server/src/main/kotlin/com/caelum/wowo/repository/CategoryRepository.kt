@@ -2,39 +2,36 @@ package com.caelum.wowo.repository
 
 import com.caelum.wowo.mongodb.IsSuccess
 import com.caelum.wowo.mongodb.MongoDb
-import com.caelum.wowo.mongodb.MongoDbConstants.COLLECTION_WORDS
-import com.caelum.wowo.mongodb.dto.WordDto
+import com.caelum.wowo.mongodb.MongoDbConstants
+import com.caelum.wowo.mongodb.dto.CategoryDto
 import com.caelum.wowo.utils.NullDocumentException
 import com.mongodb.client.model.Aggregates
 import com.mongodb.client.model.Filters
-import com.mongodb.client.model.Filters.eq
 import com.mongodb.kotlin.client.coroutine.MongoDatabase
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.firstOrNull
 import org.bson.types.ObjectId
-import java.time.LocalDateTime
 import java.util.UUID
 
-class WordRepository(private val mongoDb: MongoDb) {
+class CategoryRepository(private val mongoDb: MongoDb) {
 
     private var database: MongoDatabase? = null
 
-    suspend fun addWord(word: String, category: String, language: String): Result<IsSuccess> {
+    suspend fun addCategory(category: String, language: String): Result<IsSuccess> {
         return try {
             if (database == null) {
                 database = mongoDb.setupConnection()
             }
 
-            val collection = database!!.getCollection<WordDto>(collectionName = COLLECTION_WORDS)
-            val item = WordDto(
+            val collection =
+                database!!.getCollection<CategoryDto>(collectionName = MongoDbConstants.COLLECTION_CATEGORIES)
+            val item = CategoryDto(
                 id = ObjectId(),
                 uuid = UUID.randomUUID().toString(),
-                word = word,
-                category = category,
-                language = language,
-                createdData = LocalDateTime.now()
+                name = category,
+                language = language
             )
             val result = collection.insertOne(item)
-
             if (result.insertedId == null) Result.success(false)
             else Result.success(true)
         } catch (e: Exception) {
@@ -42,29 +39,27 @@ class WordRepository(private val mongoDb: MongoDb) {
         }
     }
 
-    suspend fun getRandomWord(language: String, category: String): Result<WordDto> {
+    suspend fun getCategories(language: String): Result<List<CategoryDto>> {
         return try {
             if (database == null) {
                 database = mongoDb.setupConnection()
             }
-
-            val collection = database!!.getCollection<WordDto>(collectionName = COLLECTION_WORDS)
+            val categories = mutableListOf<CategoryDto>()
+            val collection =
+                database!!.getCollection<CategoryDto>(collectionName = MongoDbConstants.COLLECTION_CATEGORIES)
             val queryParams = Filters
                 .and(
                     listOf(
-                        eq(WordDto::language.name, language), eq(WordDto::category.name, category)
+                        Filters.eq(CategoryDto::language.name, language),
                     )
                 )
-
-            val resultFlow = collection.aggregate<WordDto>(
+            collection.aggregate<CategoryDto>(
                 listOf(
-                    Aggregates.match(queryParams),
-                    Aggregates.sample(1)
+                    Aggregates.match(queryParams)
                 )
-            ).firstOrNull()
+            ).collect(categories::add)
 
-            if (resultFlow == null) Result.failure(NullDocumentException())
-            else Result.success(resultFlow)
+            Result.success(categories)
         } catch (e: Exception) {
             Result.failure(e)
         }
