@@ -5,6 +5,7 @@ import com.caelum.wowo.mongodb.MongoDb
 import com.caelum.wowo.mongodb.MongoDbConstants
 import com.caelum.wowo.repository.CategoryRepository
 import com.caelum.wowo.repository.UserRepository
+import com.caelum.wowo.service.AdminService
 import com.caelum.wowo.service.GameService
 import org.koin.dsl.module
 
@@ -18,4 +19,5 @@ val appModule = module {
 
     // Service
     single<GameService> { GameService(get(), get()) }
+    single<AdminService> { AdminService(get(), get()) }
 }

@@ -5,6 +5,7 @@ import com.caelum.wowo.mongodb.MongoDb
 import com.caelum.wowo.mongodb.MongoDbConstants.COLLECTION_WORDS
 import com.caelum.wowo.mongodb.dto.WordDto
 import com.caelum.wowo.utils.NotFoundException
+import com.caelum.wowo.utils.UnknownException
 import com.mongodb.client.model.Aggregates
 import com.mongodb.client.model.Filters
 import com.mongodb.client.model.Filters.eq
@@ -35,7 +36,7 @@ class WordRepository(private val mongoDb: MongoDb) {
             )
             val result = collection.insertOne(item)
 
-            if (result.insertedId == null) Result.success(false)
+            if (result.insertedId == null) Result.failure(UnknownException("Something went wrong!"))
             else Result.success(true)
         } catch (e: Exception) {
             Result.failure(e)

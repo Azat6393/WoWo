@@ -1,6 +1,5 @@
 package com.caelum.wowo.utils
 
-import com.caelum.wowo.models.response.InputResponse
 
 fun calculateScore(seconds: Int, attempts: Int, questions: Int): Int {
     return 100

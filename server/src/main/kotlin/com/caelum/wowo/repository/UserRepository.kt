@@ -5,6 +5,7 @@ import com.caelum.wowo.mongodb.MongoDbConstants
 import com.caelum.wowo.mongodb.dto.UserDto
 import com.caelum.wowo.mongodb.dto.WordDto
 import com.caelum.wowo.utils.InvalidDataException
+import com.caelum.wowo.utils.UnknownException
 import com.mongodb.client.model.Filters
 import com.mongodb.client.model.Filters.eq
 import com.mongodb.client.model.Updates
@@ -34,10 +35,8 @@ class UserRepository(private val mongoDb: MongoDb) {
 
             if (resultFlow == null) {
                 val result = createUser(userId)
-                if (result.isSuccess)
-                    Result.success(result.getOrNull()!!)
-                else
-                    Result.failure(result.exceptionOrNull()!!)
+                if (result.isSuccess) Result.success(result.getOrNull()!!)
+                else Result.failure(result.exceptionOrNull()!!)
             } else {
                 Result.success(resultFlow)
             }
@@ -63,7 +62,7 @@ class UserRepository(private val mongoDb: MongoDb) {
             )
             val result = collection.insertOne(item)
 
-            if (result.insertedId == null) Result.failure(InvalidDataException("Cannot create user!"))
+            if (result.insertedId == null) Result.failure(UnknownException("Cannot create user!"))
             else Result.success(item)
         } catch (e: Exception) {
             Result.failure(e)
