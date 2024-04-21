@@ -24,6 +24,7 @@ import org.koin.logger.slf4jLogger
 import org.slf4j.event.Level
 
 fun Application.addDefaultApplicationConfiguration() {
+
     install(Koin) {
         slf4jLogger()
         modules(appModule)

@@ -1,6 +1,6 @@
 package com.caelum.wowo.service
 
-import com.caelum.wowo.mongodb.IsSuccess
+import com.caelum.wowo.data.mongodb.IsSuccess
 import com.caelum.wowo.repository.CategoryRepository
 import com.caelum.wowo.repository.WordRepository
 import kotlinx.coroutines.flow.Flow

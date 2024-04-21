@@ -1,9 +1,11 @@
 package com.caelum.wowo.models.body
 
+import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
 data class QuestionBody(
-    val word: String,
-    val question: String
+    @SerialName("word") val word: String,
+    @SerialName("question") val question: String,
+    @SerialName("language") val language: String
 )

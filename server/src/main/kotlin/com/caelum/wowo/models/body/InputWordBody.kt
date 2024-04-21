@@ -9,7 +9,7 @@ data class InputWordBody(
     @SerialName("entered_word") val enteredWord: String,
     @SerialName("user_id") val userId: String,
     @SerialName("difficulty_level") val difficultyLevel: Int,
-    val question: Int,
-    val seconds: Int,
-    val attempts: Int
+    @SerialName("question") val question: Int,
+    @SerialName("seconds") val seconds: Int,
+    @SerialName("attempts") val attempts: Int
 )

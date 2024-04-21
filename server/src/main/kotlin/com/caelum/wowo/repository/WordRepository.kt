@@ -1,9 +1,9 @@
 package com.caelum.wowo.repository
 
-import com.caelum.wowo.mongodb.IsSuccess
-import com.caelum.wowo.mongodb.MongoDb
-import com.caelum.wowo.mongodb.MongoDbConstants.COLLECTION_WORDS
-import com.caelum.wowo.mongodb.dto.WordDto
+import com.caelum.wowo.data.mongodb.IsSuccess
+import com.caelum.wowo.data.mongodb.MongoDb
+import com.caelum.wowo.data.mongodb.MongoDbConstants.COLLECTION_WORDS
+import com.caelum.wowo.data.dto.WordDto
 import com.caelum.wowo.utils.exception.NotFoundException
 import com.caelum.wowo.utils.exception.UnknownException
 import com.mongodb.client.model.Aggregates

@@ -3,9 +3,9 @@ package com.caelum.wowo.models
 import com.caelum.wowo.models.wowo.Category
 import com.caelum.wowo.models.wowo.User
 import com.caelum.wowo.models.wowo.Word
-import com.caelum.wowo.mongodb.dto.CategoryDto
-import com.caelum.wowo.mongodb.dto.UserDto
-import com.caelum.wowo.mongodb.dto.WordDto
+import com.caelum.wowo.data.dto.CategoryDto
+import com.caelum.wowo.data.dto.UserDto
+import com.caelum.wowo.data.dto.WordDto
 
 fun UserDto.toUser(): User {
     return User(

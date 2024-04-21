@@ -1,4 +1,4 @@
-package com.caelum.wowo.mongodb.dto
+package com.caelum.wowo.data.dto
 
 import org.bson.codecs.pojo.annotations.BsonId
 import org.bson.codecs.pojo.annotations.BsonProperty

@@ -1,12 +1,13 @@
 package com.caelum.wowo.models.wowo
 
+import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
 data class Word(
-    val uuid: String,
-    val word: String,
-    val category: String,
-    val language: String,
-    val createdData: String
+    @SerialName("uuid") val uuid: String,
+    @SerialName("word") val word: String,
+    @SerialName("category") val category: String,
+    @SerialName("language") val language: String,
+    @SerialName("created_data") val createdData: String
 )

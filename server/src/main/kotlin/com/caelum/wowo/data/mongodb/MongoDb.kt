@@ -1,4 +1,4 @@
-package com.caelum.wowo.mongodb
+package com.caelum.wowo.data.mongodb
 
 import com.mongodb.MongoException
 import com.mongodb.kotlin.client.coroutine.MongoClient
@@ -10,7 +10,7 @@ typealias IsSuccess = Boolean
 
 class MongoDb(
     private val databaseName: String,
-    private val connectionEnvVariable: String = "MONGODB_URI",
+    private val connectionEnvVariable: String = MongoDbConstants.MONGO_DB_URI,
 ) {
 
     suspend fun setupConnection(): MongoDatabase? {

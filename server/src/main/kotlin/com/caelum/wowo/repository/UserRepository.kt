@@ -1,9 +1,9 @@
 package com.caelum.wowo.repository
 
-import com.caelum.wowo.mongodb.MongoDb
-import com.caelum.wowo.mongodb.MongoDbConstants
-import com.caelum.wowo.mongodb.dto.UserDto
-import com.caelum.wowo.mongodb.dto.WordDto
+import com.caelum.wowo.data.mongodb.MongoDb
+import com.caelum.wowo.data.mongodb.MongoDbConstants
+import com.caelum.wowo.data.dto.UserDto
+import com.caelum.wowo.data.dto.WordDto
 import com.caelum.wowo.utils.exception.UnknownException
 import com.mongodb.client.model.Filters
 import com.mongodb.client.model.Filters.eq

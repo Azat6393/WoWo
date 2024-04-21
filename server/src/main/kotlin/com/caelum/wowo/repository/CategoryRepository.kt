@@ -1,9 +1,9 @@
 package com.caelum.wowo.repository
 
-import com.caelum.wowo.mongodb.IsSuccess
-import com.caelum.wowo.mongodb.MongoDb
-import com.caelum.wowo.mongodb.MongoDbConstants
-import com.caelum.wowo.mongodb.dto.CategoryDto
+import com.caelum.wowo.data.mongodb.IsSuccess
+import com.caelum.wowo.data.mongodb.MongoDb
+import com.caelum.wowo.data.mongodb.MongoDbConstants
+import com.caelum.wowo.data.dto.CategoryDto
 import com.caelum.wowo.utils.exception.UnknownException
 import com.mongodb.client.model.Aggregates
 import com.mongodb.client.model.Filters
