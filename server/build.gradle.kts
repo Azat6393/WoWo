@@ -22,14 +22,16 @@ dependencies {
     implementation(libs.ktor.server.call.logging)
     implementation(libs.ktor.server.host.common)
     implementation(libs.ktor.server.sessions)
+    implementation(libs.ktor.server.cors)
 
     testImplementation(libs.ktor.server.tests)
     testImplementation(libs.kotlin.test.junit)
-    
+
     implementation(libs.ktor.client.cio)
     implementation(libs.ktor.client.okhttp)
     implementation(libs.ktor.client.logging.jvm)
     implementation(libs.kotlinx.serialization.json)
+    implementation("io.ktor:ktor-serialization-kotlinx-json-jvm")
     implementation(libs.kotlinx.coroutines.core)
 
     //MongoDB

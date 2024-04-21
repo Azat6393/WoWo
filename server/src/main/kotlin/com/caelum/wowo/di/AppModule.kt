@@ -7,6 +7,7 @@ import com.caelum.wowo.repository.CategoryRepository
 import com.caelum.wowo.repository.UserRepository
 import com.caelum.wowo.service.AdminService
 import com.caelum.wowo.service.GameService
+import com.caelum.wowo.service.UserService
 import org.koin.dsl.module
 
 val appModule = module {
@@ -20,4 +21,5 @@ val appModule = module {
     // Service
     single<GameService> { GameService(get(), get()) }
     single<AdminService> { AdminService(get(), get()) }
+    single<UserService> { UserService(get()) }
 }

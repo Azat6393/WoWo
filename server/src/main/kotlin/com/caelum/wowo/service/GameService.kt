@@ -1,6 +1,7 @@
 package com.caelum.wowo.service
 
 import com.caelum.wowo.models.body.InputWordBody
+import com.caelum.wowo.models.body.QuestionBody
 import com.caelum.wowo.models.response.InputResponse
 import com.caelum.wowo.models.response.QuestionResponse
 import com.caelum.wowo.models.toWord
@@ -29,7 +30,7 @@ class GameService(
         )
     }
 
-    fun askQuestion(word: String, question: String): Flow<QuestionResponse> = flow {
+    fun askQuestion(questionBody: QuestionBody): Flow<QuestionResponse> = flow {
 
     }
 

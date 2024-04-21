@@ -2,16 +2,19 @@ package com.caelum.wowo.config
 
 import com.caelum.wowo.di.appModule
 import com.caelum.wowo.models.response.ErrorResponse
-import com.caelum.wowo.utils.InvalidDataException
-import com.caelum.wowo.utils.NotFoundException
-import com.caelum.wowo.utils.UnknownException
+import com.caelum.wowo.utils.exception.InvalidDataException
+import com.caelum.wowo.utils.exception.NotFoundException
+import com.caelum.wowo.utils.exception.UnknownException
 import com.mongodb.MongoCommandException
+import io.ktor.http.HttpMethod
 import io.ktor.http.HttpStatusCode
+import io.ktor.serialization.kotlinx.json.json
 import io.ktor.server.application.Application
 import io.ktor.server.application.ApplicationCall
 import io.ktor.server.application.install
 import io.ktor.server.plugins.callloging.CallLogging
 import io.ktor.server.plugins.contentnegotiation.ContentNegotiation
+import io.ktor.server.plugins.cors.routing.CORS
 import io.ktor.server.plugins.statuspages.StatusPages
 import io.ktor.server.request.path
 import io.ktor.server.response.respond
@@ -26,13 +29,23 @@ fun Application.addDefaultApplicationConfiguration() {
         modules(appModule)
     }
 
-    install(ContentNegotiation)
+    install(ContentNegotiation){
+        json()
+    }
 
     install(CallLogging) {
         level = Level.INFO
         filter { call ->
             call.request.path().startsWith("/")
         }
+    }
+
+    install(CORS) {
+        methods.add(HttpMethod.Options)
+        methods.add(HttpMethod.Put)
+        methods.add(HttpMethod.Post)
+        methods.add(HttpMethod.Get)
+        methods.add(HttpMethod.Delete)
     }
 
     install(StatusPages) {
@@ -51,10 +64,10 @@ fun Application.addDefaultApplicationConfiguration() {
         exception<UnknownException> { call: ApplicationCall, cause: Throwable ->
             cause.printStackTrace()
             call.respond(
-                HttpStatusCode.BadRequest,
+                HttpStatusCode.InternalServerError,
                 ErrorResponse(
                     cause.message!!,
-                    HttpStatusCode.BadRequest.value
+                    HttpStatusCode.InternalServerError.value
                 )
             )
         }

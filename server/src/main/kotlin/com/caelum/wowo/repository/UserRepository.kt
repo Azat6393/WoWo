@@ -4,8 +4,7 @@ import com.caelum.wowo.mongodb.MongoDb
 import com.caelum.wowo.mongodb.MongoDbConstants
 import com.caelum.wowo.mongodb.dto.UserDto
 import com.caelum.wowo.mongodb.dto.WordDto
-import com.caelum.wowo.utils.InvalidDataException
-import com.caelum.wowo.utils.UnknownException
+import com.caelum.wowo.utils.exception.UnknownException
 import com.mongodb.client.model.Filters
 import com.mongodb.client.model.Filters.eq
 import com.mongodb.client.model.Updates
