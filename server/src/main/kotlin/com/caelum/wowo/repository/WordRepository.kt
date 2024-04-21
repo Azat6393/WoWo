@@ -1,10 +1,11 @@
 package com.caelum.wowo.repository
 
-import com.caelum.wowo.mongodb.IsSuccess
-import com.caelum.wowo.mongodb.MongoDb
-import com.caelum.wowo.mongodb.MongoDbConstants.COLLECTION_WORDS
-import com.caelum.wowo.mongodb.dto.WordDto
-import com.caelum.wowo.utils.NullDocumentException
+import com.caelum.wowo.data.mongodb.IsSuccess
+import com.caelum.wowo.data.mongodb.MongoDb
+import com.caelum.wowo.data.mongodb.MongoDbConstants.COLLECTION_WORDS
+import com.caelum.wowo.data.dto.WordDto
+import com.caelum.wowo.utils.exception.NotFoundException
+import com.caelum.wowo.utils.exception.UnknownException
 import com.mongodb.client.model.Aggregates
 import com.mongodb.client.model.Filters
 import com.mongodb.client.model.Filters.eq
@@ -35,7 +36,7 @@ class WordRepository(private val mongoDb: MongoDb) {
             )
             val result = collection.insertOne(item)
 
-            if (result.insertedId == null) Result.success(false)
+            if (result.insertedId == null) Result.failure(UnknownException("Something went wrong!"))
             else Result.success(true)
         } catch (e: Exception) {
             Result.failure(e)
@@ -63,7 +64,7 @@ class WordRepository(private val mongoDb: MongoDb) {
                 )
             ).firstOrNull()
 
-            if (resultFlow == null) Result.failure(NullDocumentException())
+            if (resultFlow == null) Result.failure(NotFoundException())
             else Result.success(resultFlow)
         } catch (e: Exception) {
             Result.failure(e)
