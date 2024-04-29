@@ -2,9 +2,9 @@ package com.caelum.wowo.controller
 
 import com.caelum.wowo.models.body.InputWordBody
 import com.caelum.wowo.models.body.QuestionBody
-import com.caelum.wowo.models.response.SuccessResponse
 import com.caelum.wowo.service.GameService
 import com.caelum.wowo.utils.ApiPaths
+import data.remote.response.SuccessResponse
 import io.ktor.http.HttpStatusCode
 import io.ktor.server.application.call
 import io.ktor.server.response.respond
@@ -21,7 +21,7 @@ fun Route.gameRouter() {
 
     route(ApiPaths.GAME) {
 
-        get("/word/{category?}/{language?}") {
+        get("/word/{category?}/{language?}/{difficulty?}") {
             val language = call.parameters["language"] ?: return@get call.respondText(
                 text = "Missing language",
                 status = HttpStatusCode.BadRequest
@@ -30,10 +30,31 @@ fun Route.gameRouter() {
                 text = "Missing category",
                 status = HttpStatusCode.BadRequest
             )
+            val difficulty = call.parameters["difficulty"] ?: return@get call.respondText(
+                text = "Missing difficulty",
+                status = HttpStatusCode.BadRequest
+            )
             val result = gameService.getRandomWord(
                 language = language,
-                category = category
+                category = category,
+                difficulty = difficulty.toInt()
             ).firstOrNull()
+            call.respond(
+                HttpStatusCode.OK,
+                SuccessResponse(
+                    result,
+                    HttpStatusCode.OK.value,
+                    "Success"
+                )
+            )
+        }
+
+        get("/categories/{language?}") {
+            val language = call.parameters["language"] ?: return@get call.respondText(
+                text = "Missing language",
+                status = HttpStatusCode.BadRequest
+            )
+            val result = gameService.getCategories(language)
             call.respond(
                 HttpStatusCode.OK,
                 SuccessResponse(

@@ -26,7 +26,7 @@ val appModule = module {
     single<GptRepository> { GptRepository(get()) }
 
     // Service
-    single<GameService> { GameService(get(), get(), get()) }
+    single<GameService> { GameService(get(), get(), get(), get()) }
     single<AdminService> { AdminService(get(), get()) }
     single<UserService> { UserService(get()) }
 }

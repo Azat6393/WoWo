@@ -2,9 +2,9 @@ package com.caelum.wowo.controller
 
 import com.caelum.wowo.models.body.InsertCategoryBody
 import com.caelum.wowo.models.body.InsertWordBody
-import com.caelum.wowo.models.response.SuccessResponse
 import com.caelum.wowo.service.AdminService
 import com.caelum.wowo.utils.ApiPaths
+import data.remote.response.SuccessResponse
 import io.ktor.http.HttpStatusCode
 import io.ktor.server.application.call
 import io.ktor.server.response.respond
@@ -36,7 +36,7 @@ fun Route.adminRouter() {
 
         post<InsertWordBody>("/word") { request ->
             val result = adminService.insertWord(
-                word = request.word,
+                words = request.words,
                 category = request.category,
                 language = request.language
             ).firstOrNull()

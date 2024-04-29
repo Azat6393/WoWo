@@ -1,10 +1,10 @@
 package com.caelum.wowo.config
 
 import com.caelum.wowo.di.appModule
-import com.caelum.wowo.models.response.ErrorResponse
 import com.caelum.wowo.utils.exception.InvalidDataException
 import com.caelum.wowo.utils.exception.NotFoundException
 import com.caelum.wowo.utils.exception.UnknownException
+import data.remote.response.ErrorResponse
 import com.mongodb.MongoCommandException
 import io.ktor.http.HttpMethod
 import io.ktor.http.HttpStatusCode
@@ -15,6 +15,7 @@ import io.ktor.server.application.install
 import io.ktor.server.plugins.callloging.CallLogging
 import io.ktor.server.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.server.plugins.cors.routing.CORS
+import io.ktor.server.plugins.ratelimit.RateLimit
 import io.ktor.server.plugins.statuspages.StatusPages
 import io.ktor.server.request.path
 import io.ktor.server.response.respond
@@ -22,6 +23,7 @@ import org.bson.json.JsonParseException
 import org.koin.ktor.plugin.Koin
 import org.koin.logger.slf4jLogger
 import org.slf4j.event.Level
+import kotlin.time.Duration.Companion.seconds
 
 fun Application.addDefaultApplicationConfiguration() {
 
@@ -32,6 +34,12 @@ fun Application.addDefaultApplicationConfiguration() {
 
     install(ContentNegotiation){
         json()
+    }
+
+    install(RateLimit){
+        global {
+            rateLimiter(limit = 40, refillPeriod = 60.seconds)
+        }
     }
 
     install(CallLogging) {
@@ -84,7 +92,7 @@ fun Application.addDefaultApplicationConfiguration() {
             )
         }
 
-        exception<KotlinNullPointerException> { call: ApplicationCall, cause: Throwable ->
+        exception<KotlinNullPointerException> { call: ApplicationCall, _: Throwable ->
             call.respond(
                 HttpStatusCode.NotFound,
                 ErrorResponse(

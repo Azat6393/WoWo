@@ -1,5 +1,6 @@
 package com.caelum.wowo.models.body
 
+import com.caelum.wowo.models.wowo.GameCondition
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -9,7 +10,5 @@ data class InputWordBody(
     @SerialName("entered_word") val enteredWord: String,
     @SerialName("user_id") val userId: String,
     @SerialName("difficulty_level") val difficultyLevel: Int,
-    @SerialName("question") val question: Int,
-    @SerialName("seconds") val seconds: Int,
-    @SerialName("attempts") val attempts: Int
+    @SerialName("game_condition") val gameCondition: GameCondition
 )

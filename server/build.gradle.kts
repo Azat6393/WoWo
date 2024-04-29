@@ -1,8 +1,12 @@
+import com.google.cloud.tools.gradle.appengine.appyaml.AppEngineAppYamlExtension
+
 plugins {
     alias(libs.plugins.kotlinJvm)
     alias(libs.plugins.ktor)
-    kotlin("plugin.serialization").version("1.9.10")
+    alias(libs.plugins.kotlinSerialization)
     application
+    id("com.github.johnrengelman.shadow") version "7.1.2"
+    id("com.google.cloud.tools.appengine") version "2.4.2"
 }
 
 group = "com.caelum.wowo"
@@ -12,9 +16,22 @@ application {
     applicationDefaultJvmArgs = listOf("-Dio.ktor.development=${extra["development"] ?: "false"}")
 }
 
+configure<AppEngineAppYamlExtension> {
+    stage {
+        setArtifact("build/libs/server-all.jar")
+    }
+    deploy {
+        version = "GCLOUD_CONFIG"
+        projectId = "GCLOUD_CONFIG"
+    }
+}
+
 dependencies {
-    implementation(projects.shared)
     implementation(libs.logback)
+    implementation(libs.kotlinx.serialization.json)
+    implementation(libs.kotlinx.coroutines.core)
+
+    //Ktor server
     implementation(libs.ktor.server.core)
     implementation(libs.ktor.server.netty)
     implementation(libs.ktor.server.content.negotiation)
@@ -23,21 +40,18 @@ dependencies {
     implementation(libs.ktor.server.host.common)
     implementation(libs.ktor.server.sessions)
     implementation(libs.ktor.server.cors)
-
+    implementation(libs.ktor.server.rate.limit)
     testImplementation(libs.ktor.server.tests)
     testImplementation(libs.kotlin.test.junit)
 
+    //Ktor client
     implementation(libs.ktor.client.core)
     implementation(libs.ktor.client.cio)
-    implementation(libs.ktor.client.okhttp)
     implementation(libs.ktor.client.logging.jvm)
-    implementation(libs.ktor.client.apache5)
     implementation(libs.ktor.client.content.negotiation)
     implementation(libs.ktor.serialization.kotlinx.json)
+    implementation(libs.ktor.client.apache5)
     implementation("io.ktor:ktor-serialization-kotlinx-json-jvm")
-
-    implementation(libs.kotlinx.serialization.json)
-    implementation(libs.kotlinx.coroutines.core)
 
     //MongoDB
     implementation(libs.mongodb.driver.kotlin.coroutine)

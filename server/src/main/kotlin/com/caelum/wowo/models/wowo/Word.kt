@@ -9,5 +9,5 @@ data class Word(
     @SerialName("word") val word: String,
     @SerialName("category") val category: String,
     @SerialName("language") val language: String,
-    @SerialName("created_data") val createdData: String
+    @SerialName("game_condition") val gameCondition: GameCondition
 )

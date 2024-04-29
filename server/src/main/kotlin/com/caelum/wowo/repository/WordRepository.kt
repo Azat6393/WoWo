@@ -19,24 +19,30 @@ class WordRepository(private val mongoDb: MongoDb) {
 
     private var database: MongoDatabase? = null
 
-    suspend fun addWord(word: String, category: String, language: String): Result<IsSuccess> {
+    suspend fun addWord(
+        words: List<String>,
+        category: String,
+        language: String,
+    ): Result<IsSuccess> {
         return try {
             if (database == null) {
                 database = mongoDb.setupConnection()
             }
 
             val collection = database!!.getCollection<WordDto>(collectionName = COLLECTION_WORDS)
-            val item = WordDto(
-                id = ObjectId(),
-                uuid = UUID.randomUUID().toString(),
-                word = word,
-                category = category,
-                language = language,
-                createdData = LocalDateTime.now()
-            )
-            val result = collection.insertOne(item)
+            val items = words.map { word ->
+                WordDto(
+                    id = ObjectId(),
+                    uuid = UUID.randomUUID().toString(),
+                    word = word,
+                    category = category,
+                    language = language,
+                    createdData = LocalDateTime.now()
+                )
+            }
 
-            if (result.insertedId == null) Result.failure(UnknownException("Something went wrong!"))
+            val result = collection.insertMany(items)
+            if (result.insertedIds.isEmpty()) Result.failure(UnknownException("Something went wrong!"))
             else Result.success(true)
         } catch (e: Exception) {
             Result.failure(e)
