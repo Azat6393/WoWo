@@ -1,18 +1,19 @@
 package com.caelum.wowo
 
-import App
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.tooling.preview.Preview
+import mobile_ui.MobileApp
+import org.jetbrains.compose.ui.tooling.preview.Preview
+import org.koin.dsl.module
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         setContent {
-            App()
+            MobileApp()
         }
     }
 }
@@ -20,5 +21,5 @@ class MainActivity : ComponentActivity() {
 @Preview
 @Composable
 fun AppAndroidPreview() {
-    App()
+    MobileApp()
 }

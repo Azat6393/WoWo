@@ -11,45 +11,43 @@ import com.mongodb.client.model.Filters
 import com.mongodb.client.model.Filters.eq
 import com.mongodb.kotlin.client.coroutine.MongoDatabase
 import kotlinx.coroutines.flow.firstOrNull
+import org.bson.BsonInt64
+import org.bson.Document
 import org.bson.types.ObjectId
 import java.time.LocalDateTime
 import java.util.UUID
 
-class WordRepository(private val mongoDb: MongoDb) {
+class WordRepository(private val mongoDatabase: MongoDatabase) {
 
-    private var database: MongoDatabase? = null
-
-    suspend fun addWord(word: String, category: String, language: String): Result<IsSuccess> {
+    suspend fun addWord(
+        words: List<String>,
+        category: String,
+        language: String,
+    ): IsSuccess {
         return try {
-            if (database == null) {
-                database = mongoDb.setupConnection()
+            val collection = mongoDatabase.getCollection<WordDto>(collectionName = COLLECTION_WORDS)
+            val items = words.map { word ->
+                WordDto(
+                    id = ObjectId(),
+                    uuid = UUID.randomUUID().toString(),
+                    word = word,
+                    category = category,
+                    language = language,
+                    createdData = LocalDateTime.now()
+                )
             }
 
-            val collection = database!!.getCollection<WordDto>(collectionName = COLLECTION_WORDS)
-            val item = WordDto(
-                id = ObjectId(),
-                uuid = UUID.randomUUID().toString(),
-                word = word,
-                category = category,
-                language = language,
-                createdData = LocalDateTime.now()
-            )
-            val result = collection.insertOne(item)
-
-            if (result.insertedId == null) Result.failure(UnknownException("Something went wrong!"))
-            else Result.success(true)
+            val result = collection.insertMany(items)
+            if (result.insertedIds.isEmpty()) throw UnknownException("Something went wrong!")
+            else true
         } catch (e: Exception) {
-            Result.failure(e)
+            throw e
         }
     }
 
     suspend fun getRandomWord(language: String, category: String): Result<WordDto> {
         return try {
-            if (database == null) {
-                database = mongoDb.setupConnection()
-            }
-
-            val collection = database!!.getCollection<WordDto>(collectionName = COLLECTION_WORDS)
+            val collection = mongoDatabase.getCollection<WordDto>(collectionName = COLLECTION_WORDS)
             val queryParams = Filters
                 .and(
                     listOf(
@@ -67,7 +65,7 @@ class WordRepository(private val mongoDb: MongoDb) {
             if (resultFlow == null) Result.failure(NotFoundException())
             else Result.success(resultFlow)
         } catch (e: Exception) {
-            Result.failure(e)
+            throw e
         }
     }
 }

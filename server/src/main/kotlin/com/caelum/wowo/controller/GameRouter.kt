@@ -5,6 +5,7 @@ import com.caelum.wowo.models.body.QuestionBody
 import com.caelum.wowo.models.response.SuccessResponse
 import com.caelum.wowo.service.GameService
 import com.caelum.wowo.utils.ApiPaths
+import com.caelum.wowo.utils.fetchError
 import io.ktor.http.HttpStatusCode
 import io.ktor.server.application.call
 import io.ktor.server.response.respond
@@ -21,51 +22,89 @@ fun Route.gameRouter() {
 
     route(ApiPaths.GAME) {
 
-        get("/word/{category?}/{language?}") {
-            val language = call.parameters["language"] ?: return@get call.respondText(
-                text = "Missing language",
-                status = HttpStatusCode.BadRequest
-            )
-            val category = call.parameters["category"] ?: return@get call.respondText(
-                text = "Missing category",
-                status = HttpStatusCode.BadRequest
-            )
-            val result = gameService.getRandomWord(
-                language = language,
-                category = category
-            ).firstOrNull()
-            call.respond(
-                HttpStatusCode.OK,
-                SuccessResponse(
-                    result,
-                    HttpStatusCode.OK.value,
-                    "Success"
+        get("/word/{category?}/{language?}/{difficulty?}") {
+            try {
+                val language = call.parameters["language"] ?: return@get call.respondText(
+                    text = "Missing language",
+                    status = HttpStatusCode.BadRequest
                 )
-            )
+                val category = call.parameters["category"] ?: return@get call.respondText(
+                    text = "Missing category",
+                    status = HttpStatusCode.BadRequest
+                )
+                val difficulty = call.parameters["difficulty"] ?: return@get call.respondText(
+                    text = "Missing difficulty",
+                    status = HttpStatusCode.BadRequest
+                )
+                val result = gameService.getRandomWord(
+                    language = language,
+                    category = category,
+                    difficulty = difficulty.toInt()
+                ).firstOrNull()
+
+                call.respond(
+                    HttpStatusCode.OK,
+                    SuccessResponse(
+                        result,
+                        HttpStatusCode.OK.value,
+                        "Success"
+                    )
+                )
+            } catch (e: Exception) {
+                fetchError(e)
+            }
+        }
+
+        get("/categories/{language?}") {
+            try {
+                val language = call.parameters["language"] ?: return@get call.respondText(
+                    text = "Missing language",
+                    status = HttpStatusCode.BadRequest
+                )
+                val result = gameService.getCategories(language).firstOrNull()
+                call.respond(
+                    HttpStatusCode.OK,
+                    SuccessResponse(
+                        result,
+                        HttpStatusCode.OK.value,
+                        "Success"
+                    )
+                )
+            } catch (e: Exception) {
+                fetchError(e)
+            }
         }
 
         post<InputWordBody>("/input") { request ->
-            val result = gameService.inputWord(request).firstOrNull()
-            call.respond(
-                HttpStatusCode.OK,
-                SuccessResponse(
-                    result,
-                    HttpStatusCode.OK.value,
-                    "Success"
+            try {
+                val result = gameService.inputWord(request).firstOrNull()
+                call.respond(
+                    HttpStatusCode.OK,
+                    SuccessResponse(
+                        result,
+                        HttpStatusCode.OK.value,
+                        "Success"
+                    )
                 )
-            )
+            } catch (e: Exception) {
+                fetchError(e)
+            }
         }
 
         post<QuestionBody>("/question") { request ->
-            val result = gameService.askQuestion(request).firstOrNull()
-            call.respond(
-                HttpStatusCode.OK,
-                SuccessResponse(
-                    result,
-                    HttpStatusCode.OK.value,
-                    "Success"
+            try {
+                val result = gameService.askQuestion(request).firstOrNull()
+                call.respond(
+                    HttpStatusCode.OK,
+                    SuccessResponse(
+                        result,
+                        HttpStatusCode.OK.value,
+                        "Success"
+                    )
                 )
-            )
+            } catch (e: Exception) {
+                fetchError(e)
+            }
         }
     }
 }

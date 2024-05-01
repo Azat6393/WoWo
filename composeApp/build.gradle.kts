@@ -48,6 +48,10 @@ kotlin {
             implementation(compose.ui)
             implementation(compose.components.resources)
             implementation(compose.components.uiToolingPreview)
+
+            implementation(libs.koin.compose.wasm)
+            implementation(libs.lifecycle.viewmodel.compose)
+
             implementation(projects.shared)
         }
     }

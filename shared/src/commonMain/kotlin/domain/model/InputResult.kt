@@ -1,4 +1,4 @@
-package com.caelum.wowo.models.response
+package domain.model
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
@@ -9,7 +9,7 @@ import kotlinx.serialization.Serializable
 // 2 -> letter is in the word and in the correct spot.
 
 @Serializable
-data class InputResponse(
+data class InputResult(
     @SerialName("is_correct") val isCorrect: Boolean,
     @SerialName("letters_condition") val lettersCondition: Map<Int, Int>,
     @SerialName("earned_score") val earnedScore: Int? = null

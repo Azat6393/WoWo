@@ -1,11 +1,12 @@
 package com.caelum.wowo.models
 
-import com.caelum.wowo.models.wowo.Category
-import com.caelum.wowo.models.wowo.User
-import com.caelum.wowo.models.wowo.Word
 import com.caelum.wowo.data.dto.CategoryDto
 import com.caelum.wowo.data.dto.UserDto
 import com.caelum.wowo.data.dto.WordDto
+import com.caelum.wowo.models.wowo.Category
+import com.caelum.wowo.models.wowo.User
+import com.caelum.wowo.models.wowo.Word
+import com.caelum.wowo.utils.getGameCondition
 
 fun UserDto.toUser(): User {
     return User(
@@ -24,12 +25,12 @@ fun CategoryDto.toCategory(): Category {
     )
 }
 
-fun WordDto.toWord(): Word {
+fun WordDto.toWord(difficulty: Int): Word {
     return Word(
         uuid = uuid,
         category = category,
         word = word,
         language = language,
-        createdData = createdData.toString()
+        gameCondition = getGameCondition(difficulty)
     )
 }

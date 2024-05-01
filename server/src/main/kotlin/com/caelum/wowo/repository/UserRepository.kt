@@ -13,18 +13,12 @@ import kotlinx.coroutines.flow.firstOrNull
 import org.bson.types.ObjectId
 import java.util.UUID
 
-class UserRepository(private val mongoDb: MongoDb) {
-
-    private var database: MongoDatabase? = null
+class UserRepository(private val database: MongoDatabase) {
 
     suspend fun getUser(userId: String): Result<UserDto> {
         return try {
-            if (database == null) {
-                database = mongoDb.setupConnection()
-            }
-
             val collection =
-                database!!.getCollection<WordDto>(collectionName = MongoDbConstants.COLLECTION_USERS)
+                database.getCollection<WordDto>(collectionName = MongoDbConstants.COLLECTION_USERS)
 
             val queryParam = Filters
                 .and(listOf(eq(UserDto::uuid.name, userId)))
@@ -46,12 +40,8 @@ class UserRepository(private val mongoDb: MongoDb) {
 
     suspend fun createUser(userId: String): Result<UserDto?> {
         return try {
-            if (database == null) {
-                database = mongoDb.setupConnection()
-            }
-
             val collection =
-                database!!.getCollection<UserDto>(collectionName = MongoDbConstants.COLLECTION_USERS)
+                database.getCollection<UserDto>(collectionName = MongoDbConstants.COLLECTION_USERS)
             val item = UserDto(
                 id = ObjectId(),
                 uuid = userId,
@@ -70,12 +60,8 @@ class UserRepository(private val mongoDb: MongoDb) {
 
     suspend fun increaseScore(score: Int, userId: String) {
         try {
-            if (database == null) {
-                database = mongoDb.setupConnection()
-            }
-
             val collection =
-                database!!.getCollection<UserDto>(collectionName = MongoDbConstants.COLLECTION_USERS)
+                database.getCollection<UserDto>(collectionName = MongoDbConstants.COLLECTION_USERS)
 
             val queryParams = Filters.and(
                 listOf(eq(UserDto::uuid.name, userId))
@@ -89,12 +75,8 @@ class UserRepository(private val mongoDb: MongoDb) {
 
     suspend fun decreaseScore(score: Int, userId: String) {
         try {
-            if (database == null) {
-                database = mongoDb.setupConnection()
-            }
-
             val collection =
-                database!!.getCollection<UserDto>(collectionName = MongoDbConstants.COLLECTION_USERS)
+                database.getCollection<UserDto>(collectionName = MongoDbConstants.COLLECTION_USERS)
 
             val queryParams = Filters.and(
                 listOf(eq(UserDto::uuid.name, userId))

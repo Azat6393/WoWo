@@ -4,6 +4,7 @@ import org.jetbrains.kotlin.gradle.targets.js.webpack.KotlinWebpackConfig
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.androidLibrary)
+    alias(libs.plugins.kotlinSerialization)
 }
 
 kotlin {
@@ -20,7 +21,7 @@ kotlin {
             }
         }
     }
-    
+
     androidTarget {
         compilations.all {
             kotlinOptions {
@@ -28,13 +29,26 @@ kotlin {
             }
         }
     }
-    
+
     jvm()
     task("testClasses")
-    
+
     sourceSets {
         commonMain.dependencies {
-            // put your Multiplatform dependencies here
+            implementation(libs.kotlinx.serialization.json)
+            implementation(libs.kotlinx.coroutines.core)
+
+            implementation(libs.bundles.ktor.common)
+            implementation(libs.koin.core.wasm)
+        }
+        androidMain.dependencies {
+            implementation(libs.ktor.client.okhttp.wasm)
+        }
+        jsMain.dependencies {
+            implementation(libs.ktor.client.js.wasm)
+        }
+        jvmMain.dependencies {
+            implementation(libs.ktor.client.cio.wasm)
         }
     }
 }

@@ -1,8 +1,8 @@
 package com.caelum.wowo.controller
 
-import com.caelum.wowo.models.response.SuccessResponse
 import com.caelum.wowo.service.UserService
 import com.caelum.wowo.utils.ApiPaths
+import com.caelum.wowo.models.response.SuccessResponse
 import io.ktor.http.HttpStatusCode
 import io.ktor.server.application.call
 import io.ktor.server.response.respond

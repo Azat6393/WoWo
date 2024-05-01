@@ -11,18 +11,12 @@ import com.mongodb.kotlin.client.coroutine.MongoDatabase
 import org.bson.types.ObjectId
 import java.util.UUID
 
-class CategoryRepository(private val mongoDb: MongoDb) {
-
-    private var database: MongoDatabase? = null
+class CategoryRepository(private val database: MongoDatabase) {
 
     suspend fun addCategory(category: String, language: String): Result<IsSuccess> {
         return try {
-            if (database == null) {
-                database = mongoDb.setupConnection()
-            }
-
             val collection =
-                database!!.getCollection<CategoryDto>(collectionName = MongoDbConstants.COLLECTION_CATEGORIES)
+                database.getCollection<CategoryDto>(collectionName = MongoDbConstants.COLLECTION_CATEGORIES)
             val item = CategoryDto(
                 id = ObjectId(),
                 uuid = UUID.randomUUID().toString(),
@@ -39,12 +33,9 @@ class CategoryRepository(private val mongoDb: MongoDb) {
 
     suspend fun getCategories(language: String): Result<List<CategoryDto>> {
         return try {
-            if (database == null) {
-                database = mongoDb.setupConnection()
-            }
             val categories = mutableListOf<CategoryDto>()
             val collection =
-                database!!.getCollection<CategoryDto>(collectionName = MongoDbConstants.COLLECTION_CATEGORIES)
+                database.getCollection<CategoryDto>(collectionName = MongoDbConstants.COLLECTION_CATEGORIES)
             val queryParams = Filters
                 .and(
                     listOf(

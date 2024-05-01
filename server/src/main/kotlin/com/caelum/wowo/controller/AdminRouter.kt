@@ -5,6 +5,7 @@ import com.caelum.wowo.models.body.InsertWordBody
 import com.caelum.wowo.models.response.SuccessResponse
 import com.caelum.wowo.service.AdminService
 import com.caelum.wowo.utils.ApiPaths
+import com.caelum.wowo.utils.fetchError
 import io.ktor.http.HttpStatusCode
 import io.ktor.server.application.call
 import io.ktor.server.response.respond
@@ -20,34 +21,42 @@ fun Route.adminRouter() {
     route(ApiPaths.ADMIN) {
 
         post<InsertCategoryBody>("/category") { request ->
-            val result = adminService.insertCategory(
-                category = request.category,
-                language = request.language
-            ).firstOrNull()
-            call.respond(
-                HttpStatusCode.OK,
-                SuccessResponse(
-                    result,
-                    HttpStatusCode.OK.value,
-                    "Success"
+            try {
+                val result = adminService.insertCategory(
+                    category = request.category,
+                    language = request.language
+                ).firstOrNull()
+                call.respond(
+                    HttpStatusCode.OK,
+                    SuccessResponse(
+                        result,
+                        HttpStatusCode.OK.value,
+                        "Success"
+                    )
                 )
-            )
+            } catch (exception: Exception) {
+                fetchError(exception)
+            }
         }
 
         post<InsertWordBody>("/word") { request ->
-            val result = adminService.insertWord(
-                word = request.word,
-                category = request.category,
-                language = request.language
-            ).firstOrNull()
-            call.respond(
-                HttpStatusCode.OK,
-                SuccessResponse(
-                    result,
-                    HttpStatusCode.OK.value,
-                    "Success"
+            try {
+                val result = adminService.insertWord(
+                    words = request.words,
+                    category = request.category,
+                    language = request.language
                 )
-            )
+                call.respond(
+                    HttpStatusCode.OK,
+                    SuccessResponse(
+                        result,
+                        HttpStatusCode.OK.value,
+                        "Success"
+                    )
+                )
+            } catch (exception: Exception) {
+                fetchError(exception)
+            }
         }
     }
 }

@@ -1,4 +1,4 @@
-package com.caelum.wowo.models.response
+package com.caelum.wowo.models.wowo
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
@@ -8,6 +8,6 @@ import kotlinx.serialization.Serializable
 // 3 -> "invalid"
 
 @Serializable
-data class QuestionResponse(
+data class QuestionResult(
     @SerialName("answer") val answer: Int,
 )
