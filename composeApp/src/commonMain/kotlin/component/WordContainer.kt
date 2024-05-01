@@ -40,12 +40,16 @@ import presentation.game.WordLetterUI
 fun WordContainer(
     modifier: Modifier,
     wordLetters: List<WordLetterUI>,
+    isWeb: Boolean = false,
 ) {
 
     FlowRow(modifier = modifier, horizontalArrangement = Arrangement.Center) {
         wordLetters.forEach { letter ->
-            Spacer(modifier = Modifier.width(5.dp))
-            WordItem(modifier = Modifier.padding(bottom = 5.dp).size(45.dp), letter = letter)
+            Spacer(modifier = Modifier.width(if (isWeb) 8.dp else 5.dp))
+            WordItem(
+                modifier = Modifier.padding(bottom = 5.dp).size(if (isWeb) 70.dp else 45.dp),
+                letter = letter
+            )
         }
     }
 }
@@ -61,7 +65,7 @@ fun WordItem(
     }
 
     LaunchedEffect(letter) {
-        backgroundColor =  when (letter.condition) {
+        backgroundColor = when (letter.condition) {
             LetterCondition.NotInWord -> ColorRed
             LetterCondition.WrongSpot -> ColorYellow
             LetterCondition.InCorrectSpot -> ColorGreen

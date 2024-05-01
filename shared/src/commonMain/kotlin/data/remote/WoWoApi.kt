@@ -16,7 +16,7 @@ import io.ktor.client.request.setBody
 
 class WoWoApi(private val client: HttpClient) {
     companion object {
-        private const val BASE_URL = "http://localhost:8080"
+        private const val BASE_URL = "https://wowo-421813.ew.r.appspot.com"
         private const val GAME = "${BASE_URL}/api/v1/game/"
         private const val USERS = "${BASE_URL}/api/v1/user/"
     }

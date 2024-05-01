@@ -47,7 +47,7 @@ import org.koin.compose.koinInject
 
 
 @Composable
-fun GameScreen() {
+fun GameScreen(isWeb: Boolean = false) {
     val viewModel = koinInject<GameViewModel>()
     val state = viewModel.state
 
@@ -63,29 +63,33 @@ fun GameScreen() {
                 .fillMaxSize()
         ) {
             Column(
-                modifier = Modifier.align(Alignment.TopCenter),
+                modifier = Modifier.fillMaxWidth(if (isWeb) 0.6f else 1f)
+                    .align(Alignment.TopCenter),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-
                 Spacer(Modifier.height(40.dp))
                 WordContainer(
                     modifier = Modifier.fillMaxWidth().padding(start = 15.dp, end = 15.dp),
-                    wordLetters = state.word
+                    wordLetters = state.word,
+                    isWeb = isWeb
                 )
                 Spacer(Modifier.height(35.dp))
                 GameConditionContainer(
                     modifier = Modifier.fillMaxWidth().padding(start = 25.dp, end = 25.dp),
-                    gameCondition = state.gameConditionsUI
+                    gameCondition = state.gameConditionsUI,
+                    isWeb = isWeb
                 )
             }
             Column(
-                modifier = Modifier.align(Alignment.BottomCenter),
+                modifier = Modifier.fillMaxWidth(if (isWeb) 0.6f else 1f)
+                    .align(Alignment.BottomCenter),
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Bottom
             ) {
                 QuestionResultContainer(
                     modifier = Modifier.fillMaxWidth(),
-                    aiResult = state.aiResult
+                    aiResult = state.aiResult,
+                    isWeb = isWeb
                 )
                 Spacer(Modifier.height(30.dp))
                 QuestionTextField(

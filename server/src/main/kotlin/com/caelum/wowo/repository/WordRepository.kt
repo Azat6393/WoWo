@@ -11,25 +11,21 @@ import com.mongodb.client.model.Filters
 import com.mongodb.client.model.Filters.eq
 import com.mongodb.kotlin.client.coroutine.MongoDatabase
 import kotlinx.coroutines.flow.firstOrNull
+import org.bson.BsonInt64
+import org.bson.Document
 import org.bson.types.ObjectId
 import java.time.LocalDateTime
 import java.util.UUID
 
-class WordRepository(private val mongoDb: MongoDb) {
-
-    private var database: MongoDatabase? = null
+class WordRepository(private val mongoDatabase: MongoDatabase) {
 
     suspend fun addWord(
         words: List<String>,
         category: String,
         language: String,
-    ): Result<IsSuccess> {
+    ): IsSuccess {
         return try {
-            if (database == null) {
-                database = mongoDb.setupConnection()
-            }
-
-            val collection = database!!.getCollection<WordDto>(collectionName = COLLECTION_WORDS)
+            val collection = mongoDatabase.getCollection<WordDto>(collectionName = COLLECTION_WORDS)
             val items = words.map { word ->
                 WordDto(
                     id = ObjectId(),
@@ -42,20 +38,16 @@ class WordRepository(private val mongoDb: MongoDb) {
             }
 
             val result = collection.insertMany(items)
-            if (result.insertedIds.isEmpty()) Result.failure(UnknownException("Something went wrong!"))
-            else Result.success(true)
+            if (result.insertedIds.isEmpty()) throw UnknownException("Something went wrong!")
+            else true
         } catch (e: Exception) {
-            Result.failure(e)
+            throw e
         }
     }
 
     suspend fun getRandomWord(language: String, category: String): Result<WordDto> {
         return try {
-            if (database == null) {
-                database = mongoDb.setupConnection()
-            }
-
-            val collection = database!!.getCollection<WordDto>(collectionName = COLLECTION_WORDS)
+            val collection = mongoDatabase.getCollection<WordDto>(collectionName = COLLECTION_WORDS)
             val queryParams = Filters
                 .and(
                     listOf(
@@ -73,7 +65,7 @@ class WordRepository(private val mongoDb: MongoDb) {
             if (resultFlow == null) Result.failure(NotFoundException())
             else Result.success(resultFlow)
         } catch (e: Exception) {
-            Result.failure(e)
+            throw e
         }
     }
 }

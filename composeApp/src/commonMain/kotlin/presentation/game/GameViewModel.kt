@@ -129,7 +129,7 @@ class GameViewModel(private val gameRepository: GameRepository) : ViewModel() {
             inputWordBody = InputWordBody(
                 actualWord = state.actualWord,
                 enteredWord = entered,
-                userId = "Azat demo",
+                userId = "guest_user",
                 difficultyLevel = state.gameSettings.difficulty.getDifficulty(),
                 gameCondition = GameCondition(
                     question = state.gameConditionsUI.question,

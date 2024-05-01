@@ -20,6 +20,7 @@ import presentation.game.GameConditionsUI
 fun GameConditionContainer(
     modifier: Modifier,
     gameCondition: GameConditionsUI,
+    isWeb: Boolean = false
 ) {
 
     Row(
@@ -29,12 +30,14 @@ fun GameConditionContainer(
     ) {
         GameConditionItem(
             title = "Incorrect",
-            text = "${gameCondition.attempts}/${gameCondition.maxAttempts}"
+            text = "${gameCondition.attempts}/${gameCondition.maxAttempts}",
+            isWeb = isWeb
         )
-        Spacer(Modifier.width(80.dp))
+        Spacer(Modifier.width(if (isWeb) 120.dp else 80.dp))
         GameConditionItem(
             title = "Questions",
-            text = "${gameCondition.question}/${gameCondition.maxQuestion}"
+            text = "${gameCondition.question}/${gameCondition.maxQuestion}",
+            isWeb = isWeb
         )
     }
 }
@@ -43,8 +46,8 @@ fun GameConditionContainer(
 fun GameConditionItem(
     title: String,
     text: String,
+    isWeb: Boolean = false
 ) {
-
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
@@ -52,13 +55,13 @@ fun GameConditionItem(
         Text(
             text = title,
             color = ColorSecondary,
-            fontSize = 14.sp,
+            fontSize = if (isWeb) 20.sp else 14.sp,
             fontWeight = FontWeight.Medium
         )
         Text(
             text = text,
             color = ColorPrimary,
-            fontSize = 30.sp,
+            fontSize = if (isWeb) 36.sp else 30.sp,
             fontWeight = FontWeight.Normal
         )
     }

@@ -16,6 +16,10 @@ application {
     applicationDefaultJvmArgs = listOf("-Dio.ktor.development=${extra["development"] ?: "false"}")
 }
 
+kotlin {
+    jvmToolchain(11)
+}
+
 configure<AppEngineAppYamlExtension> {
     stage {
         setArtifact("build/libs/server-all.jar")

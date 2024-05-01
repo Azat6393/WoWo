@@ -14,7 +14,7 @@ import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
 
 
-val ktorHttpClient  = HttpClient(Apache5) {
+val ktorHttpClient = HttpClient(Apache5) {
     expectSuccess = true
     install(ContentNegotiation) {
         json(
@@ -28,10 +28,10 @@ val ktorHttpClient  = HttpClient(Apache5) {
         )
     }
     engine {
-        pipelining = true
         followRedirects = true
-        socketTimeout = 60_000
-        connectTimeout = 60_000
+        socketTimeout = 10_000
+        connectTimeout = 10_000
+        connectionRequestTimeout = 20_000
     }
     install(Logging) {
         logger = object : Logger {

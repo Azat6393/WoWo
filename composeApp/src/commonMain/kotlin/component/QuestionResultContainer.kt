@@ -34,6 +34,7 @@ import presentation.game.AiResult
 fun QuestionResultContainer(
     modifier: Modifier,
     aiResult: AiResult,
+    isWeb: Boolean
 ) {
     Row(
         modifier = modifier,
@@ -41,21 +42,21 @@ fun QuestionResultContainer(
         horizontalArrangement = Arrangement.Center
     ) {
         QuestionResultButton(
-            modifier = Modifier.width(100.dp),
+            modifier = Modifier.width(if (isWeb) 130.dp else 100.dp),
             text = "Yes",
             isSelected = aiResult == AiResult.Yes,
             backgroundColor = ColorGreen
         )
         Spacer(modifier = Modifier.width(5.dp))
         QuestionResultButton(
-            modifier = Modifier.width(100.dp),
+            modifier = Modifier.width(if (isWeb) 130.dp else 100.dp),
             text = "No",
             isSelected = aiResult == AiResult.No,
             backgroundColor = ColorRed
         )
         Spacer(modifier = Modifier.width(5.dp))
         QuestionResultButton(
-            modifier = Modifier.width(100.dp),
+            modifier = Modifier.width(if (isWeb) 130.dp else 100.dp),
             text = "Invalid",
             isSelected = aiResult == AiResult.Invalid,
             backgroundColor = ColorYellow

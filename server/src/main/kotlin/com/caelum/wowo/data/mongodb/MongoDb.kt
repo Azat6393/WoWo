@@ -14,9 +14,11 @@ class MongoDb(
 ) {
 
     suspend fun setupConnection(): MongoDatabase? {
-        val connectString = System.getenv(connectionEnvVariable)
 
-        val client = MongoClient.create(connectionString = connectString)
+        val client =
+            MongoClient.create(
+                connectionString = System.getenv(connectionEnvVariable) ?: ""
+            )
         val database = client.getDatabase(databaseName = databaseName)
 
         return try {

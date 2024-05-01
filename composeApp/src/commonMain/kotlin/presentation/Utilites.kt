@@ -10,3 +10,6 @@ fun Dp.dpToPx() = with(LocalDensity.current) { this@dpToPx.toPx() }
 
 @Composable
 fun Float.pxToDp() = with(LocalDensity.current) { this@pxToDp.toDp() }
+
+@Composable
+fun Int.pxToDp() = with(LocalDensity.current) { this@pxToDp.toDp() }

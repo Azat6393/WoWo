@@ -25,17 +25,18 @@ class GameService(
     private val categoryRepository: CategoryRepository,
 ) {
 
-    fun getRandomWord(language: String, category: String, difficulty: Int): Flow<Word> = flow {
-        val result = wordRepository.getRandomWord(language, category)
-        result.fold(
-            onSuccess = { wordDto ->
-                emit(wordDto.toWord(difficulty = difficulty))
-            },
-            onFailure = { exception: Throwable ->
-                throw exception
-            }
-        )
-    }
+    suspend fun getRandomWord(language: String, category: String, difficulty: Int): Flow<Word> =
+        flow {
+            val result = wordRepository.getRandomWord(language, category)
+            result.fold(
+                onSuccess = { wordDto ->
+                    emit(wordDto.toWord(difficulty = difficulty))
+                },
+                onFailure = { exception: Throwable ->
+                    throw exception
+                }
+            )
+        }
 
     fun askQuestion(questionBody: QuestionBody): Flow<QuestionResult> = flow {
         val result = gptRepository.sendMessage(

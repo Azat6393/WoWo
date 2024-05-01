@@ -9,5 +9,6 @@ data class Word(
     @SerialName("word") val word: String,
     @SerialName("category") val category: String,
     @SerialName("language") val language: String,
-    @SerialName("game_condition") val gameCondition: GameCondition
+    @Serializable
+    @SerialName("game_condition") val gameCondition: GameCondition,
 )

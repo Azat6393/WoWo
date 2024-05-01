@@ -1,5 +1,6 @@
-package com.caelum.wowo.config
+package com.caelum.wowo
 
+import com.caelum.wowo.config.addDefaultApplicationConfiguration
 import com.caelum.wowo.controller.adminRouter
 import com.caelum.wowo.controller.gameRouter
 import com.caelum.wowo.controller.userRouter
@@ -11,19 +12,18 @@ import io.ktor.server.routing.routing
 fun main() {
     embeddedServer(
         Netty,
-        port = (System.getenv("PORT") ?: "5000").toInt(),
-        host = "0.0.0.0",
+        port = (System.getenv("PORT") ?: "8080").toInt(),
         module = Application::module
     )
         .start(wait = true)
 }
 
 fun Application.module() {
+    addDefaultApplicationConfiguration()
+
     routing {
         gameRouter()
         adminRouter()
         userRouter()
     }
-
-    addDefaultApplicationConfiguration()
 }
