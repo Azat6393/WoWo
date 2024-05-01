@@ -4,10 +4,12 @@ import com.caelum.wowo.di.appModule
 import com.caelum.wowo.utils.exception.InvalidDataException
 import com.caelum.wowo.utils.exception.NotFoundException
 import com.caelum.wowo.utils.exception.UnknownException
-import data.remote.response.ErrorResponse
+import com.caelum.wowo.models.response.ErrorResponse
 import com.mongodb.MongoCommandException
+import io.ktor.http.HttpHeaders
 import io.ktor.http.HttpMethod
 import io.ktor.http.HttpStatusCode
+import io.ktor.http.headers
 import io.ktor.serialization.kotlinx.json.json
 import io.ktor.server.application.Application
 import io.ktor.server.application.ApplicationCall
@@ -55,6 +57,9 @@ fun Application.addDefaultApplicationConfiguration() {
         methods.add(HttpMethod.Post)
         methods.add(HttpMethod.Get)
         methods.add(HttpMethod.Delete)
+        allowHeader(HttpHeaders.AccessControlAllowOrigin)
+        allowHeader(HttpHeaders.ContentType)
+        anyHost()
     }
 
     install(StatusPages) {

@@ -72,8 +72,8 @@ class GameService(
     }
 
     fun inputWord(inputWordBody: InputWordBody): Flow<InputResult> = flow {
-        val actualWord = inputWordBody.actualWord
-        val enteredWord = inputWordBody.enteredWord
+        val actualWord = inputWordBody.actualWord.uppercase()
+        val enteredWord = inputWordBody.enteredWord.uppercase()
         if (actualWord == enteredWord) {
             val earnedScore = calculateScore(
                 seconds = inputWordBody.gameCondition.seconds,

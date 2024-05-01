@@ -30,7 +30,7 @@ class WoWoApi(private val client: HttpClient) {
         language: String,
         difficulty: String,
     ): SuccessResponse<Word> {
-        return client.get("$GAME$category/$language/$difficulty").body()
+        return client.get("${GAME}word/$category/$language/$difficulty").body()
     }
 
     suspend fun inputWord(inputWordBody: InputWordBody): SuccessResponse<InputResult> {

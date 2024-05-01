@@ -67,7 +67,7 @@ fun QuestionTextField(
                 decorationBox = {
                     if (text.isBlank()) {
                         Text(
-                            text = text.ifBlank { "Is this, ...?" },
+                            text = text.ifBlank { "Is this ...?" },
                             color = if (text.isBlank()) ColorSecondary.copy(alpha = 0.6f) else ColorOnBackground,
                             maxLines = 1,
                             fontWeight = FontWeight.Medium,
@@ -79,7 +79,7 @@ fun QuestionTextField(
                     .padding(start = 30.dp, end = 50.dp)
             )
             Text(
-                text = "${text.length}/20",
+                text = "${text.length}/40",
                 color = ColorSecondary.copy(alpha = 0.6f),
                 fontWeight = FontWeight.Normal,
                 fontSize = 11.sp,

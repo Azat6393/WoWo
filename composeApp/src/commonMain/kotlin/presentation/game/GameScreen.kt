@@ -17,15 +17,10 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.Button
-import androidx.compose.material.ButtonColors
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.CircularProgressIndicator
-import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.PlayArrow
-import androidx.compose.material.icons.filled.Star
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -40,8 +35,10 @@ import component.QuestionResultContainer
 import component.QuestionTextField
 import component.TopBar
 import component.WordContainer
+import component.ui.ColorGreen
 import component.ui.ColorOnBackground
 import component.ui.ColorPrimary
+import component.ui.ColorRed
 import domain.model.Category
 import org.koin.compose.koinInject
 
@@ -107,6 +104,7 @@ fun GameScreen(isWeb: Boolean = false) {
                     onDeleteValue = { viewModel.onEvent(GameEvent.OnDeleteLetter) },
                     onEnter = { viewModel.onEvent(GameEvent.Enter) },
                     isEnterEnable = state.isEnterEnable,
+                    notInWordLetters = state.notInWordLetters,
                     language = state.gameSettings.selectedLanguage
                 )
                 Spacer(Modifier.height(15.dp))
@@ -125,6 +123,7 @@ fun GameScreen(isWeb: Boolean = false) {
                     playAgain = { viewModel.onEvent(GameEvent.StartGame) },
                     gameResult = state.gameResult,
                     gameSettings = state.gameSettings,
+                    actualWord = state.actualWord,
                     onCategorySelect = { viewModel.onEvent(GameEvent.OnCategorySelect(it)) },
                     onDifficultySelect = { viewModel.onEvent(GameEvent.OnDifficultyChange(it)) },
                     onLanguageSelect = { viewModel.onEvent(GameEvent.OnLanguageChange(it)) }
@@ -149,6 +148,7 @@ private fun GameResultContainer(
     onLanguageSelect: (String) -> Unit,
     onDifficultySelect: (Difficulty) -> Unit,
     onCategorySelect: (Category) -> Unit,
+    actualWord: String,
 ) {
     Column(
         modifier = modifier
@@ -163,6 +163,13 @@ private fun GameResultContainer(
             fontSize = 30.sp,
             fontWeight = FontWeight.SemiBold,
             color = Color.White
+        )
+        Spacer(Modifier.height(5.dp))
+        Text(
+            text = actualWord,
+            fontSize = 20.sp,
+            fontWeight = FontWeight.SemiBold,
+            color = if (gameResult == GameResult.Win) ColorGreen else ColorRed
         )
         Spacer(Modifier.height(30.dp))
         SettingContainer(

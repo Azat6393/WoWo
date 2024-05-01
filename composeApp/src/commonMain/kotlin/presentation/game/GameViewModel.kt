@@ -16,12 +16,9 @@ import domain.model.InputResult
 import domain.model.QuestionResult
 import domain.model.Word
 import domain.repository.GameRepository
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 class GameViewModel(private val gameRepository: GameRepository) : ViewModel() {
 
@@ -124,19 +121,24 @@ class GameViewModel(private val gameRepository: GameRepository) : ViewModel() {
 
     private fun onEnter() {
         state = state.copy(loading = true)
-        val entered = state.word.joinToString { it.letter }
-        gameRepository.inputWord(
-            inputWordBody = InputWordBody(
-                actualWord = state.actualWord,
-                enteredWord = entered,
-                userId = "guest_user",
-                difficultyLevel = state.gameSettings.difficulty.getDifficulty(),
-                gameCondition = GameCondition(
-                    question = state.gameConditionsUI.question,
-                    seconds = 0,
-                    attempts = state.gameConditionsUI.attempts
-                )
+        var enteredWord = ""
+        state.word.forEach {
+            enteredWord = "$enteredWord${it.letter}"
+        }
+        val body = InputWordBody(
+            actualWord = state.actualWord,
+            enteredWord = enteredWord,
+            userId = "guest_user",
+            difficultyLevel = state.gameSettings.difficulty.getDifficulty(),
+            gameCondition = GameCondition(
+                question = state.gameConditionsUI.question,
+                seconds = 0,
+                attempts = state.gameConditionsUI.attempts
             )
+        )
+        println(body)
+        gameRepository.inputWord(
+            inputWordBody = body
         ).onEach(::processInputResult).launchIn(viewModelScope)
     }
 
@@ -145,7 +147,7 @@ class GameViewModel(private val gameRepository: GameRepository) : ViewModel() {
         gameRepository.askQuestion(
             questionBody = QuestionBody(
                 word = state.actualWord,
-                question = state.question,
+                question = if (state.question.last() != '?') "${state.question}?" else state.question,
                 language = state.gameSettings.selectedLanguage
             )
         ).onEach(::processAiResult).launchIn(viewModelScope)
@@ -171,7 +173,7 @@ class GameViewModel(private val gameRepository: GameRepository) : ViewModel() {
 
 
     private fun inputQuestionText(text: String) {
-        if (state.question.length >= 20) return
+        if (text.length > 40) return
         state = state.copy(
             question = text
         )
@@ -194,7 +196,8 @@ class GameViewModel(private val gameRepository: GameRepository) : ViewModel() {
                     isGameStarted = true,
                     gameResult = null,
                     question = "",
-                    aiResult = AiResult.Empty
+                    aiResult = AiResult.Empty,
+                    notInWordLetters = mutableStateListOf()
                 )
             },
             onFailure = { exception ->
@@ -256,10 +259,15 @@ class GameViewModel(private val gameRepository: GameRepository) : ViewModel() {
     private fun processInputResult(result: Result<InputResult>) {
         result.fold(
             onSuccess = { inputResult ->
-                state.word.forEachIndexed { index, _ ->
+                state.word.forEachIndexed { index, wordLetter ->
                     when (inputResult.lettersCondition[index]) {
-                        0 -> state.word[index] =
-                            state.word[index].copy(condition = LetterCondition.NotInWord)
+                        0 -> {
+                            if (!state.notInWordLetters.contains(wordLetter.letter)) {
+                                state.notInWordLetters.add(wordLetter.letter)
+                            }
+                            state.word[index] =
+                                state.word[index].copy(condition = LetterCondition.NotInWord)
+                        }
 
                         1 -> state.word[index] =
                             state.word[index].copy(condition = LetterCondition.WrongSpot)

@@ -1,7 +1,7 @@
 package com.caelum.wowo.utils
 
 import com.caelum.wowo.models.wowo.GameCondition
-import data.remote.response.ErrorResponse
+import com.caelum.wowo.models.response.ErrorResponse
 import io.ktor.http.HttpStatusCode
 import io.ktor.server.application.ApplicationCall
 import io.ktor.server.application.call

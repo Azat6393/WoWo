@@ -10,6 +10,7 @@ data class GameState(
     val gameSettings: GameSettings = GameSettings(),
     val actualWord: String = "",
     val word: SnapshotStateList<WordLetterUI> = emptyLetters(),
+    val notInWordLetters: SnapshotStateList<String> = mutableStateListOf(),
     val gameConditionsUI: GameConditionsUI = GameConditionsUI(0, 0, 0, 0),
     val question: String = "",
     val aiResult: AiResult = AiResult.Empty,

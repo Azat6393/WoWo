@@ -24,18 +24,19 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.layout.onGloballyPositioned
-import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.unit.toSize
 import component.ui.ColorBackground
 import component.ui.ColorKeyboardColor
+import component.ui.ColorKeyboardNotInWordColor
 import component.ui.ColorOnBackground
 import component.ui.ColorPrimary
 import presentation.pxToDp
@@ -49,6 +50,7 @@ fun Keyboard(
     onEnter: () -> Unit,
     language: String,
     isEnterEnable: Boolean,
+    notInWordLetters: SnapshotStateList<String>,
 ) {
 
     var columnSize by remember { mutableStateOf(Size.Zero) }
@@ -77,7 +79,8 @@ fun Keyboard(
                     LetterItem(
                         modifier = Modifier.width(itemWidth.pxToDp()).height(50.dp).padding(2.dp),
                         letter = letter,
-                        onClick = onInputValue
+                        onClick = onInputValue,
+                        notInWord = notInWordLetters.contains(letter.toString())
                     )
                 }
             }
@@ -133,12 +136,13 @@ fun Keyboard(
 private fun LetterItem(
     modifier: Modifier,
     letter: Char,
+    notInWord: Boolean,
     onClick: (String) -> Unit,
 ) {
     Box(
         modifier = modifier
             .clip(RoundedCornerShape(7.dp))
-            .background(ColorKeyboardColor)
+            .background(if (notInWord) ColorKeyboardNotInWordColor else ColorKeyboardColor)
             .clickable { onClick(letter.toString()) },
         contentAlignment = Alignment.Center
     ) {
