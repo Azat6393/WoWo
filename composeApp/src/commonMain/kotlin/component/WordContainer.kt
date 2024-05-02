@@ -8,10 +8,12 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.Divider
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -71,29 +73,45 @@ fun WordItem(
             LetterCondition.InCorrectSpot -> ColorGreen
             LetterCondition.Input -> ColorBackground
             LetterCondition.Blank -> ColorBackground
+            LetterCondition.Space -> Color.Transparent
         }
     }
 
+
     Box(
         modifier = modifier
-            .clip(RoundedCornerShape(5.dp))
-            .background(backgroundColor)
-            .border(
-                border = BorderStroke(
-                    if (letter.condition == LetterCondition.Blank) 1.dp else 1.5.dp,
-                    if (letter.condition == LetterCondition.Blank) ColorGray
-                    else Color.Black
-                ),
-                shape = RoundedCornerShape(5.dp)
-            ),
-        contentAlignment = Alignment.Center
+            .then(
+                if (letter.condition == LetterCondition.Space) modifier
+                    .background(backgroundColor)
+                else modifier.clip(RoundedCornerShape(5.dp))
+                    .background(backgroundColor)
+                    .border(
+                        border = BorderStroke(
+                            if (letter.condition == LetterCondition.Blank) 1.dp else 1.5.dp,
+                            if (letter.condition == LetterCondition.Blank) ColorGray
+                            else Color.Black
+                        ),
+                        shape = RoundedCornerShape(5.dp)
+                    )
+            )
     ) {
-        if (letter.condition != LetterCondition.Blank) {
+        if (letter.condition != LetterCondition.Blank && letter.condition != LetterCondition.Space) {
             Text(
                 text = letter.letter.uppercase(),
                 color = Color.Black,
                 fontSize = 18.sp,
-                fontWeight = FontWeight.ExtraBold
+                fontWeight = FontWeight.ExtraBold,
+                modifier = Modifier.align(Alignment.Center)
+            )
+        }
+        if (letter.condition == LetterCondition.Space) {
+            Divider(
+                modifier = Modifier
+                    .fillMaxWidth(0.5f)
+                    .align(Alignment.Center),
+                color = ColorGray,
+                startIndent = 2.dp,
+                thickness = 2.dp
             )
         }
     }

@@ -41,6 +41,7 @@ import component.ui.ColorPrimary
 import component.ui.ColorRed
 import domain.model.Category
 import org.koin.compose.koinInject
+import presentation.Strings
 
 
 @Composable
@@ -74,7 +75,8 @@ fun GameScreen(isWeb: Boolean = false) {
                 GameConditionContainer(
                     modifier = Modifier.fillMaxWidth().padding(start = 25.dp, end = 25.dp),
                     gameCondition = state.gameConditionsUI,
-                    isWeb = isWeb
+                    isWeb = isWeb,
+                    language = state.gameSettings.selectedLanguage
                 )
             }
             Column(
@@ -86,7 +88,8 @@ fun GameScreen(isWeb: Boolean = false) {
                 QuestionResultContainer(
                     modifier = Modifier.fillMaxWidth(),
                     aiResult = state.aiResult,
-                    isWeb = isWeb
+                    isWeb = isWeb,
+                    language = state.gameSettings.selectedLanguage
                 )
                 Spacer(Modifier.height(30.dp))
                 QuestionTextField(
@@ -95,7 +98,8 @@ fun GameScreen(isWeb: Boolean = false) {
                     onAskQuestion = { viewModel.onEvent(GameEvent.AskQuestion) },
                     isAskQuestionEnable = state.isQuestionEnable,
                     isLoading = state.aiLoading,
-                    onTextChange = { viewModel.onEvent(GameEvent.OnQuestionInput(it)) }
+                    onTextChange = { viewModel.onEvent(GameEvent.OnQuestionInput(it)) },
+                    language = state.gameSettings.selectedLanguage
                 )
                 Spacer(Modifier.height(40.dp))
                 Keyboard(
@@ -159,7 +163,8 @@ private fun GameResultContainer(
         verticalArrangement = Arrangement.Center
     ) {
         Text(
-            text = if (gameResult == GameResult.Win) "WIN" else "LOSE",
+            text = if (gameResult == GameResult.Win) Strings.win(gameSettings.selectedLanguage)
+            else Strings.lose(gameSettings.selectedLanguage),
             fontSize = 30.sp,
             fontWeight = FontWeight.SemiBold,
             color = Color.White
@@ -188,7 +193,7 @@ private fun GameResultContainer(
             ),
             contentPadding = PaddingValues(start = 30.dp, end = 30.dp, top = 7.dp, bottom = 7.dp),
             content = {
-                Text("play again", fontSize = 20.sp)
+                Text(Strings.playAgain(gameSettings.selectedLanguage), fontSize = 20.sp)
             }
         )
     }
@@ -227,7 +232,7 @@ private fun StartGameContainer(
             ),
             contentPadding = PaddingValues(start = 30.dp, end = 30.dp, top = 7.dp, bottom = 7.dp),
             content = {
-                Text("play", fontSize = 20.sp)
+                Text(Strings.play(gameSettings.selectedLanguage), fontSize = 20.sp)
             }
         )
     }
@@ -248,7 +253,7 @@ private fun SettingContainer(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
-        Text("language", color = Color.White, fontSize = 20.sp)
+        Text(Strings.language(gameSettings.selectedLanguage), color = Color.White, fontSize = 20.sp)
         Spacer(Modifier.height(5.dp))
         FlowRow(
             verticalArrangement = Arrangement.Center,
@@ -271,7 +276,7 @@ private fun SettingContainer(
             }
         }
         Spacer(Modifier.height(30.dp))
-        Text("category", color = Color.White, fontSize = 20.sp)
+        Text(Strings.category(gameSettings.selectedLanguage), color = Color.White, fontSize = 20.sp)
         Spacer(Modifier.height(5.dp))
         FlowRow(
             verticalArrangement = Arrangement.Center,
@@ -294,7 +299,7 @@ private fun SettingContainer(
             }
         }
         Spacer(Modifier.height(30.dp))
-        Text("difficulty", color = Color.White, fontSize = 20.sp)
+        Text(Strings.difficulty(gameSettings.selectedLanguage), color = Color.White, fontSize = 20.sp)
         Spacer(Modifier.height(5.dp))
         FlowRow(
             verticalArrangement = Arrangement.Center,
@@ -310,7 +315,7 @@ private fun SettingContainer(
                     width = 1.dp,
                     color = if (gameSettings.difficulty == Difficulty.Easy) ColorPrimary else Color.White
                 ),
-                content = { Text("easy") }
+                content = { Text(Strings.easy(gameSettings.selectedLanguage)) }
             )
             Spacer(Modifier.width(10.dp))
             Button(
@@ -323,7 +328,7 @@ private fun SettingContainer(
                     width = 1.dp,
                     color = if (gameSettings.difficulty == Difficulty.Medium) ColorPrimary else Color.White
                 ),
-                content = { Text("medium") }
+                content = { Text(Strings.medium(gameSettings.selectedLanguage)) }
             )
             Spacer(Modifier.width(10.dp))
             Button(
@@ -336,7 +341,7 @@ private fun SettingContainer(
                     width = 1.dp,
                     color = if (gameSettings.difficulty == Difficulty.Hard) ColorPrimary else Color.White
                 ),
-                content = { Text("hard") }
+                content = { Text(Strings.hard(gameSettings.selectedLanguage)) }
             )
         }
     }

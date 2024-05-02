@@ -65,7 +65,7 @@ enum class AiResult {
 }
 
 enum class LetterCondition {
-    NotInWord, WrongSpot, InCorrectSpot, Input, Blank
+    NotInWord, WrongSpot, InCorrectSpot, Input, Blank, Space
 }
 
 private fun emptyLetters() = mutableStateListOf(

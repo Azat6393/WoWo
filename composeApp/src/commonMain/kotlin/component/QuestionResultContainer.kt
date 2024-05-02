@@ -28,13 +28,15 @@ import component.ui.ColorGreen
 import component.ui.ColorOnBackground
 import component.ui.ColorRed
 import component.ui.ColorYellow
+import presentation.Strings
 import presentation.game.AiResult
 
 @Composable
 fun QuestionResultContainer(
     modifier: Modifier,
     aiResult: AiResult,
-    isWeb: Boolean
+    isWeb: Boolean,
+    language: String
 ) {
     Row(
         modifier = modifier,
@@ -43,21 +45,21 @@ fun QuestionResultContainer(
     ) {
         QuestionResultButton(
             modifier = Modifier.width(if (isWeb) 130.dp else 100.dp),
-            text = "Yes",
+            text = Strings.yes(language),
             isSelected = aiResult == AiResult.Yes,
             backgroundColor = ColorGreen
         )
         Spacer(modifier = Modifier.width(5.dp))
         QuestionResultButton(
             modifier = Modifier.width(if (isWeb) 130.dp else 100.dp),
-            text = "No",
+            text = Strings.noText(language),
             isSelected = aiResult == AiResult.No,
             backgroundColor = ColorRed
         )
         Spacer(modifier = Modifier.width(5.dp))
         QuestionResultButton(
             modifier = Modifier.width(if (isWeb) 130.dp else 100.dp),
-            text = "Invalid",
+            text = Strings.invalidText(language),
             isSelected = aiResult == AiResult.Invalid,
             backgroundColor = ColorYellow
         )

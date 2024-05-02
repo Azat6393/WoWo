@@ -12,6 +12,7 @@ class GptRepository(private val chatGptApi: ChatGptApi) {
         word: String,
         question: String,
         language: String,
+        category: String
     ): Result<GptMessageDto> {
         return try {
             val requestBody = ChatRequestBody(
@@ -21,7 +22,7 @@ class GptRepository(private val chatGptApi: ChatGptApi) {
                 messages = listOf(
                     GptMessageDto(
                         role = GptConstants.SYSTEM,
-                        content = getSystemMessage(word, language)
+                        content = getSystemMessage(word, language, category)
                     ),
                     GptMessageDto(
                         role = GptConstants.USER,
@@ -40,11 +41,12 @@ class GptRepository(private val chatGptApi: ChatGptApi) {
     }
 
 
-    private fun getSystemMessage(word: String, language: String): String {
+    private fun getSystemMessage(word: String, language: String, category: String): String {
         return " You are a game assistant.\n" +
                 "- Gameplay: \"You are trying to find a secret word. While trying to find this word, you collect clues with questions that you can answer 'yes' or 'no' to.\" \n" +
                 "- Your role: \"Answer only 'yes' or 'no' to the question depending on the word, and answer 'invalid' to questions where the answer is neither 'yes' nor 'no'.\"\n" +
                 "- Secret Word: \"$word\"\n" +
+                "- Secret Word`s category: \"$word\"\n" +
                 "- Language of the question: \"$language\"\n" +
                 "- Language of the answer: \"eng \""
     }

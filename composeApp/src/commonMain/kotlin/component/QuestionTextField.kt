@@ -31,6 +31,7 @@ import androidx.compose.ui.unit.sp
 import component.ui.ColorOnBackground
 import component.ui.ColorPrimary
 import component.ui.ColorSecondary
+import presentation.Strings
 
 @Composable
 fun QuestionTextField(
@@ -40,6 +41,7 @@ fun QuestionTextField(
     onAskQuestion: () -> Unit,
     isAskQuestionEnable: Boolean,
     isLoading: Boolean,
+    language: String
 ) {
 
     val leftRoundedCornerShape =
@@ -67,7 +69,7 @@ fun QuestionTextField(
                 decorationBox = {
                     if (text.isBlank()) {
                         Text(
-                            text = text.ifBlank { "Is this ...?" },
+                            text = text.ifBlank { Strings.askHint(language) },
                             color = if (text.isBlank()) ColorSecondary.copy(alpha = 0.6f) else ColorOnBackground,
                             maxLines = 1,
                             fontWeight = FontWeight.Medium,
@@ -104,7 +106,7 @@ fun QuestionTextField(
             }
             AnimatedVisibility(!isLoading) {
                 Text(
-                    text = "Ask",
+                    text = Strings.ask(language),
                     fontSize = 18.sp,
                     fontWeight = FontWeight.SemiBold,
                     color = ColorOnBackground

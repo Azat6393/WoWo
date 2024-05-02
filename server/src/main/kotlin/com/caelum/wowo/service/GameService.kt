@@ -42,7 +42,8 @@ class GameService(
         val result = gptRepository.sendMessage(
             word = questionBody.word,
             question = questionBody.question,
-            language = questionBody.language
+            language = questionBody.language,
+            category = questionBody.category
         )
         result.fold(
             onSuccess = { message ->
@@ -72,8 +73,8 @@ class GameService(
     }
 
     fun inputWord(inputWordBody: InputWordBody): Flow<InputResult> = flow {
-        val actualWord = inputWordBody.actualWord.uppercase()
-        val enteredWord = inputWordBody.enteredWord.uppercase()
+        val actualWord = inputWordBody.actualWord.lowercase()
+        val enteredWord = inputWordBody.enteredWord.lowercase()
         if (actualWord == enteredWord) {
             val earnedScore = calculateScore(
                 seconds = inputWordBody.gameCondition.seconds,

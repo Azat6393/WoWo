@@ -14,12 +14,14 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import component.ui.ColorPrimary
 import component.ui.ColorSecondary
+import presentation.Strings
 import presentation.game.GameConditionsUI
 
 @Composable
 fun GameConditionContainer(
     modifier: Modifier,
     gameCondition: GameConditionsUI,
+    language: String,
     isWeb: Boolean = false
 ) {
 
@@ -29,13 +31,13 @@ fun GameConditionContainer(
         horizontalArrangement = Arrangement.Center
     ) {
         GameConditionItem(
-            title = "Incorrect",
+            title = Strings.incorrect(language),
             text = "${gameCondition.attempts}/${gameCondition.maxAttempts}",
             isWeb = isWeb
         )
         Spacer(Modifier.width(if (isWeb) 120.dp else 80.dp))
         GameConditionItem(
-            title = "Questions",
+            title = Strings.questions(language),
             text = "${gameCondition.question}/${gameCondition.maxQuestion}",
             isWeb = isWeb
         )

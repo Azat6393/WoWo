@@ -29,11 +29,13 @@ fun getGameCondition(difficulty: Int): GameCondition {
             seconds = 200,
             attempts = 8
         )
+
         3 -> GameCondition(
             question = 8,
             seconds = 200,
             attempts = 4
         )
+
         else -> GameCondition(
             question = 18,
             seconds = 200,
@@ -46,6 +48,7 @@ fun changeLetterCondition(enteredWord: String, actualWord: String): Map<Int, Int
     val inputResult = mutableMapOf<Int, Int>()
     enteredWord.forEachIndexed { index, c ->
         inputResult[index] = when {
+            c == ' ' -> 3
             enteredWord[index] == actualWord[index] -> 2
             actualWord.contains(c) -> 1
             else -> 0

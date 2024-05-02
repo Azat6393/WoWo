@@ -108,7 +108,8 @@ class GameViewModel(private val gameRepository: GameRepository) : ViewModel() {
         var lastIndex = state.word.lastIndex
         while (lastIndex >= 0) {
             if (state.word[lastIndex].condition != LetterCondition.InCorrectSpot &&
-                state.word[lastIndex].condition != LetterCondition.Blank
+                state.word[lastIndex].condition != LetterCondition.Blank &&
+                state.word[lastIndex].condition != LetterCondition.Space
             ) {
                 state.word[lastIndex] =
                     state.word[lastIndex].copy(condition = LetterCondition.Blank)
@@ -147,6 +148,7 @@ class GameViewModel(private val gameRepository: GameRepository) : ViewModel() {
         gameRepository.askQuestion(
             questionBody = QuestionBody(
                 word = state.actualWord,
+                category = state.gameSettings.selectedCategory!!.name,
                 question = if (state.question.last() != '?') "${state.question}?" else state.question,
                 language = state.gameSettings.selectedLanguage
             )
@@ -165,7 +167,7 @@ class GameViewModel(private val gameRepository: GameRepository) : ViewModel() {
         }
         state = state.copy(loading = true)
         gameRepository.getWord(
-            category = state.gameSettings.selectedCategory!!.name,
+            category = state.gameSettings.selectedCategory!!.uuid,
             language = state.gameSettings.selectedLanguage,
             difficulty = state.gameSettings.difficulty.getDifficulty()
         ).onEach(::processWordResult).launchIn(viewModelScope)
@@ -274,6 +276,9 @@ class GameViewModel(private val gameRepository: GameRepository) : ViewModel() {
 
                         2 -> state.word[index] =
                             state.word[index].copy(condition = LetterCondition.InCorrectSpot)
+
+                        3 -> state.word[index] =
+                            state.word[index].copy(condition = LetterCondition.Space)
                     }
                 }
 
@@ -314,7 +319,7 @@ class GameViewModel(private val gameRepository: GameRepository) : ViewModel() {
                 WordLetterUI(
                     index = index,
                     letter = c.toString(),
-                    condition = LetterCondition.Blank
+                    condition = if (c == ' ') LetterCondition.Space else LetterCondition.Blank
                 )
             )
         }
