@@ -40,7 +40,15 @@ class GameViewModel(private val gameRepository: GameRepository) : ViewModel() {
             is GameEvent.OnCategorySelect -> onCategorySelect(event.category)
             is GameEvent.OnDifficultyChange -> onDifficultyChange(event.difficulty)
             is GameEvent.OnLanguageChange -> onLanguageChange(event.language)
+            GameEvent.GiveUp -> giveUp()
         }
+    }
+
+    private fun giveUp() {
+        state = state.copy(
+            loading = false,
+            gameResult = GameResult.Lose
+        )
     }
 
     private fun onLanguageChange(language: String) {
@@ -127,8 +135,8 @@ class GameViewModel(private val gameRepository: GameRepository) : ViewModel() {
             enteredWord = "$enteredWord${it.letter}"
         }
         val body = InputWordBody(
-            actualWord = state.actualWord,
-            enteredWord = enteredWord,
+            actualWord = state.actualWord.replace("İ", "i").lowercase(),
+            enteredWord = enteredWord.replace("İ", "i").lowercase(),
             userId = "guest_user",
             difficultyLevel = state.gameSettings.difficulty.getDifficulty(),
             gameCondition = GameCondition(
@@ -137,7 +145,6 @@ class GameViewModel(private val gameRepository: GameRepository) : ViewModel() {
                 attempts = state.gameConditionsUI.attempts
             )
         )
-        println(body)
         gameRepository.inputWord(
             inputWordBody = body
         ).onEach(::processInputResult).launchIn(viewModelScope)

@@ -1,4 +1,4 @@
-package component
+package presentation.game.component
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.BorderStroke
@@ -6,24 +6,26 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
-import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.CircularProgressIndicator
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
@@ -31,8 +33,16 @@ import androidx.compose.ui.unit.sp
 import component.ui.ColorOnBackground
 import component.ui.ColorPrimary
 import component.ui.ColorSecondary
-import presentation.Strings
+import org.jetbrains.compose.resources.Font
+import org.jetbrains.compose.resources.stringResource
+import wowo.composeapp.generated.resources.Res
+import wowo.composeapp.generated.resources.ask
+import wowo.composeapp.generated.resources.ask_hint
+import wowo.composeapp.generated.resources.geologica_medium
+import wowo.composeapp.generated.resources.geologica_regular
+import wowo.composeapp.generated.resources.geologica_semibold
 
+@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun QuestionTextField(
     modifier: Modifier,
@@ -41,7 +51,7 @@ fun QuestionTextField(
     onAskQuestion: () -> Unit,
     isAskQuestionEnable: Boolean,
     isLoading: Boolean,
-    language: String
+    language: String,
 ) {
 
     val leftRoundedCornerShape =
@@ -63,17 +73,20 @@ fun QuestionTextField(
                 textStyle = TextStyle(
                     color = ColorOnBackground,
                     fontWeight = FontWeight.Medium,
-                    fontSize = 16.sp
+                    fontSize = 16.sp,
+                    fontFamily = FontFamily(Font(Res.font.geologica_medium))
                 ),
                 keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
+                cursorBrush = SolidColor(ColorPrimary),
                 decorationBox = {
                     if (text.isBlank()) {
                         Text(
-                            text = text.ifBlank { Strings.askHint(language) },
+                            text = text.ifBlank { stringResource(Res.string.ask_hint) },
                             color = if (text.isBlank()) ColorSecondary.copy(alpha = 0.6f) else ColorOnBackground,
                             maxLines = 1,
                             fontWeight = FontWeight.Medium,
-                            fontSize = 16.sp
+                            fontSize = 16.sp,
+                            fontFamily = FontFamily(Font(Res.font.geologica_medium))
                         )
                     } else it()
                 },
@@ -85,6 +98,7 @@ fun QuestionTextField(
                 color = ColorSecondary.copy(alpha = 0.6f),
                 fontWeight = FontWeight.Normal,
                 fontSize = 11.sp,
+                fontFamily = FontFamily(Font(Res.font.geologica_regular)),
                 modifier = Modifier.align(Alignment.BottomEnd)
                     .padding(bottom = 2.dp, end = 10.dp)
             )
@@ -100,16 +114,17 @@ fun QuestionTextField(
         ) {
             AnimatedVisibility(isLoading) {
                 CircularProgressIndicator(
-                    modifier = Modifier.padding(5.dp),
+                    modifier = Modifier.size(25.dp),
                     color = ColorPrimary
                 )
             }
             AnimatedVisibility(!isLoading) {
                 Text(
-                    text = Strings.ask(language),
+                    text = stringResource(Res.string.ask),
                     fontSize = 18.sp,
                     fontWeight = FontWeight.SemiBold,
-                    color = ColorOnBackground
+                    color = ColorOnBackground,
+                    fontFamily = FontFamily(Font(Res.font.geologica_semibold))
                 )
             }
         }

@@ -26,12 +26,17 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import component.ui.ColorGreen
 import component.ui.ColorRed
 import kotlinx.coroutines.delay
+import org.jetbrains.compose.resources.Font
+import wowo.composeapp.generated.resources.Res
+import wowo.composeapp.generated.resources.geologica_black
+import wowo.composeapp.generated.resources.geologica_bold
 
 data class MessageBarState(
     val uuid: String? = null,
@@ -102,7 +107,8 @@ fun Message(
             color = Color.White,
             fontWeight = FontWeight.Bold,
             fontSize = MaterialTheme.typography.button.fontSize,
-            overflow = TextOverflow.Ellipsis
+            overflow = TextOverflow.Ellipsis,
+            fontFamily = FontFamily(Font(Res.font.geologica_bold))
         )
     }
 }

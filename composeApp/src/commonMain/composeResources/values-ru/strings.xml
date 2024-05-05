@@ -1,0 +1,30 @@
+<resources>
+    <string name="language">язык</string>
+    <string name="easy">легкий</string>
+    <string name="medium">средний</string>
+    <string name="hard">тяжелый</string>
+    <string name="category">категория</string>
+    <string name="difficulty">уровень</string>
+    <string name="play">играть</string>
+    <string name="play_again">сыграй еще раз</string>
+    <string name="incorrect">попытки</string>
+    <string name="questions">вопросы</string>
+    <string name="yes">да</string>
+    <string name="no">нет</string>
+    <string name="invalid">invalid</string>
+    <string name="ask">просить</string>
+    <string name="ask_hint">Это ... ?</string>
+    <string name="lose">ПРОИГРАЛ</string>
+    <string name="win">ПОБЕДИЛ</string>
+    <string name="how_to_play">как играть</string>
+    <string name="welcome">добро пожаловать</string>
+    <string name="share">поделиться</string>
+    <string name="confirm">confirm</string>
+    <string name="dismiss">dismiss</string>
+    <string name="give_up">give_up</string>
+    <string name="give_up_title">give_up_title</string>
+    <string name="give_up_text">give_up_text</string>
+    <string name="exit">exit</string>
+    <string name="exit_title">exit_title</string>
+    <string name="exit_text">exit_text</string>
+</resources>

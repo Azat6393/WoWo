@@ -12,9 +12,9 @@ import presentation.game.GameScreen
 @Preview
 fun MobileApp() {
     MaterialTheme {
-        KoinApplication(application = {
-            modules(domainModule, commonModule)
-        }) {
+        KoinApplication(
+            application = { modules(domainModule, commonModule) }
+        ) {
             GameScreen()
         }
     }

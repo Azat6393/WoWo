@@ -30,6 +30,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.layout.onGloballyPositioned
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -39,7 +40,11 @@ import component.ui.ColorKeyboardColor
 import component.ui.ColorKeyboardNotInWordColor
 import component.ui.ColorOnBackground
 import component.ui.ColorPrimary
+import org.jetbrains.compose.resources.Font
 import presentation.pxToDp
+import wowo.composeapp.generated.resources.Res
+import wowo.composeapp.generated.resources.geologica_black
+import wowo.composeapp.generated.resources.geologica_medium
 
 
 @Composable
@@ -99,7 +104,8 @@ fun Keyboard(
                     text = "ENTER",
                     fontSize = 14.sp,
                     color = if (!isEnterEnable) ColorOnBackground else ColorBackground,
-                    fontWeight = FontWeight.Medium
+                    fontWeight = FontWeight.Medium,
+                    fontFamily = FontFamily(Font(Res.font.geologica_medium))
                 )
             }
             Spacer(Modifier.width(4.dp))
@@ -147,10 +153,11 @@ private fun LetterItem(
         contentAlignment = Alignment.Center
     ) {
         Text(
-            text = letter.toString(),
+            text = letter.uppercase(),
             fontSize = 16.sp,
             color = ColorOnBackground,
-            fontWeight = FontWeight.Medium
+            fontWeight = FontWeight.Medium,
+            fontFamily = FontFamily(Font(Res.font.geologica_medium))
         )
     }
 }
@@ -159,7 +166,7 @@ private fun getLetters(language: String): List<List<Char>> {
     return when (language) {
         "tr" -> listOf(
             listOf(
-                'Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P', 'Ğ', 'Ü'
+                'Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'ı', 'O', 'P', 'Ğ', 'Ü'
             ),
             listOf(
                 'A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L', 'Ş', 'İ'

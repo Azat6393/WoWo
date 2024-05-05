@@ -4,6 +4,8 @@ import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.snapshots.SnapshotStateList
 import component.MessageBarState
 import domain.model.Category
+import presentation.game.LetterCondition.*
+import kotlin.random.Random
 
 
 data class GameState(
@@ -48,7 +50,7 @@ enum class Difficulty {
     Hard, Medium, Easy;
 
     fun getDifficulty(): Int {
-        return when(this){
+        return when (this) {
             Hard -> 3
             Medium -> 2
             Easy -> 1
@@ -72,31 +74,31 @@ private fun emptyLetters() = mutableStateListOf(
     WordLetterUI(
         index = 0,
         letter = " ",
-        condition = LetterCondition.Blank
+        condition = Blank
     ),
     WordLetterUI(
         index = 1,
         letter = " ",
-        condition = LetterCondition.Blank
+        condition = Blank
     ),
     WordLetterUI(
         index = 2,
         letter = " ",
-        condition = LetterCondition.Blank
+        condition = Blank
     ),
     WordLetterUI(
         index = 3,
         letter = " ",
-        condition = LetterCondition.Blank
+        condition = Blank
     ),
     WordLetterUI(
         index = 4,
         letter = " ",
-        condition = LetterCondition.Blank
+        condition = Blank
     ),
     WordLetterUI(
         index = 5,
         letter = " ",
-        condition = LetterCondition.Blank
+        condition = Blank
     ),
 )

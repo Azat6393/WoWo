@@ -25,7 +25,8 @@ class WordRepository(private val mongoDatabase: MongoDatabase) {
         language: String,
     ): IsSuccess {
         return try {
-            val collection = mongoDatabase.getCollection<WordDto>(collectionName = COLLECTION_WORDS)
+            val collection =
+                mongoDatabase.getCollection<WordDto>(collectionName = "$COLLECTION_WORDS-$language")
             val items = words.map { word ->
                 WordDto(
                     id = ObjectId(),
@@ -47,7 +48,7 @@ class WordRepository(private val mongoDatabase: MongoDatabase) {
 
     suspend fun getRandomWord(language: String, category: String): Result<WordDto> {
         return try {
-            val collection = mongoDatabase.getCollection<WordDto>(collectionName = COLLECTION_WORDS)
+            val collection = mongoDatabase.getCollection<WordDto>(collectionName = "$COLLECTION_WORDS-$language")
             val queryParams = Filters
                 .and(
                     listOf(

@@ -2,24 +2,38 @@ package com.caelum.wowo
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
+import androidx.activity.compose.BackHandler
 import androidx.activity.compose.setContent
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import mobile_ui.MobileApp
-import org.jetbrains.compose.ui.tooling.preview.Preview
-import org.koin.dsl.module
+import presentation.game.component.CustomAlertDialog
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         setContent {
+            var showExitDialog by remember { mutableStateOf(false) }
+
+            if (showExitDialog) {
+                CustomAlertDialog(
+                    onDismissRequest = { showExitDialog = false },
+                    onConfirmation = {
+                        showExitDialog = false
+                        finish()
+                    },
+                    dialogText = "are your sure to exit?",
+                    dialogTitle = "exit",
+                    positiveText = "exit"
+                )
+            }
             MobileApp()
+            BackHandler {
+                showExitDialog = true
+            }
         }
     }
-}
-
-@Preview
-@Composable
-fun AppAndroidPreview() {
-    MobileApp()
 }

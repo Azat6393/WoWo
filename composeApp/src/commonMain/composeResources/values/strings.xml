@@ -1,0 +1,30 @@
+<resources>
+    <string name="language">language</string>
+    <string name="easy">easy</string>
+    <string name="medium">medium</string>
+    <string name="hard">hard</string>
+    <string name="category">category</string>
+    <string name="difficulty">difficulty</string>
+    <string name="play">play</string>
+    <string name="play_again">play again</string>
+    <string name="incorrect">incorrect</string>
+    <string name="questions">questions</string>
+    <string name="yes">yes</string>
+    <string name="no">no</string>
+    <string name="invalid">invalid</string>
+    <string name="ask">ask</string>
+    <string name="ask_hint">Is this ... ?</string>
+    <string name="lose">LOSE</string>
+    <string name="win">WIN</string>
+    <string name="how_to_play">how to play</string>
+    <string name="welcome">welcome</string>
+    <string name="share">share</string>
+    <string name="confirm">confirm</string>
+    <string name="dismiss">dismiss</string>
+    <string name="give_up">give_up</string>
+    <string name="give_up_title">give_up_title</string>
+    <string name="give_up_text">give_up_text</string>
+    <string name="exit">exit</string>
+    <string name="exit_title">exit_title</string>
+    <string name="exit_text">exit_text</string>
+</resources>

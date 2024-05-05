@@ -27,7 +27,7 @@ fun WebApp() {
 
             Layout(
                 content = {
-                    GameScreen(isWeb = isWeb)
+                    GameScreen()
                 },
                 measurePolicy = { measurables, constraints ->
                     val width = constraints.maxWidth

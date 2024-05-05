@@ -1,4 +1,4 @@
-package component
+package presentation.game.component
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -9,20 +9,31 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import component.ui.ColorPrimary
 import component.ui.ColorSecondary
-import presentation.Strings
+import org.jetbrains.compose.resources.Font
+import org.jetbrains.compose.resources.stringResource
 import presentation.game.GameConditionsUI
+import wowo.composeapp.generated.resources.Res
+import wowo.composeapp.generated.resources.geologica_medium
+import wowo.composeapp.generated.resources.geologica_regular
+import wowo.composeapp.generated.resources.incorrect
+import wowo.composeapp.generated.resources.questions
 
 @Composable
 fun GameConditionContainer(
     modifier: Modifier,
     gameCondition: GameConditionsUI,
     language: String,
-    isWeb: Boolean = false
+    titleSize: TextUnit = 14.sp,
+    contentSize: TextUnit = 30.sp,
+    spaceBetween: Dp = 80.dp
 ) {
 
     Row(
@@ -31,15 +42,17 @@ fun GameConditionContainer(
         horizontalArrangement = Arrangement.Center
     ) {
         GameConditionItem(
-            title = Strings.incorrect(language),
+            title = stringResource(Res.string.incorrect),
             text = "${gameCondition.attempts}/${gameCondition.maxAttempts}",
-            isWeb = isWeb
+            titleSize = titleSize,
+            contentSize = contentSize
         )
-        Spacer(Modifier.width(if (isWeb) 120.dp else 80.dp))
+        Spacer(Modifier.width(spaceBetween))
         GameConditionItem(
-            title = Strings.questions(language),
+            title = stringResource(Res.string.questions),
             text = "${gameCondition.question}/${gameCondition.maxQuestion}",
-            isWeb = isWeb
+            titleSize = titleSize,
+            contentSize = contentSize
         )
     }
 }
@@ -48,7 +61,8 @@ fun GameConditionContainer(
 fun GameConditionItem(
     title: String,
     text: String,
-    isWeb: Boolean = false
+    titleSize: TextUnit = 14.sp,
+    contentSize: TextUnit = 30.sp
 ) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -57,14 +71,16 @@ fun GameConditionItem(
         Text(
             text = title,
             color = ColorSecondary,
-            fontSize = if (isWeb) 20.sp else 14.sp,
-            fontWeight = FontWeight.Medium
+            fontSize = titleSize,
+            fontWeight = FontWeight.Medium,
+            fontFamily = FontFamily(Font(Res.font.geologica_medium))
         )
         Text(
             text = text,
             color = ColorPrimary,
-            fontSize = if (isWeb) 36.sp else 30.sp,
-            fontWeight = FontWeight.Normal
+            fontSize = contentSize,
+            fontWeight = FontWeight.Normal,
+            fontFamily = FontFamily(Font(Res.font.geologica_regular))
         )
     }
 }

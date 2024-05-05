@@ -1,4 +1,4 @@
-package component
+package presentation.game.component
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
@@ -12,14 +12,11 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -28,15 +25,20 @@ import component.ui.ColorGreen
 import component.ui.ColorOnBackground
 import component.ui.ColorRed
 import component.ui.ColorYellow
-import presentation.Strings
+import org.jetbrains.compose.resources.Font
+import org.jetbrains.compose.resources.stringResource
 import presentation.game.AiResult
+import wowo.composeapp.generated.resources.Res
+import wowo.composeapp.generated.resources.geologica_medium
+import wowo.composeapp.generated.resources.invalid
+import wowo.composeapp.generated.resources.no
+import wowo.composeapp.generated.resources.yes
 
 @Composable
 fun QuestionResultContainer(
     modifier: Modifier,
     aiResult: AiResult,
-    isWeb: Boolean,
-    language: String
+    language: String,
 ) {
     Row(
         modifier = modifier,
@@ -44,22 +46,22 @@ fun QuestionResultContainer(
         horizontalArrangement = Arrangement.Center
     ) {
         QuestionResultButton(
-            modifier = Modifier.width(if (isWeb) 130.dp else 100.dp),
-            text = Strings.yes(language),
+            modifier = Modifier.width(100.dp),
+            text = stringResource(Res.string.yes),
             isSelected = aiResult == AiResult.Yes,
             backgroundColor = ColorGreen
         )
         Spacer(modifier = Modifier.width(5.dp))
         QuestionResultButton(
-            modifier = Modifier.width(if (isWeb) 130.dp else 100.dp),
-            text = Strings.noText(language),
+            modifier = Modifier.width(100.dp),
+            text = stringResource(Res.string.no),
             isSelected = aiResult == AiResult.No,
             backgroundColor = ColorRed
         )
         Spacer(modifier = Modifier.width(5.dp))
         QuestionResultButton(
-            modifier = Modifier.width(if (isWeb) 130.dp else 100.dp),
-            text = Strings.invalidText(language),
+            modifier = Modifier.width(100.dp),
+            text = stringResource(Res.string.invalid),
             isSelected = aiResult == AiResult.Invalid,
             backgroundColor = ColorYellow
         )
@@ -86,7 +88,8 @@ private fun QuestionResultButton(
             text = text,
             color = ColorOnBackground,
             fontSize = 14.sp,
-            fontWeight = FontWeight.Medium
+            fontWeight = FontWeight.Medium,
+            fontFamily = FontFamily(Font(Res.font.geologica_medium))
         )
     }
 }

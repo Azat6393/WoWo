@@ -1,0 +1,30 @@
+<resources>
+    <string name="language">dil</string>
+    <string name="easy">kolay</string>
+    <string name="medium">orta</string>
+    <string name="hard">zor</string>
+    <string name="category">kategori</string>
+    <string name="difficulty">seviye</string>
+    <string name="play">başla</string>
+    <string name="play_again">tekrar oyna</string>
+    <string name="incorrect">yanlış</string>
+    <string name="questions">sorular</string>
+    <string name="yes">evet</string>
+    <string name="no">hayır</string>
+    <string name="invalid">geçersiz</string>
+    <string name="ask">sor</string>
+    <string name="ask_hint">Bu ... ?</string>
+    <string name="lose">KAYBETTİN</string>
+    <string name="win">KAZANDIN</string>
+    <string name="how_to_play">nasıl oynanır</string>
+    <string name="welcome">hoşgeldiniz</string>
+    <string name="share">paylaş</string>
+    <string name="confirm">confirm</string>
+    <string name="dismiss">dismiss</string>
+    <string name="give_up">give_up</string>
+    <string name="give_up_title">give_up_title</string>
+    <string name="give_up_text">give_up_text</string>
+    <string name="exit">exit</string>
+    <string name="exit_title">exit_title</string>
+    <string name="exit_text">exit_text</string>
+</resources>
