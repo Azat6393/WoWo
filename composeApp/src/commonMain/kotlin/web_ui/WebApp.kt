@@ -14,7 +14,9 @@ import androidx.compose.ui.unit.dp
 import di.commonModule
 import di.domainModule
 import org.koin.compose.KoinApplication
+import org.koin.compose.koinInject
 import presentation.game.GameScreen
+import presentation.game.GameViewModel
 import presentation.pxToDp
 
 @Composable
@@ -24,10 +26,14 @@ fun WebApp() {
             modules(domainModule, commonModule)
         }) {
             var isWeb by remember { mutableStateOf(false) }
-
+            val viewModel = koinInject<GameViewModel>()
+            val state = viewModel.state
             Layout(
                 content = {
-                    GameScreen()
+                    GameScreen(
+                        state = state,
+                        onEvent = viewModel::onEvent
+                    )
                 },
                 measurePolicy = { measurables, constraints ->
                     val width = constraints.maxWidth

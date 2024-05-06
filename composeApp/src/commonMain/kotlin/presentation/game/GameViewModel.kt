@@ -41,6 +41,7 @@ class GameViewModel(private val gameRepository: GameRepository) : ViewModel() {
             is GameEvent.OnDifficultyChange -> onDifficultyChange(event.difficulty)
             is GameEvent.OnLanguageChange -> onLanguageChange(event.language)
             GameEvent.GiveUp -> giveUp()
+            GameEvent.GetTips -> Unit
         }
     }
 

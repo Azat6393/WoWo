@@ -21,10 +21,23 @@
     <string name="share">share</string>
     <string name="confirm">confirm</string>
     <string name="dismiss">dismiss</string>
-    <string name="give_up">give_up</string>
-    <string name="give_up_title">give_up_title</string>
-    <string name="give_up_text">give_up_text</string>
+    <string name="give_up">give up</string>
+    <string name="give_up_title">give up</string>
+    <string name="give_up_text">are you sure you want to give up?</string>
     <string name="exit">exit</string>
-    <string name="exit_title">exit_title</string>
-    <string name="exit_text">exit_text</string>
+    <string name="exit_title">exit</string>
+    <string name="exit_text">are you sure you want to exit from WoWo?</string>
+    <string name="get_letter">get a letter</string>
+
+    <string name="how_to_play_one">Try to find the unknown word by collecting clues.</string>
+    <string name="how_to_play_two">• The first step is to choose the language, category, and difficulty level and start the game.</string>
+    <string name="how_to_play_three">• You will then be given a word.</string>
+    <string name="how_to_play_four">• In the "Ask" section, you can ask questions with yes or no answers to gather clues. Other types of questions are considered invalid, and your question count does not decrease.</string>
+    <string name="how_to_play_five">You can determine the correct letter and its position by making attempts:</string>
+    <string name="how_to_play_six">If the letter is correct and in the right place, it will be in green color.</string>
+    <string name="how_to_play_seven">If the letter is correct but in the wrong place, it will be in yellow color.</string>
+    <string name="how_to_play_eight">If the letter is not in the word, it will be in red color.</string>
+    <string name="how_to_play_nine">• You can use the "Get a Letter" button to watch a short ad and receive a random letter.</string>
+    <string name="how_to_play_ten">• If you want to give up, you can use the "Give Up" button and start a new game.</string>
+    <string name="how_to_play_eleven">• You need to find the correct word before your "Incorrect Answer" count runs out.</string>
 </resources>

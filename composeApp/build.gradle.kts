@@ -40,6 +40,7 @@ kotlin {
         androidMain.dependencies {
             implementation(libs.compose.ui.tooling.preview)
             implementation(libs.androidx.activity.compose)
+            implementation(libs.koin.androidx.compose.wasm)
         }
         commonMain.dependencies {
             implementation(compose.runtime)

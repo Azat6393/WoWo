@@ -19,12 +19,25 @@
     <string name="how_to_play">nasıl oynanır</string>
     <string name="welcome">hoşgeldiniz</string>
     <string name="share">paylaş</string>
-    <string name="confirm">confirm</string>
-    <string name="dismiss">dismiss</string>
-    <string name="give_up">give_up</string>
-    <string name="give_up_title">give_up_title</string>
-    <string name="give_up_text">give_up_text</string>
-    <string name="exit">exit</string>
-    <string name="exit_title">exit_title</string>
-    <string name="exit_text">exit_text</string>
+    <string name="confirm">onayla</string>
+    <string name="dismiss">reddet</string>
+    <string name="give_up">pes et</string>
+    <string name="give_up_title">pes et</string>
+    <string name="give_up_text">pes etmek istediğinizden emin misiniz?</string>
+    <string name="exit">çıkış</string>
+    <string name="exit_title">çıkış</string>
+    <string name="exit_text">WoWo'dan çıkmak istediğinizden emin misiniz?</string>
+    <string name="get_letter">harf al</string>
+
+    <string name="how_to_play_one">Bilinmeyen kelimeyi ipuçları toplayarak bulmaya çalışınız.</string>
+    <string name="how_to_play_two">• İlk adım, dil, kategori ve zorluk seviyesini seçmek ve oyuna başlamak olacak.</string>
+    <string name="how_to_play_three">• Ardından size bir kelime verilecek. </string>
+    <string name="how_to_play_four">• "Soru Sor" kısmında evet veya hayır cevaplarıyla ipuçları alabileceğiniz sorular sorabilirsiniz. Diğer türdeki sorular geçersiz kabul edilir ve soru hakkınız azalmaz.</string>
+    <string name="how_to_play_five">Denemeler yaparak, doğru harf ve yerini belirleyebilirsiniz:</string>
+    <string name="how_to_play_six">Doğru harf ve yerdeyse yeşil renk.</string>
+    <string name="how_to_play_seven">Doğru harf ama yanlış yerdeyse sarı renk.</string>
+    <string name="how_to_play_eight">Harf kelime içinde yoksa kırmızı renk.</string>
+    <string name="how_to_play_nine">• "Harf Al" butonuyla kısa bir reklam izleyerek rastgele bir harf alabilirsiniz.</string>
+    <string name="how_to_play_ten">• Eğer pes etmek isterseniz, "Pes Et" butonunu kullanabilir ve yeni bir oyun başlatabilirsiniz.</string>
+    <string name="how_to_play_eleven">• "Yanlış Cevap" hakkınız bitene kadar doğru kelimeyi bulmanız gerekmektedir.</string>
 </resources>

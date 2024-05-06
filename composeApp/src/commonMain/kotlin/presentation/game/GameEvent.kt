@@ -13,4 +13,5 @@ sealed class GameEvent {
     data object AskQuestion : GameEvent()
     data object StartGame : GameEvent()
     data object GiveUp : GameEvent()
+    data object GetTips: GameEvent()
 }
