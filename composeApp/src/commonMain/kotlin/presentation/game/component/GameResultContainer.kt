@@ -59,6 +59,7 @@ fun GameResultContainer(
     onCategorySelect: (Category) -> Unit,
     actualWord: String,
     gameCondition: GameConditionsUI,
+    share: () -> Unit
 ) {
     var showGameSettings by remember { mutableStateOf(false) }
 
@@ -70,7 +71,8 @@ fun GameResultContainer(
                 actualWord = actualWord,
                 gameCondition = gameCondition,
                 modifier = Modifier.fillMaxWidth(),
-                playAgain = { showGameSettings = true }
+                playAgain = { showGameSettings = true },
+                share = share
             )
         } else {
             PlayAgainContainer(
@@ -134,6 +136,7 @@ private fun GameResultInfo(
     gameCondition: GameConditionsUI,
     modifier: Modifier,
     playAgain: () -> Unit,
+    share: () -> Unit
 ) {
     Column(
         modifier = modifier, horizontalAlignment = Alignment.CenterHorizontally,
@@ -184,7 +187,7 @@ private fun GameResultInfo(
             CustomButton(
                 modifier = modifier.fillMaxWidth().weight(1f),
                 text = stringResource(Res.string.share),
-                onClick = { },
+                onClick = share,
                 fontColor = ColorOnBackground,
                 icon = Icons.Outlined.Share,
             )

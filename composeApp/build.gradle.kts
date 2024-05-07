@@ -24,7 +24,7 @@ kotlin {
         }
         binaries.executable()
     }
-    
+
     androidTarget {
         compilations.all {
             kotlinOptions {
@@ -36,11 +36,17 @@ kotlin {
     task("testClasses")
 
     sourceSets {
-        
+
         androidMain.dependencies {
             implementation(libs.compose.ui.tooling.preview)
             implementation(libs.androidx.activity.compose)
             implementation(libs.koin.androidx.compose.wasm)
+            implementation(libs.androidx.core.splashscreen)
+            implementation(libs.play.services.ads)
+            implementation(libs.review)
+            implementation(libs.review.ktx)
+            implementation(libs.app.update)
+            implementation(libs.app.update.ktx)
         }
         commonMain.dependencies {
             implementation(compose.runtime)

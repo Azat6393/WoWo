@@ -10,8 +10,10 @@ androidx-core-ktx = "1.13.0"
 androidx-espresso-core = "3.5.1"
 androidx-material = "1.11.0"
 androidx-test-junit = "1.1.5"
+appUpdate = "2.1.0"
 compose = "1.6.6"
 compose-plugin = "1.6.10-beta02"
+coreSplashscreen = "1.0.1"
 junit = "4.13.2"
 koinCore = "3.5.6"
 koinCoreWasm = "3.6.0-wasm-alpha2"
@@ -24,8 +26,13 @@ ktorWasm = "3.0.0-wasm2"
 lifecycleViewmodelCompose = "2.8.0-beta01"
 logback = "1.5.5"
 mongodbDriverKotlinCoroutine = "5.0.0"
+playServicesAds = "23.0.0"
+review = "2.0.1"
 
 [libraries]
+androidx-core-splashscreen = { module = "androidx.core:core-splashscreen", version.ref = "coreSplashscreen" }
+app-update = { module = "com.google.android.play:app-update", version.ref = "appUpdate" }
+app-update-ktx = { module = "com.google.android.play:app-update-ktx", version.ref = "appUpdate" }
 bson-kotlinx = { module = "org.mongodb:bson-kotlinx", version.ref = "mongodbDriverKotlinCoroutine" }
 koin-core = { module = "io.insert-koin:koin-core", version.ref = "koinCore" }
 koin-core-wasm = { module = "io.insert-koin:koin-core", version.ref = "koinCoreWasm" }
@@ -83,6 +90,9 @@ ktor-server-core = { module = "io.ktor:ktor-server-core-jvm", version.ref = "kto
 ktor-server-netty = { module = "io.ktor:ktor-server-netty-jvm", version.ref = "ktor" }
 ktor-server-tests = { module = "io.ktor:ktor-server-tests-jvm", version.ref = "ktor" }
 mongodb-driver-kotlin-coroutine = { module = "org.mongodb:mongodb-driver-kotlin-coroutine", version.ref = "mongodbDriverKotlinCoroutine" }
+play-services-ads = { module = "com.google.android.gms:play-services-ads", version.ref = "playServicesAds" }
+review = { module = "com.google.android.play:review", version.ref = "review" }
+review-ktx = { module = "com.google.android.play:review-ktx", version.ref = "review" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }

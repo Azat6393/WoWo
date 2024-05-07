@@ -57,9 +57,11 @@ import wowo.composeapp.generated.resources.tips_icon
 
 @Composable
 fun GameScreen(
+    modifier: Modifier = Modifier,
     state: GameState,
     onEvent: (GameEvent) -> Unit,
     showRewardedAd: () -> Unit = {},
+    share: () -> Unit = {}
 ) {
     var showGiveUpDialog by remember { mutableStateOf(false) }
     var showHowToPlayDialog by remember { mutableStateOf(false) }
@@ -81,8 +83,7 @@ fun GameScreen(
     }
 
     Column(
-        modifier = Modifier
-            .fillMaxSize()
+        modifier = modifier
             .background(ColorBackground)
     ) {
         TopBar(
@@ -168,7 +169,8 @@ fun GameScreen(
                     onCategorySelect = { onEvent(GameEvent.OnCategorySelect(it)) },
                     onDifficultySelect = { onEvent(GameEvent.OnDifficultyChange(it)) },
                     onLanguageSelect = { onEvent(GameEvent.OnLanguageChange(it)) },
-                    gameCondition = state.gameConditionsUI
+                    gameCondition = state.gameConditionsUI,
+                    share = share
                 )
             }
             if (state.loading) {

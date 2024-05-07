@@ -5,6 +5,7 @@ import androidx.compose.material.Text
 import androidx.compose.material.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.text.font.FontFamily
+import component.ui.ColorBackground
 import component.ui.ColorPrimary
 import org.jetbrains.compose.resources.Font
 import org.jetbrains.compose.resources.stringResource
@@ -20,9 +21,10 @@ fun CustomAlertDialog(
     onConfirmation: () -> Unit,
     dialogTitle: String,
     dialogText: String,
-    positiveText: String = stringResource(Res.string.confirm)
+    positiveText: String = stringResource(Res.string.confirm),
 ) {
     AlertDialog(
+        backgroundColor = ColorBackground,
         title = {
             Text(
                 text = dialogTitle,

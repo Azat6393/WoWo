@@ -25,10 +25,6 @@ class GameViewModel(private val gameRepository: GameRepository) : ViewModel() {
     var state by mutableStateOf(GameState())
         private set
 
-    init {
-        getCategories(state.gameSettings.selectedLanguage)
-    }
-
     fun onEvent(event: GameEvent) {
         when (event) {
             is GameEvent.OnInputLetter -> onInputLetter(event.letter)
@@ -41,7 +37,20 @@ class GameViewModel(private val gameRepository: GameRepository) : ViewModel() {
             is GameEvent.OnDifficultyChange -> onDifficultyChange(event.difficulty)
             is GameEvent.OnLanguageChange -> onLanguageChange(event.language)
             GameEvent.GiveUp -> giveUp()
-            GameEvent.GetTips -> Unit
+            GameEvent.GetTips -> getTips()
+        }
+    }
+
+    private fun getTips() {
+        state.word.forEachIndexed { index, word ->
+            if (word.condition != LetterCondition.InCorrectSpot) {
+                state.word[index] = state.word[index].copy(
+                    letter = state.actualWord[index].toString(),
+                    condition = LetterCondition.InCorrectSpot
+                )
+                checkEnterEnable()
+                return
+            }
         }
     }
 
@@ -53,9 +62,10 @@ class GameViewModel(private val gameRepository: GameRepository) : ViewModel() {
     }
 
     private fun onLanguageChange(language: String) {
-        getCategories(language)
+        val lan = if (!state.gameSettings.languages.contains(language)) "eng" else language
+        getCategories(lan)
         state = state.copy(
-            gameSettings = state.gameSettings.copy(selectedLanguage = language)
+            gameSettings = state.gameSettings.copy(selectedLanguage = lan)
         )
     }
 
@@ -84,12 +94,15 @@ class GameViewModel(private val gameRepository: GameRepository) : ViewModel() {
                     )
                 },
                 onFailure = { exception ->
+                    val message = if (
+                        exception.message?.startsWith("Unable") == true
+                    ) "No internet connection" else exception.message
                     state = state.copy(
                         loading = false,
                         message = MessageBarState(
                             uuid = exception.hashCode().toString(),
                             message = null,
-                            error = exception.message
+                            error = message
                         )
                     )
                 }
@@ -211,12 +224,15 @@ class GameViewModel(private val gameRepository: GameRepository) : ViewModel() {
                 )
             },
             onFailure = { exception ->
+                val message = if (
+                    exception.message?.startsWith("Unable") == true
+                ) "No internet connection" else exception.message
                 state = state.copy(
                     loading = false,
                     message = MessageBarState(
                         uuid = exception.hashCode().toString(),
                         message = null,
-                        error = exception.message
+                        error = message
                     )
                 )
             }
@@ -254,12 +270,15 @@ class GameViewModel(private val gameRepository: GameRepository) : ViewModel() {
                 checkQuestionEnable()
             },
             onFailure = { exception ->
+                val message = if (
+                    exception.message?.startsWith("Unable") == true
+                ) "No internet connection" else exception.message
                 state = state.copy(
                     aiLoading = false,
                     message = MessageBarState(
                         uuid = exception.hashCode().toString(),
                         message = null,
-                        error = exception.message
+                        error = message
                     )
                 )
             }
@@ -308,12 +327,15 @@ class GameViewModel(private val gameRepository: GameRepository) : ViewModel() {
                 }
             },
             onFailure = { exception ->
+                val message = if (
+                    exception.message?.startsWith("Unable") == true
+                ) "No internet connection" else exception.message
                 state = state.copy(
                     loading = false,
                     message = MessageBarState(
                         uuid = exception.hashCode().toString(),
                         message = null,
-                        error = exception.message
+                        error = message
                     )
                 )
             }
