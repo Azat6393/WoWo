@@ -5,6 +5,7 @@ plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsCompose)
+    id("com.google.gms.google-services")
 }
 
 kotlin {
@@ -47,6 +48,9 @@ kotlin {
             implementation(libs.review.ktx)
             implementation(libs.app.update)
             implementation(libs.app.update.ktx)
+            implementation(project.dependencies.platform("com.google.firebase:firebase-bom:33.0.0"))
+            implementation("com.google.firebase:firebase-analytics")
+            implementation ("com.google.firebase:firebase-messaging-ktx")
         }
         commonMain.dependencies {
             implementation(compose.runtime)

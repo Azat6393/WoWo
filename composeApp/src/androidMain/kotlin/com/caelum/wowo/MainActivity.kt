@@ -1,16 +1,17 @@
 package com.caelum.wowo
 
-import android.app.Activity
 import android.content.ContentValues.TAG
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.BackHandler
+import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.compose.setContent
-import androidx.activity.result.contract.ActivityResultContract
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -41,7 +42,6 @@ import com.google.android.play.core.install.model.AppUpdateType
 import com.google.android.play.core.install.model.UpdateAvailability
 import com.google.android.play.core.ktx.isFlexibleUpdateAllowed
 import com.google.android.play.core.ktx.isImmediateUpdateAllowed
-import com.google.android.play.core.ktx.startUpdateFlowForResult
 import com.google.android.play.core.review.ReviewManagerFactory
 import org.jetbrains.compose.resources.stringResource
 import org.koin.androidx.compose.koinViewModel
@@ -86,6 +86,11 @@ class MainActivity : ComponentActivity() {
 
         setContent {
             WoWoTheme {
+                val permissionResultLauncher = rememberLauncherForActivityResult(
+                    contract = ActivityResultContracts.RequestPermission(),
+                    onResult = {}
+                )
+
                 val viewModel: GameViewModel = koinViewModel()
                 val state = viewModel.state
 
@@ -93,6 +98,13 @@ class MainActivity : ComponentActivity() {
                     viewModel.onEvent(
                         GameEvent.OnLanguageChange(Locale.getDefault().language ?: "eng")
                     )
+                }
+                LaunchedEffect(key1 = true) {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                        if (checkSelfPermission(android.Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
+                            permissionResultLauncher.launch(android.Manifest.permission.POST_NOTIFICATIONS)
+                        }
+                    }
                 }
 
                 ExitHandler()
