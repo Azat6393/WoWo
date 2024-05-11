@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
@@ -105,7 +106,7 @@ fun GameScreen(
                     modifier = Modifier.fillMaxWidth().padding(start = 15.dp, end = 15.dp),
                     wordLetters = state.word
                 )
-                Spacer(Modifier.height(35.dp))
+                Spacer(Modifier.height(25.dp))
                 GameConditionContainer(
                     modifier = Modifier.fillMaxWidth().padding(start = 25.dp, end = 25.dp),
                     gameCondition = state.gameConditionsUI,
@@ -122,25 +123,26 @@ fun GameScreen(
                     onGiveUp = { showGiveUpDialog = true },
                     onGetLetter = showRewardedAd
                 )
-                Spacer(Modifier.height(30.dp))
+                Spacer(Modifier.height(25.dp))
                 QuestionResultContainer(
                     modifier = Modifier.fillMaxWidth(),
                     aiResult = state.aiResult,
-                    language = state.gameSettings.selectedLanguage
+                    aiResultForEasyMode = state.aiResultForEasyMode,
+                    isEasyMode = state.gameSettings.difficulty == Difficulty.Easy,
                 )
                 Spacer(Modifier.height(20.dp))
                 QuestionTextField(
-                    modifier = Modifier.fillMaxWidth().padding(start = 15.dp, end = 15.dp),
+                    modifier = Modifier.widthIn(max = 800.dp).padding(start = 15.dp, end = 15.dp),
                     text = state.question,
                     onAskQuestion = { onEvent(GameEvent.AskQuestion) },
                     isAskQuestionEnable = state.isQuestionEnable,
                     isLoading = state.aiLoading,
                     onTextChange = { onEvent(GameEvent.OnQuestionInput(it)) },
-                    language = state.gameSettings.selectedLanguage
+                    isEasyMode = state.gameSettings.difficulty == Difficulty.Easy
                 )
                 Spacer(Modifier.height(30.dp))
                 Keyboard(
-                    modifier = Modifier.fillMaxWidth(),
+                    modifier = Modifier.widthIn(max = 800.dp),
                     onInputValue = { onEvent(GameEvent.OnInputLetter(it)) },
                     onDeleteValue = { onEvent(GameEvent.OnDeleteLetter) },
                     onEnter = { onEvent(GameEvent.Enter) },

@@ -6,6 +6,7 @@ import com.caelum.wowo.models.toCategory
 import com.caelum.wowo.models.toWord
 import com.caelum.wowo.models.wowo.Category
 import com.caelum.wowo.models.wowo.InputResult
+import com.caelum.wowo.models.wowo.QuestionEasyModeResult
 import com.caelum.wowo.models.wowo.QuestionResult
 import com.caelum.wowo.models.wowo.Word
 import com.caelum.wowo.repository.CategoryRepository
@@ -53,6 +54,24 @@ class GameService(
                     answer.startsWith("no") -> emit(QuestionResult(2))
                     else -> emit(QuestionResult(3))
                 }
+            },
+            onFailure = { exception: Throwable ->
+                throw exception
+            }
+        )
+    }
+
+    fun askQuestionForAnswer(questionBody: QuestionBody): Flow<QuestionEasyModeResult> = flow {
+        val result = gptRepository.sendMessageFowEasyMode(
+            word = questionBody.word,
+            question = questionBody.question,
+            language = questionBody.language,
+            category = questionBody.category
+        )
+        result.fold(
+            onSuccess = { message ->
+                val answer = message.content
+                emit(QuestionEasyModeResult(answer))
             },
             onFailure = { exception: Throwable ->
                 throw exception

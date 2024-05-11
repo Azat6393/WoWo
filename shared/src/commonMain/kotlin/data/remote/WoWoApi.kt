@@ -5,6 +5,7 @@ import data.remote.body.QuestionBody
 import domain.model.InputResult
 import data.remote.response.SuccessResponse
 import domain.model.Category
+import domain.model.QuestionEasyModeResult
 import domain.model.QuestionResult
 import domain.model.User
 import domain.model.Word
@@ -41,6 +42,12 @@ class WoWoApi(private val client: HttpClient) {
 
     suspend fun sendQuestion(questionBody: QuestionBody): SuccessResponse<QuestionResult> {
         return client.post("${GAME}question") {
+            setBody(questionBody)
+        }.body()
+    }
+
+    suspend fun sendQuestionForEasyMode(questionBody: QuestionBody): SuccessResponse<QuestionEasyModeResult> {
+        return client.post("${GAME}question-easy") {
             setBody(questionBody)
         }.body()
     }

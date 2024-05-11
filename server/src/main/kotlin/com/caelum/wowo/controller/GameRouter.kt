@@ -106,5 +106,21 @@ fun Route.gameRouter() {
                 fetchError(e)
             }
         }
+
+        post<QuestionBody>("/question-easy") { request ->
+            try {
+                val result = gameService.askQuestionForAnswer(request).firstOrNull()
+                call.respond(
+                    HttpStatusCode.OK,
+                    SuccessResponse(
+                        result,
+                        HttpStatusCode.OK.value,
+                        "Success"
+                    )
+                )
+            } catch (e: Exception) {
+                fetchError(e)
+            }
+        }
     }
 }

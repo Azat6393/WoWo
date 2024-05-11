@@ -9,6 +9,7 @@
     <string name="play_again">play again</string>
     <string name="incorrect">incorrect</string>
     <string name="questions">questions</string>
+    <string name="question">Question</string>
     <string name="yes">yes</string>
     <string name="no">no</string>
     <string name="invalid">invalid</string>
@@ -40,4 +41,7 @@
     <string name="how_to_play_nine">• You can use the "Get a Letter" button to watch a short ad and receive a random letter.</string>
     <string name="how_to_play_ten">• If you want to give up, you can use the "Give Up" button and start a new game.</string>
     <string name="how_to_play_eleven">• You need to find the correct word before your "Incorrect Answer" count runs out.</string>
+
+    <string name="no_internet">No internet connection</string>
+    <string name="choose_category">Please choose category</string>
 </resources>

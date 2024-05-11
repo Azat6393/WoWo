@@ -41,6 +41,7 @@ import wowo.composeapp.generated.resources.ask_hint
 import wowo.composeapp.generated.resources.geologica_medium
 import wowo.composeapp.generated.resources.geologica_regular
 import wowo.composeapp.generated.resources.geologica_semibold
+import wowo.composeapp.generated.resources.question
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
@@ -51,7 +52,7 @@ fun QuestionTextField(
     onAskQuestion: () -> Unit,
     isAskQuestionEnable: Boolean,
     isLoading: Boolean,
-    language: String,
+    isEasyMode: Boolean,
 ) {
 
     val leftRoundedCornerShape =
@@ -81,14 +82,18 @@ fun QuestionTextField(
                 decorationBox = {
                     if (text.isBlank()) {
                         Text(
-                            text = text.ifBlank { stringResource(Res.string.ask_hint) },
+                            text = text.ifBlank {
+                                if (isEasyMode) stringResource(Res.string.question) else
+                                    stringResource(Res.string.ask_hint)
+                            },
                             color = if (text.isBlank()) ColorSecondary.copy(alpha = 0.6f) else ColorOnBackground,
                             maxLines = 1,
                             fontWeight = FontWeight.Medium,
                             fontSize = 16.sp,
                             fontFamily = FontFamily(Font(Res.font.geologica_medium))
                         )
-                    } else it()
+                    }
+                    it()
                 },
                 modifier = Modifier.fillMaxWidth().align(Alignment.Center)
                     .padding(start = 30.dp, end = 50.dp)
@@ -121,7 +126,7 @@ fun QuestionTextField(
             AnimatedVisibility(!isLoading) {
                 Text(
                     text = stringResource(Res.string.ask),
-                    fontSize = 18.sp,
+                    fontSize = 16.sp,
                     fontWeight = FontWeight.SemiBold,
                     color = ColorOnBackground,
                     fontFamily = FontFamily(Font(Res.font.geologica_semibold))

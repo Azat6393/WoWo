@@ -5,6 +5,7 @@ import data.remote.body.InputWordBody
 import data.remote.body.QuestionBody
 import domain.model.Category
 import domain.model.InputResult
+import domain.model.QuestionEasyModeResult
 import domain.model.QuestionResult
 import domain.model.Word
 import domain.repository.GameRepository
@@ -48,6 +49,16 @@ class GameRepositoryImpl(private val woWoApi: WoWoApi) : GameRepository {
         flow {
             try {
                 val response = woWoApi.sendQuestion(questionBody)
+                emit(Result.success(response.data))
+            } catch (e: Exception) {
+                emit(Result.failure(e))
+            }
+        }
+
+    override fun askQuestionForEasyMode(questionBody: QuestionBody): Flow<Result<QuestionEasyModeResult>> =
+        flow {
+            try {
+                val response = woWoApi.sendQuestionForEasyMode(questionBody)
                 emit(Result.success(response.data))
             } catch (e: Exception) {
                 emit(Result.failure(e))

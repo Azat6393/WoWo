@@ -9,6 +9,7 @@
     <string name="play_again">tekrar oyna</string>
     <string name="incorrect">yanlış</string>
     <string name="questions">sorular</string>
+    <string name="question">soru</string>
     <string name="yes">evet</string>
     <string name="no">hayır</string>
     <string name="invalid">geçersiz</string>
@@ -40,4 +41,7 @@
     <string name="how_to_play_nine">• "Harf Al" butonuyla kısa bir reklam izleyerek rastgele bir harf alabilirsiniz.</string>
     <string name="how_to_play_ten">• Eğer pes etmek isterseniz, "Pes Et" butonunu kullanabilir ve yeni bir oyun başlatabilirsiniz.</string>
     <string name="how_to_play_eleven">• "Yanlış Cevap" hakkınız bitene kadar doğru kelimeyi bulmanız gerekmektedir.</string>
+
+    <string name="no_internet">İnternet bağlantısı yok</string>
+    <string name="choose_category">Lütfen kategoriyi seçiniz</string>
 </resources>

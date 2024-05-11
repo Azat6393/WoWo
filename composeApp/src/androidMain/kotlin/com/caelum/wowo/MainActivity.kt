@@ -27,7 +27,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
-import com.caelum.wowo.ui.WoWoTheme
+import com.caelum.wowo.ui.WoWoAppTheme
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.AdSize
 import com.google.android.gms.ads.AdView
@@ -85,7 +85,7 @@ class MainActivity : ComponentActivity() {
         checkForAppUpdates()
 
         setContent {
-            WoWoTheme {
+            WoWoAppTheme {
                 val permissionResultLauncher = rememberLauncherForActivityResult(
                     contract = ActivityResultContracts.RequestPermission(),
                     onResult = {}
@@ -234,7 +234,7 @@ class MainActivity : ComponentActivity() {
             putInt("REVIEW", review + 1)
             apply()
         }
-        if (review % 5 == 0) {
+        if (review % 5 == 0 && review != 0) {
             val reviewManager = ReviewManagerFactory.create(applicationContext)
             reviewManager.requestReviewFlow().addOnCompleteListener {
                 if (it.isSuccessful) {

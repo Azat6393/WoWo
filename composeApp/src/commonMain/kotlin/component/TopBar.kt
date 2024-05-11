@@ -29,7 +29,7 @@ fun TopBar(
     showHowToPlay: () -> Unit,
 ) {
     Card(
-        modifier = modifier.height(50.dp),
+        modifier = modifier.height(60.dp),
         elevation = 10.dp,
         backgroundColor = MaterialTheme.colors.background
     ) {

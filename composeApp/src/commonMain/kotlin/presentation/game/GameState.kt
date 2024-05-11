@@ -16,6 +16,7 @@ data class GameState(
     val gameConditionsUI: GameConditionsUI = GameConditionsUI(0, 0, 0, 0),
     val question: String = "",
     val aiResult: AiResult = AiResult.Empty,
+    val aiResultForEasyMode: String = "",
     val aiLoading: Boolean = false,
     val loading: Boolean = false,
     val isGameStarted: Boolean = false,

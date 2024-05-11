@@ -13,12 +13,19 @@ import data.remote.body.QuestionBody
 import domain.model.Category
 import domain.model.GameCondition
 import domain.model.InputResult
+import domain.model.QuestionEasyModeResult
 import domain.model.QuestionResult
 import domain.model.Word
 import domain.repository.GameRepository
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
+import org.jetbrains.compose.resources.getString
+import wowo.composeapp.generated.resources.Res
+import wowo.composeapp.generated.resources.category
+import wowo.composeapp.generated.resources.choose_category
+import wowo.composeapp.generated.resources.no
+import wowo.composeapp.generated.resources.no_internet
 
 class GameViewModel(private val gameRepository: GameRepository) : ViewModel() {
 
@@ -43,7 +50,7 @@ class GameViewModel(private val gameRepository: GameRepository) : ViewModel() {
 
     private fun getTips() {
         state.word.forEachIndexed { index, word ->
-            if (word.condition != LetterCondition.InCorrectSpot) {
+            if (word.condition != LetterCondition.InCorrectSpot && word.condition != LetterCondition.Space) {
                 state.word[index] = state.word[index].copy(
                     letter = state.actualWord[index].toString(),
                     condition = LetterCondition.InCorrectSpot
@@ -96,7 +103,7 @@ class GameViewModel(private val gameRepository: GameRepository) : ViewModel() {
                 onFailure = { exception ->
                     val message = if (
                         exception.message?.startsWith("Unable") == true
-                    ) "No internet connection" else exception.message
+                    ) getString(Res.string.no_internet) else exception.message
                     state = state.copy(
                         loading = false,
                         message = MessageBarState(
@@ -165,6 +172,10 @@ class GameViewModel(private val gameRepository: GameRepository) : ViewModel() {
     }
 
     private fun askQuestion() {
+        if (state.gameSettings.difficulty == Difficulty.Easy) {
+            askQuestionForEasyMode()
+            return
+        }
         state = state.copy(aiLoading = true)
         gameRepository.askQuestion(
             questionBody = QuestionBody(
@@ -176,12 +187,24 @@ class GameViewModel(private val gameRepository: GameRepository) : ViewModel() {
         ).onEach(::processAiResult).launchIn(viewModelScope)
     }
 
+    private fun askQuestionForEasyMode() {
+        state = state.copy(aiLoading = true)
+        gameRepository.askQuestionForEasyMode(
+            questionBody = QuestionBody(
+                word = state.actualWord,
+                category = state.gameSettings.selectedCategory!!.name,
+                question = state.question,
+                language = state.gameSettings.selectedLanguage
+            )
+        ).onEach(::processAiResultForEasyMode).launchIn(viewModelScope)
+    }
+
     private fun startGame() = viewModelScope.launch {
         if (state.gameSettings.selectedCategory == null) {
             state = state.copy(
                 message = MessageBarState(
                     uuid = "Category error",
-                    error = "Please choose category"
+                    error = getString(Res.string.choose_category)
                 )
             )
             return@launch
@@ -203,7 +226,7 @@ class GameViewModel(private val gameRepository: GameRepository) : ViewModel() {
         checkQuestionEnable()
     }
 
-    private fun processWordResult(result: Result<Word>) {
+    private suspend fun processWordResult(result: Result<Word>) {
         result.fold(
             onSuccess = { word ->
                 state = state.copy(
@@ -226,7 +249,7 @@ class GameViewModel(private val gameRepository: GameRepository) : ViewModel() {
             onFailure = { exception ->
                 val message = if (
                     exception.message?.startsWith("Unable") == true
-                ) "No internet connection" else exception.message
+                ) getString(Res.string.no_internet) else exception.message
                 state = state.copy(
                     loading = false,
                     message = MessageBarState(
@@ -239,7 +262,34 @@ class GameViewModel(private val gameRepository: GameRepository) : ViewModel() {
         )
     }
 
-    private fun processAiResult(result: Result<QuestionResult>) {
+    private suspend fun processAiResultForEasyMode(result: Result<QuestionEasyModeResult>) {
+        result.fold(
+            onSuccess = { questionResult ->
+                state = state.copy(
+                    aiLoading = false,
+                    aiResultForEasyMode = questionResult.answer,
+                    gameConditionsUI = state.gameConditionsUI.copy(
+                        question = state.gameConditionsUI.question + 1
+                    )
+                )
+            },
+            onFailure = { exception ->
+                val message = if (
+                    exception.message?.startsWith("Unable") == true
+                ) getString(Res.string.no_internet) else exception.message
+                state = state.copy(
+                    aiLoading = false,
+                    message = MessageBarState(
+                        uuid = exception.hashCode().toString(),
+                        message = null,
+                        error = message
+                    )
+                )
+            }
+        )
+    }
+
+    private suspend fun processAiResult(result: Result<QuestionResult>) {
         result.fold(
             onSuccess = { questionResult ->
                 state = when (questionResult.answer) {
@@ -272,7 +322,7 @@ class GameViewModel(private val gameRepository: GameRepository) : ViewModel() {
             onFailure = { exception ->
                 val message = if (
                     exception.message?.startsWith("Unable") == true
-                ) "No internet connection" else exception.message
+                ) getString(Res.string.no_internet) else exception.message
                 state = state.copy(
                     aiLoading = false,
                     message = MessageBarState(

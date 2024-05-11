@@ -55,7 +55,7 @@ dependencies {
     implementation(libs.ktor.client.content.negotiation)
     implementation(libs.ktor.serialization.kotlinx.json)
     implementation(libs.ktor.client.apache5)
-    implementation("io.ktor:ktor-serialization-kotlinx-json-jvm")
+    implementation(libs.ktor.serialization.kotlinx.json.jvm)
 
     //MongoDB
     implementation(libs.mongodb.driver.kotlin.coroutine)

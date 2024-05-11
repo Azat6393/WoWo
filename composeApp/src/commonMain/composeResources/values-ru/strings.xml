@@ -9,6 +9,7 @@
     <string name="play_again">сыграй еще раз</string>
     <string name="incorrect">попытки</string>
     <string name="questions">вопросы</string>
+    <string name="question">Вопрос</string>
     <string name="yes">да</string>
     <string name="no">нет</string>
     <string name="invalid">invalid</string>
@@ -40,4 +41,7 @@
     <string name="how_to_play_nine">• Вы можете воспользоваться кнопкой "Получить букву", чтобы посмотреть короткую рекламу и получить случайную букву.</string>
     <string name="how_to_play_ten">• Если вы хотите сдаться, то можете воспользоваться кнопкой "cдаться" и начать новую игру.</string>
     <string name="how_to_play_eleven">• Вам нужно найти правильное слово до того, как закончится счетчик "попытки".</string>
+
+    <string name="no_internet">Нет подключения к Интернету</string>
+    <string name="choose_category">Выберите категорию</string>
 </resources>

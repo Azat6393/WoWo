@@ -8,6 +8,8 @@ import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Text
@@ -89,9 +91,31 @@ fun SettingContainer(
             fontFamily = FontFamily(Font(Res.font.geologica_regular))
         )
         Spacer(Modifier.height(5.dp))
-        FlowRow(
+        LazyRow {
+            items(items = gameSettings.categories, key = { it.uuid }) { category ->
+                Button(
+                    onClick = { onCategorySelect(category) },
+                    colors = ButtonDefaults.buttonColors(
+                        backgroundColor = if (gameSettings.selectedCategory?.uuid == category.uuid) ColorPrimary else ColorBackground,
+                        contentColor = if (gameSettings.selectedCategory?.uuid == category.uuid) ColorBackground else ColorOnBackground
+                    ),
+                    border = BorderStroke(
+                        width = 1.dp,
+                        color = if (gameSettings.selectedCategory?.uuid == category.uuid) ColorPrimary else ColorOnBackground
+                    ),
+                    content = {
+                        Text(
+                            category.name,
+                            fontFamily = FontFamily(Font(Res.font.geologica_regular))
+                        )
+                    }
+                )
+                Spacer(Modifier.width(10.dp))
+            }
+        }
+      /*  FlowRow(
             verticalArrangement = Arrangement.Center,
-            horizontalArrangement = Arrangement.Start
+            horizontalArrangement = Arrangement.Start,
         ) {
             gameSettings.categories.forEach { category ->
                 Button(
@@ -113,7 +137,7 @@ fun SettingContainer(
                 )
                 Spacer(Modifier.width(10.dp))
             }
-        }
+        }*/
         Spacer(Modifier.height(30.dp))
         Text(
             stringResource(Res.string.difficulty),
