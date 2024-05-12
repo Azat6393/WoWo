@@ -10,8 +10,10 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.Divider
+import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Star
 import androidx.compose.material.icons.outlined.Share
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -28,6 +30,8 @@ import component.SettingContainer
 import component.WordContainer
 import component.WordStyleSmall
 import component.ui.ColorOnBackground
+import component.ui.ColorPrimary
+import component.ui.ColorRed
 import domain.model.Category
 import org.jetbrains.compose.resources.Font
 import org.jetbrains.compose.resources.painterResource
@@ -59,7 +63,7 @@ fun GameResultContainer(
     onCategorySelect: (Category) -> Unit,
     actualWord: String,
     gameCondition: GameConditionsUI,
-    share: () -> Unit
+    share: () -> Unit,
 ) {
     var showGameSettings by remember { mutableStateOf(false) }
 
@@ -136,7 +140,7 @@ private fun GameResultInfo(
     gameCondition: GameConditionsUI,
     modifier: Modifier,
     playAgain: () -> Unit,
-    share: () -> Unit
+    share: () -> Unit,
 ) {
     Column(
         modifier = modifier, horizontalAlignment = Alignment.CenterHorizontally,
@@ -144,7 +148,7 @@ private fun GameResultInfo(
     ) {
         Image(
             painter = painterResource(
-                if (gameResult == GameResult.Win) Res.drawable.win_icon
+                if (gameResult is GameResult.Win) Res.drawable.win_icon
                 else Res.drawable.lose_icon
             ),
             contentDescription = null,
@@ -152,7 +156,7 @@ private fun GameResultInfo(
         )
         Spacer(modifier = Modifier.height(20.dp))
         Text(
-            text = if (gameResult == GameResult.Win) stringResource(Res.string.win)
+            text = if (gameResult is GameResult.Win) stringResource(Res.string.win)
             else stringResource(Res.string.lose),
             fontSize = 35.sp,
             fontWeight = FontWeight.SemiBold,
@@ -164,7 +168,7 @@ private fun GameResultInfo(
             modifier = Modifier.fillMaxWidth(),
             wordLetters = generateWordLetterUI(
                 word = actualWord,
-                allCorrect = gameResult == GameResult.Win
+                allCorrect = gameResult is GameResult.Win
             ),
             style = WordStyleSmall
         )
@@ -182,6 +186,28 @@ private fun GameResultInfo(
             modifier = Modifier.fillMaxWidth(), color = ColorOnBackground,
             thickness = 1.dp, startIndent = 1.dp
         )
+        if (gameResult.score != null) {
+            Spacer(modifier = Modifier.height(15.dp))
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.Center
+            ) {
+                Text(
+                    text = if (gameResult is GameResult.Win) "+ ${gameResult.score}" else "- ${gameResult.score}",
+                    fontSize = 20.sp,
+                    fontWeight = FontWeight.SemiBold,
+                    color = if (gameResult is GameResult.Win) ColorPrimary else ColorRed,
+                    fontFamily = FontFamily(Font(Res.font.geologica_semibold))
+                )
+                Spacer(modifier = Modifier.width(5.dp))
+                Icon(
+                    imageVector = Icons.Filled.Star,
+                    contentDescription = null,
+                    tint = ColorPrimary,
+                    modifier = Modifier.size(20.dp)
+                )
+            }
+        }
         Spacer(Modifier.height(45.dp))
         Row(modifier = Modifier.fillMaxWidth()) {
             CustomButton(

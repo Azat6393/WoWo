@@ -76,7 +76,7 @@ class GameViewModel(
         sendGameResult(false)
         state = state.copy(
             loading = false,
-            gameResult = GameResult.Lose
+            gameResult = GameResult.Lose()
         )
     }
 
@@ -376,7 +376,7 @@ class GameViewModel(
                     sendGameResult(true)
                     state.copy(
                         loading = false,
-                        gameResult = GameResult.Win
+                        gameResult = GameResult.Win(inputResult.earnedScore)
                     )
                 } else {
                     if (state.gameConditionsUI.attempts + 1
@@ -387,7 +387,7 @@ class GameViewModel(
                         loading = false,
                         gameResult = if (state.gameConditionsUI.attempts + 1
                             == state.gameConditionsUI.maxAttempts
-                        ) GameResult.Lose else null,
+                        ) GameResult.Lose() else null,
                         gameConditionsUI = state.gameConditionsUI.copy(
                             attempts = state.gameConditionsUI.attempts + 1
                         )

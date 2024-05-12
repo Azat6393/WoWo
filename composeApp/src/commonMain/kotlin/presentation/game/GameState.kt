@@ -4,8 +4,7 @@ import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.snapshots.SnapshotStateList
 import component.MessageBarState
 import domain.model.Category
-import presentation.game.LetterCondition.*
-import kotlin.random.Random
+import presentation.game.LetterCondition.Blank
 
 
 data class GameState(
@@ -59,12 +58,13 @@ enum class Difficulty {
     }
 }
 
-enum class GameResult {
-    Win, Lose
+sealed class GameResult(val score: Int?) {
+    data class Win(val earnedScore: Int? = null) : GameResult(score = earnedScore)
+    data class Lose(val lostScore: Int? = null) : GameResult(score = lostScore)
 }
 
 enum class AiResult {
-    Yes, No, Invalid, Empty
+    Yes, No, Invalid, Empty;
 }
 
 enum class LetterCondition {
