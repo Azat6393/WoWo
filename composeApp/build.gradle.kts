@@ -41,13 +41,18 @@ kotlin {
         androidMain.dependencies {
             implementation(libs.compose.ui.tooling.preview)
             implementation(libs.androidx.activity.compose)
+
             implementation(libs.koin.androidx.compose.wasm)
             implementation(libs.androidx.core.splashscreen)
+
             implementation(libs.play.services.ads)
+
             implementation(libs.review)
             implementation(libs.review.ktx)
+
             implementation(libs.app.update)
             implementation(libs.app.update.ktx)
+
             implementation(project.dependencies.platform("com.google.firebase:firebase-bom:33.0.0"))
             implementation("com.google.firebase:firebase-analytics")
             implementation ("com.google.firebase:firebase-messaging-ktx")
@@ -80,8 +85,8 @@ android {
         applicationId = "com.caelum.wowo"
         minSdk = libs.versions.android.minSdk.get().toInt()
         targetSdk = libs.versions.android.targetSdk.get().toInt()
-        versionCode = 2
-        versionName = "1.0.1"
+        versionCode = 4
+        versionName = "1.0.3"
     }
     packaging {
         resources {

@@ -37,9 +37,9 @@ fun getGameCondition(difficulty: Int): GameCondition {
         )
 
         else -> GameCondition(
-            question = 12,
+            question = 8,
             seconds = 200,
-            attempts = 8
+            attempts = 7
         )
     }
 }

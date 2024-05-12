@@ -86,7 +86,7 @@ class GptRepository(private val chatGptApi: ChatGptApi) {
     private fun getSystemMessageForEaseMode(word: String, language: String, category: String): String {
         return "You are a game assistant.\n" +
                 "- Gameplay: You are trying to find a secret word. While trying to find this word, you collect clues with questions.\n" +
-                "- Your role: Answer questions without saying 'Secret Word' and answer should be shorts.\n" +
+                "- Your role: Answer questions without saying 'Secret Word' and don't give any letter from the 'Secret Word' also answer should be shorts.\n" +
                 "- Secret Word: ${word}\n" +
                 "- Secret Word`s category: $category\n" +
                 "- Language of the question: $language\n" +

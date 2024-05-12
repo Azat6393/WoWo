@@ -242,6 +242,7 @@ class GameViewModel(private val gameRepository: GameRepository) : ViewModel() {
                     isGameStarted = true,
                     gameResult = null,
                     question = "",
+                    aiResultForEasyMode = "",
                     aiResult = AiResult.Empty,
                     notInWordLetters = mutableStateListOf()
                 )
