@@ -2,6 +2,7 @@ package com.caelum.wowo.service
 
 import com.caelum.wowo.models.body.InputWordBody
 import com.caelum.wowo.models.body.QuestionBody
+import com.caelum.wowo.models.body.ResultGameBody
 import com.caelum.wowo.models.toCategory
 import com.caelum.wowo.models.toWord
 import com.caelum.wowo.models.wowo.Category
@@ -11,6 +12,7 @@ import com.caelum.wowo.models.wowo.QuestionResult
 import com.caelum.wowo.models.wowo.Word
 import com.caelum.wowo.repository.CategoryRepository
 import com.caelum.wowo.repository.GptRepository
+import com.caelum.wowo.repository.StatisticsRepository
 import com.caelum.wowo.repository.UserRepository
 import com.caelum.wowo.repository.WordRepository
 import com.caelum.wowo.utils.GUEST_USER
@@ -24,6 +26,7 @@ class GameService(
     private val userRepository: UserRepository,
     private val gptRepository: GptRepository,
     private val categoryRepository: CategoryRepository,
+    private val statisticsRepository: StatisticsRepository,
 ) {
 
     suspend fun getRandomWord(language: String, category: String, difficulty: Int): Flow<Word> =
@@ -88,6 +91,15 @@ class GameService(
             onFailure = { exception: Throwable ->
                 throw exception
             }
+        )
+    }
+
+    suspend fun gameResult(resultGameBody: ResultGameBody) {
+        statisticsRepository.updateUserStatistics(
+            userId = resultGameBody.userId,
+            isWin = resultGameBody.win,
+            gameCondition = resultGameBody.gameCondition,
+            difficulty = resultGameBody.difficultyLevel
         )
     }
 

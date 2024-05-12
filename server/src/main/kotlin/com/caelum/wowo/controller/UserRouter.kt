@@ -17,6 +17,21 @@ fun Route.userRouter() {
     val userService by inject<UserService>()
 
     route(ApiPaths.USERS) {
+        get("/statistics/{user_id?}") {
+            val userId = call.parameters["user_id"] ?: return@get call.respondText(
+                text = "Missing user id",
+                status = HttpStatusCode.BadRequest
+            )
+            val result = userService.getUserStatistics(userId).firstOrNull()
+            call.respond(
+                HttpStatusCode.OK,
+                SuccessResponse(
+                    result,
+                    HttpStatusCode.OK.value,
+                    "Success"
+                )
+            )
+        }
 
         get("/{user_id?}") {
             val userId = call.parameters["user_id"] ?: return@get call.respondText(

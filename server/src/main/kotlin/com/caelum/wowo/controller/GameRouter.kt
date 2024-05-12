@@ -2,10 +2,12 @@ package com.caelum.wowo.controller
 
 import com.caelum.wowo.models.body.InputWordBody
 import com.caelum.wowo.models.body.QuestionBody
+import com.caelum.wowo.models.body.ResultGameBody
 import com.caelum.wowo.models.response.SuccessResponse
 import com.caelum.wowo.service.GameService
 import com.caelum.wowo.utils.ApiPaths
 import com.caelum.wowo.utils.fetchError
+import io.ktor.client.request.request
 import io.ktor.http.HttpStatusCode
 import io.ktor.server.application.call
 import io.ktor.server.response.respond
@@ -82,6 +84,22 @@ fun Route.gameRouter() {
                     HttpStatusCode.OK,
                     SuccessResponse(
                         result,
+                        HttpStatusCode.OK.value,
+                        "Success"
+                    )
+                )
+            } catch (e: Exception) {
+                fetchError(e)
+            }
+        }
+
+        post<ResultGameBody>("/result") { request ->
+            try {
+                gameService.gameResult(request)
+                call.respond(
+                    HttpStatusCode.OK,
+                    SuccessResponse(
+                        true,
                         HttpStatusCode.OK.value,
                         "Success"
                     )

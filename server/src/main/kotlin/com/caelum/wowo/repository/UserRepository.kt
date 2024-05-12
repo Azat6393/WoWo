@@ -1,9 +1,8 @@
 package com.caelum.wowo.repository
 
-import com.caelum.wowo.data.mongodb.MongoDb
-import com.caelum.wowo.data.mongodb.MongoDbConstants
 import com.caelum.wowo.data.dto.UserDto
 import com.caelum.wowo.data.dto.WordDto
+import com.caelum.wowo.data.mongodb.MongoDbConstants
 import com.caelum.wowo.utils.exception.UnknownException
 import com.mongodb.client.model.Filters
 import com.mongodb.client.model.Filters.eq
@@ -38,7 +37,7 @@ class UserRepository(private val database: MongoDatabase) {
         }
     }
 
-    suspend fun createUser(userId: String): Result<UserDto?> {
+    private suspend fun createUser(userId: String): Result<UserDto?> {
         return try {
             val collection =
                 database.getCollection<UserDto>(collectionName = MongoDbConstants.COLLECTION_USERS)
