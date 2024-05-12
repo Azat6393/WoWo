@@ -32,7 +32,7 @@ import org.jetbrains.compose.resources.Font
 import org.jetbrains.compose.resources.stringResource
 import presentation.game.Difficulty
 import presentation.game.GameSettings
-import presentation.generateWelcomeWordLetterUI
+import utils.generateWelcomeWordLetterUI
 import wowo.composeapp.generated.resources.Res
 import wowo.composeapp.generated.resources.geologica_regular
 import wowo.composeapp.generated.resources.how_to_play

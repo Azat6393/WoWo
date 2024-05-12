@@ -3,12 +3,14 @@ package data.repository
 import data.remote.WoWoApi
 import data.remote.body.InputWordBody
 import data.remote.body.QuestionBody
+import data.remote.body.ResultGameBody
 import domain.model.Category
 import domain.model.InputResult
 import domain.model.QuestionEasyModeResult
 import domain.model.QuestionResult
 import domain.model.Word
 import domain.repository.GameRepository
+import io.ktor.util.logging.Logger
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
@@ -42,6 +44,14 @@ class GameRepositoryImpl(private val woWoApi: WoWoApi) : GameRepository {
             emit(Result.success(response.data))
         } catch (e: Exception) {
             emit(Result.failure(e))
+        }
+    }
+
+    override suspend fun gameResult(resultGameBody: ResultGameBody) {
+        try {
+            woWoApi.gameResult(resultGameBody)
+        } catch (e: Exception) {
+            println("Game result error: ${e.message}")
         }
     }
 

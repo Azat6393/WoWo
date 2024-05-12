@@ -36,7 +36,7 @@ import presentation.game.Difficulty
 import presentation.game.GameConditionsUI
 import presentation.game.GameResult
 import presentation.game.GameSettings
-import presentation.generateWordLetterUI
+import utils.generateWordLetterUI
 import wowo.composeapp.generated.resources.Res
 import wowo.composeapp.generated.resources.geologica_semibold
 import wowo.composeapp.generated.resources.lose

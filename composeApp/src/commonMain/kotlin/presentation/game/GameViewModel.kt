@@ -10,6 +10,7 @@ import androidx.lifecycle.viewModelScope
 import component.MessageBarState
 import data.remote.body.InputWordBody
 import data.remote.body.QuestionBody
+import data.remote.body.ResultGameBody
 import domain.model.Category
 import domain.model.GameCondition
 import domain.model.InputResult
@@ -17,20 +18,30 @@ import domain.model.QuestionEasyModeResult
 import domain.model.QuestionResult
 import domain.model.Word
 import domain.repository.GameRepository
+import domain.repository.UserRepository
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.getString
+import utils.UniqueIdGenerator
 import wowo.composeapp.generated.resources.Res
-import wowo.composeapp.generated.resources.category
 import wowo.composeapp.generated.resources.choose_category
-import wowo.composeapp.generated.resources.no
 import wowo.composeapp.generated.resources.no_internet
 
-class GameViewModel(private val gameRepository: GameRepository) : ViewModel() {
+class GameViewModel(
+    private val gameRepository: GameRepository,
+    private val uniqueIdGenerator: UniqueIdGenerator,
+    userRepository: UserRepository
+) : ViewModel() {
 
     var state by mutableStateOf(GameState())
         private set
+
+    private val usedId: String by lazy { uniqueIdGenerator.getId() }
+
+    init {
+        userRepository.getUser(usedId).onEach{}.launchIn(viewModelScope)
+    }
 
     fun onEvent(event: GameEvent) {
         when (event) {
@@ -62,6 +73,7 @@ class GameViewModel(private val gameRepository: GameRepository) : ViewModel() {
     }
 
     private fun giveUp() {
+        sendGameResult(false)
         state = state.copy(
             loading = false,
             gameResult = GameResult.Lose
@@ -158,7 +170,7 @@ class GameViewModel(private val gameRepository: GameRepository) : ViewModel() {
         val body = InputWordBody(
             actualWord = state.actualWord.replace("İ", "i").lowercase(),
             enteredWord = enteredWord.replace("İ", "i").lowercase(),
-            userId = "guest_user",
+            userId = usedId,
             difficultyLevel = state.gameSettings.difficulty.getDifficulty(),
             gameCondition = GameCondition(
                 question = state.gameConditionsUI.question,
@@ -361,11 +373,16 @@ class GameViewModel(private val gameRepository: GameRepository) : ViewModel() {
                 }
 
                 state = if (inputResult.isCorrect) {
+                    sendGameResult(true)
                     state.copy(
                         loading = false,
                         gameResult = GameResult.Win
                     )
                 } else {
+                    if (state.gameConditionsUI.attempts + 1
+                        == state.gameConditionsUI.maxAttempts
+                    ) sendGameResult(false)
+
                     state.copy(
                         loading = false,
                         gameResult = if (state.gameConditionsUI.attempts + 1
@@ -417,5 +434,23 @@ class GameViewModel(private val gameRepository: GameRepository) : ViewModel() {
         state = state.copy(
             isEnterEnable = state.word.find { it.condition == LetterCondition.Blank } == null
         )
+    }
+
+    private fun sendGameResult(isWin: Boolean) {
+        viewModelScope.launch {
+            gameRepository.gameResult(
+                resultGameBody = ResultGameBody(
+                    win = isWin,
+                    actualWord = state.actualWord,
+                    userId = usedId,
+                    difficultyLevel = state.gameSettings.difficulty.getDifficulty(),
+                    gameCondition = GameCondition(
+                        question = state.gameConditionsUI.question,
+                        seconds = 0,
+                        attempts = state.gameConditionsUI.attempts
+                    )
+                )
+            )
+        }
     }
 }

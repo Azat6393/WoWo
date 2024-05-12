@@ -41,9 +41,8 @@ import component.ui.ColorKeyboardNotInWordColor
 import component.ui.ColorOnBackground
 import component.ui.ColorPrimary
 import org.jetbrains.compose.resources.Font
-import presentation.pxToDp
+import utils.pxToDp
 import wowo.composeapp.generated.resources.Res
-import wowo.composeapp.generated.resources.geologica_black
 import wowo.composeapp.generated.resources.geologica_medium
 
 

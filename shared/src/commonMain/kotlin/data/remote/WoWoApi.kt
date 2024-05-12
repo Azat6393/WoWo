@@ -2,12 +2,14 @@ package data.remote
 
 import data.remote.body.InputWordBody
 import data.remote.body.QuestionBody
+import data.remote.body.ResultGameBody
 import domain.model.InputResult
 import data.remote.response.SuccessResponse
 import domain.model.Category
 import domain.model.QuestionEasyModeResult
 import domain.model.QuestionResult
 import domain.model.User
+import domain.model.UserStatistics
 import domain.model.Word
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
@@ -24,6 +26,16 @@ class WoWoApi(private val client: HttpClient) {
 
     suspend fun getUser(userId: String): SuccessResponse<User> {
         return client.get("$USERS$userId").body()
+    }
+
+    suspend fun getUserStatistics(userId: String): SuccessResponse<UserStatistics> {
+        return client.get("${USERS}statistics/$userId").body()
+    }
+
+    suspend fun gameResult(resultGameBody: ResultGameBody): SuccessResponse<Boolean> {
+        return client.post("${GAME}result") {
+            setBody(resultGameBody)
+        }.body()
     }
 
     suspend fun getWord(

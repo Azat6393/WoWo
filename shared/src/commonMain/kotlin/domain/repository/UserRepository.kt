@@ -1,9 +1,12 @@
 package domain.repository
 
 import domain.model.User
+import domain.model.UserStatistics
 import kotlinx.coroutines.flow.Flow
 
 interface UserRepository {
 
-    suspend fun getUser(userId: String): Flow<Result<User>>
+    fun getUserStatistics(userId: String): Flow<Result<UserStatistics>>
+
+    fun getUser(userId: String): Flow<Result<User>>
 }
