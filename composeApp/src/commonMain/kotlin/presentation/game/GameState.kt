@@ -23,6 +23,7 @@ data class GameState(
     val isQuestionEnable: Boolean = false,
     val message: MessageBarState = MessageBarState(),
     val gameResult: GameResult? = null,
+    val showProfile: Boolean = false
 )
 
 data class GameConditionsUI(

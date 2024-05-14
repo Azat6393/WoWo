@@ -113,31 +113,31 @@ fun SettingContainer(
                 Spacer(Modifier.width(10.dp))
             }
         }
-      /*  FlowRow(
-            verticalArrangement = Arrangement.Center,
-            horizontalArrangement = Arrangement.Start,
-        ) {
-            gameSettings.categories.forEach { category ->
-                Button(
-                    onClick = { onCategorySelect(category) },
-                    colors = ButtonDefaults.buttonColors(
-                        backgroundColor = if (gameSettings.selectedCategory?.uuid == category.uuid) ColorPrimary else ColorBackground,
-                        contentColor = if (gameSettings.selectedCategory?.uuid == category.uuid) ColorBackground else ColorOnBackground
-                    ),
-                    border = BorderStroke(
-                        width = 1.dp,
-                        color = if (gameSettings.selectedCategory?.uuid == category.uuid) ColorPrimary else ColorOnBackground
-                    ),
-                    content = {
-                        Text(
-                            category.name,
-                            fontFamily = FontFamily(Font(Res.font.geologica_regular))
-                        )
-                    }
-                )
-                Spacer(Modifier.width(10.dp))
-            }
-        }*/
+        /*  FlowRow(
+              verticalArrangement = Arrangement.Center,
+              horizontalArrangement = Arrangement.Start,
+          ) {
+              gameSettings.categories.forEach { category ->
+                  Button(
+                      onClick = { onCategorySelect(category) },
+                      colors = ButtonDefaults.buttonColors(
+                          backgroundColor = if (gameSettings.selectedCategory?.uuid == category.uuid) ColorPrimary else ColorBackground,
+                          contentColor = if (gameSettings.selectedCategory?.uuid == category.uuid) ColorBackground else ColorOnBackground
+                      ),
+                      border = BorderStroke(
+                          width = 1.dp,
+                          color = if (gameSettings.selectedCategory?.uuid == category.uuid) ColorPrimary else ColorOnBackground
+                      ),
+                      content = {
+                          Text(
+                              category.name,
+                              fontFamily = FontFamily(Font(Res.font.geologica_regular))
+                          )
+                      }
+                  )
+                  Spacer(Modifier.width(10.dp))
+              }
+          }*/
         Spacer(Modifier.height(30.dp))
         Text(
             stringResource(Res.string.difficulty),
@@ -146,63 +146,72 @@ fun SettingContainer(
             fontFamily = FontFamily(Font(Res.font.geologica_regular))
         )
         Spacer(Modifier.height(5.dp))
-        FlowRow(
-            verticalArrangement = Arrangement.Center,
-            horizontalArrangement = Arrangement.Start
-        ) {
-            Button(
-                onClick = { onDifficultySelect(Difficulty.Easy) },
-                colors = ButtonDefaults.buttonColors(
-                    backgroundColor = if (gameSettings.difficulty == Difficulty.Easy) ColorPrimary else ColorBackground,
-                    contentColor = if (gameSettings.difficulty == Difficulty.Easy) ColorBackground else ColorOnBackground
-                ),
-                border = BorderStroke(
-                    width = 1.dp,
-                    color = if (gameSettings.difficulty == Difficulty.Easy) ColorPrimary else ColorOnBackground
-                ),
-                content = {
-                    Text(
-                        stringResource(Res.string.easy),
-                        fontFamily = FontFamily(Font(Res.font.geologica_regular))
-                    )
-                }
-            )
-            Spacer(Modifier.width(10.dp))
-            Button(
-                onClick = { onDifficultySelect(Difficulty.Medium) },
-                colors = ButtonDefaults.buttonColors(
-                    backgroundColor = if (gameSettings.difficulty == Difficulty.Medium) ColorPrimary else ColorBackground,
-                    contentColor = if (gameSettings.difficulty == Difficulty.Medium) ColorBackground else ColorOnBackground
-                ),
-                border = BorderStroke(
-                    width = 1.dp,
-                    color = if (gameSettings.difficulty == Difficulty.Medium) ColorPrimary else ColorOnBackground
-                ),
-                content = {
-                    Text(
-                        stringResource(Res.string.medium),
-                        fontFamily = FontFamily(Font(Res.font.geologica_regular))
-                    )
-                }
-            )
-            Spacer(Modifier.width(10.dp))
-            Button(
-                onClick = { onDifficultySelect(Difficulty.Hard) },
-                colors = ButtonDefaults.buttonColors(
-                    backgroundColor = if (gameSettings.difficulty == Difficulty.Hard) ColorPrimary else ColorBackground,
-                    contentColor = if (gameSettings.difficulty == Difficulty.Hard) ColorBackground else ColorOnBackground
-                ),
-                border = BorderStroke(
-                    width = 1.dp,
-                    color = if (gameSettings.difficulty == Difficulty.Hard) ColorPrimary else ColorOnBackground
-                ),
-                content = {
-                    Text(
-                        stringResource(Res.string.hard),
-                        fontFamily = FontFamily(Font(Res.font.geologica_regular))
-                    )
-                }
-            )
-        }
+        DifficultyButtons(onDifficultySelect, gameSettings.difficulty)
+    }
+}
+
+@OptIn(ExperimentalLayoutApi::class)
+@Composable
+fun DifficultyButtons(
+    onDifficultySelect: (Difficulty) -> Unit,
+    difficulty: Difficulty,
+) {
+    FlowRow(
+        verticalArrangement = Arrangement.Center,
+        horizontalArrangement = Arrangement.Start
+    ) {
+        Button(
+            onClick = { onDifficultySelect(Difficulty.Easy) },
+            colors = ButtonDefaults.buttonColors(
+                backgroundColor = if (difficulty == Difficulty.Easy) ColorPrimary else ColorBackground,
+                contentColor = if (difficulty == Difficulty.Easy) ColorBackground else ColorOnBackground
+            ),
+            border = BorderStroke(
+                width = 1.dp,
+                color = if (difficulty == Difficulty.Easy) ColorPrimary else ColorOnBackground
+            ),
+            content = {
+                Text(
+                    stringResource(Res.string.easy),
+                    fontFamily = FontFamily(Font(Res.font.geologica_regular))
+                )
+            }
+        )
+        Spacer(Modifier.width(10.dp))
+        Button(
+            onClick = { onDifficultySelect(Difficulty.Medium) },
+            colors = ButtonDefaults.buttonColors(
+                backgroundColor = if (difficulty == Difficulty.Medium) ColorPrimary else ColorBackground,
+                contentColor = if (difficulty == Difficulty.Medium) ColorBackground else ColorOnBackground
+            ),
+            border = BorderStroke(
+                width = 1.dp,
+                color = if (difficulty == Difficulty.Medium) ColorPrimary else ColorOnBackground
+            ),
+            content = {
+                Text(
+                    stringResource(Res.string.medium),
+                    fontFamily = FontFamily(Font(Res.font.geologica_regular))
+                )
+            }
+        )
+        Spacer(Modifier.width(10.dp))
+        Button(
+            onClick = { onDifficultySelect(Difficulty.Hard) },
+            colors = ButtonDefaults.buttonColors(
+                backgroundColor = if (difficulty == Difficulty.Hard) ColorPrimary else ColorBackground,
+                contentColor = if (difficulty == Difficulty.Hard) ColorBackground else ColorOnBackground
+            ),
+            border = BorderStroke(
+                width = 1.dp,
+                color = if (difficulty == Difficulty.Hard) ColorPrimary else ColorOnBackground
+            ),
+            content = {
+                Text(
+                    stringResource(Res.string.hard),
+                    fontFamily = FontFamily(Font(Res.font.geologica_regular))
+                )
+            }
+        )
     }
 }

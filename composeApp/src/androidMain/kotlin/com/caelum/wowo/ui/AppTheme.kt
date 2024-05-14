@@ -16,7 +16,7 @@ import component.ui.WoWoTheme
 
 @Composable
 fun WoWoAppTheme(
-    darkTheme: Boolean = isSystemInDarkTheme(),
+    darkTheme: Boolean = false,
     content: @Composable () -> Unit,
 ) {
 
@@ -41,7 +41,7 @@ fun WoWoAppTheme(
     }
 
     WoWoTheme(
-        darkTheme = false,
+        darkTheme = darkTheme,
         content = content
     )
 }

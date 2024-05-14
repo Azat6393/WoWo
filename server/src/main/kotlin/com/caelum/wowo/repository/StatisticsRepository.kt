@@ -41,7 +41,7 @@ class StatisticsRepository(private val database: MongoDatabase) {
                     )
                     val options = UpdateOptions().upsert(false)
 
-                    collection.updateOne(queryParam, updates, options)
+                    collection.updateMany(queryParam, updates, options)
                 },
                 onFailure = { throw it }
             )

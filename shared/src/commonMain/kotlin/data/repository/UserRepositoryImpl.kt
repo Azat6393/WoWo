@@ -26,4 +26,13 @@ class UserRepositoryImpl(private val woWoApi: WoWoApi) : UserRepository {
             emit(Result.failure(e))
         }
     }
+
+    override fun updateUser(user: User): Flow<Result<User>> = flow {
+        try {
+            val response = woWoApi.updateUser(user)
+            emit(Result.success(response.data))
+        } catch (e: Exception) {
+            emit(Result.failure(e))
+        }
+    }
 }

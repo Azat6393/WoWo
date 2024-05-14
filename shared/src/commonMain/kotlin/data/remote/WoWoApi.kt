@@ -3,9 +3,9 @@ package data.remote
 import data.remote.body.InputWordBody
 import data.remote.body.QuestionBody
 import data.remote.body.ResultGameBody
-import domain.model.InputResult
 import data.remote.response.SuccessResponse
 import domain.model.Category
+import domain.model.InputResult
 import domain.model.QuestionEasyModeResult
 import domain.model.QuestionResult
 import domain.model.User
@@ -26,6 +26,12 @@ class WoWoApi(private val client: HttpClient) {
 
     suspend fun getUser(userId: String): SuccessResponse<User> {
         return client.get("$USERS$userId").body()
+    }
+
+    suspend fun updateUser(user: User): SuccessResponse<User> {
+        return client.post(USERS) {
+            setBody(user)
+        }.body()
     }
 
     suspend fun getUserStatistics(userId: String): SuccessResponse<UserStatistics> {

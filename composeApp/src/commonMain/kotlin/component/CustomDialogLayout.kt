@@ -1,4 +1,4 @@
-package presentation.game.component
+package component
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable

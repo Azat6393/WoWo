@@ -16,6 +16,7 @@ import domain.model.GameCondition
 import domain.model.InputResult
 import domain.model.QuestionEasyModeResult
 import domain.model.QuestionResult
+import domain.model.User
 import domain.model.Word
 import domain.repository.GameRepository
 import domain.repository.UserRepository
@@ -31,16 +32,19 @@ import wowo.composeapp.generated.resources.no_internet
 class GameViewModel(
     private val gameRepository: GameRepository,
     private val uniqueIdGenerator: UniqueIdGenerator,
-    userRepository: UserRepository
+    userRepository: UserRepository,
 ) : ViewModel() {
 
     var state by mutableStateOf(GameState())
         private set
 
-    private val usedId: String by lazy { uniqueIdGenerator.getId() }
+    private val userId: String by lazy { uniqueIdGenerator.getId() }
 
     init {
-        userRepository.getUser(usedId).onEach{}.launchIn(viewModelScope)
+        userRepository
+            .getUser(userId)
+            .onEach(::processUserResult)
+            .launchIn(viewModelScope)
     }
 
     fun onEvent(event: GameEvent) {
@@ -57,6 +61,15 @@ class GameViewModel(
             GameEvent.GiveUp -> giveUp()
             GameEvent.GetTips -> getTips()
         }
+    }
+
+    private fun processUserResult(result: Result<User>) {
+        result.fold(
+            onSuccess = { user ->
+                state = state.copy(showProfile = user.uuid != "guest_user")
+            },
+            onFailure = {}
+        )
     }
 
     private fun getTips() {
@@ -170,7 +183,7 @@ class GameViewModel(
         val body = InputWordBody(
             actualWord = state.actualWord.replace("İ", "i").lowercase(),
             enteredWord = enteredWord.replace("İ", "i").lowercase(),
-            userId = usedId,
+            userId = userId,
             difficultyLevel = state.gameSettings.difficulty.getDifficulty(),
             gameCondition = GameCondition(
                 question = state.gameConditionsUI.question,
@@ -442,7 +455,7 @@ class GameViewModel(
                 resultGameBody = ResultGameBody(
                     win = isWin,
                     actualWord = state.actualWord,
-                    userId = usedId,
+                    userId = userId,
                     difficultyLevel = state.gameSettings.difficulty.getDifficulty(),
                     gameCondition = GameCondition(
                         question = state.gameConditionsUI.question,

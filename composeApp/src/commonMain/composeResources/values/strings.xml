@@ -44,4 +44,15 @@
 
     <string name="no_internet">No internet connection</string>
     <string name="choose_category">Please choose category</string>
+
+    <string name="profile">profile</string>
+    <string name="nickname">nickname</string>
+    <string name="filters">filters</string>
+    <string name="played">played</string>
+    <string name="wins">wins</string>
+    <string name="loses">loses</string>
+    <string name="questions_per_game">questions per game</string>
+    <string name="attempts_per_game">attempts per game</string>
+    <string name="max_streak">max streak</string>
+    <string name="current_streak">current streak</string>
 </resources>

@@ -1,4 +1,4 @@
-package presentation.game.component
+package component
 
 import androidx.compose.material.AlertDialog
 import androidx.compose.material.Text

@@ -2,8 +2,12 @@ package utils
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateListOf
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.Dp
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewmodel.compose.viewModel
+import org.koin.compose.currentKoinScope
 import presentation.game.LetterCondition
 import presentation.game.WordLetterUI
 
@@ -51,4 +55,12 @@ fun generateWelcomeWordLetterUI(): List<WordLetterUI> {
         )
     }
     return wordLetters
+}
+
+@Composable
+inline fun <reified T: ViewModel> koinViewModel(): T {
+    val scope = currentKoinScope()
+    return viewModel {
+        scope.get<T>()
+    }
 }

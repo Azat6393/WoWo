@@ -40,12 +40,13 @@ import component.ui.ColorPrimary
 import org.jetbrains.compose.resources.Font
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
-import presentation.game.component.CustomAlertDialog
+import component.CustomAlertDialog
 import presentation.game.component.GameConditionContainer
 import presentation.game.component.GameResultContainer
 import presentation.game.component.QuestionResultContainer
 import presentation.game.component.QuestionTextField
 import presentation.game.component.StartGameContainer
+import presentation.profile.ProfileDialog
 import wowo.composeapp.generated.resources.Res
 import wowo.composeapp.generated.resources.close_icon
 import wowo.composeapp.generated.resources.geologica_regular
@@ -62,10 +63,11 @@ fun GameScreen(
     state: GameState,
     onEvent: (GameEvent) -> Unit,
     showRewardedAd: () -> Unit = {},
-    share: () -> Unit = {}
+    share: () -> Unit = {},
 ) {
     var showGiveUpDialog by remember { mutableStateOf(false) }
     var showHowToPlayDialog by remember { mutableStateOf(false) }
+    var showProfile by remember { mutableStateOf(false) }
 
     if (showGiveUpDialog) {
         CustomAlertDialog(
@@ -79,6 +81,10 @@ fun GameScreen(
         )
     }
 
+    if (showProfile) {
+        ProfileDialog { showProfile = false }
+    }
+
     if (showHowToPlayDialog) {
         HowToPlayDialog { showHowToPlayDialog = false }
     }
@@ -89,7 +95,9 @@ fun GameScreen(
     ) {
         TopBar(
             modifier = Modifier.fillMaxWidth(),
-            showHowToPlay = { showHowToPlayDialog = true }
+            showHowToPlay = { showHowToPlayDialog = true },
+            openProfile = { showProfile = true },
+            profileVisible = state.showProfile
         )
         MessageBar(messageBarState = state.message)
         Box(

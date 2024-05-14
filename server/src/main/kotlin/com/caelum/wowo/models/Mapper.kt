@@ -16,7 +16,7 @@ fun UserDto.toUser(): User {
     return User(
         uuid = uuid,
         nickname = nickname,
-        totalScore = totalScore,
+        total_score = totalScore,
         email = email
     )
 }

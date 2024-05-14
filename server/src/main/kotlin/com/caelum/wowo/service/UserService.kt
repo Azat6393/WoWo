@@ -36,11 +36,23 @@ class UserService(
                         User(
                             uuid = userId,
                             nickname = "Guest",
-                            totalScore = 0,
+                            total_score = 0,
                             email = null
                         )
                     )
                 } else emit(userDto.toUser())
+            },
+            onFailure = { exception: Throwable ->
+                throw exception
+            }
+        )
+    }
+
+    fun updateUser(user: User): Flow<User> = flow {
+        val result = userRepository.updateUser(user)
+        result.fold(
+            onSuccess = { user ->
+                emit(user)
             },
             onFailure = { exception: Throwable ->
                 throw exception
