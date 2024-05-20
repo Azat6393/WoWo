@@ -15,8 +15,8 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import component.ui.ColorPrimary
-import component.ui.ColorSecondary
+import presentation.component.ui.ColorPrimary
+import presentation.component.ui.ColorSecondary
 import org.jetbrains.compose.resources.Font
 import org.jetbrains.compose.resources.stringResource
 import presentation.game.GameConditionsUI

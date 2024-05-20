@@ -34,6 +34,10 @@
     <string name="how_to_play_two">• İlk adım, dil, kategori ve zorluk seviyesini seçmek ve oyuna başlamak olacak.</string>
     <string name="how_to_play_three">• Ardından size bir kelime verilecek. </string>
     <string name="how_to_play_four">• "Soru Sor" kısmında evet veya hayır cevaplarıyla ipuçları alabileceğiniz sorular sorabilirsiniz. Diğer türdeki sorular geçersiz kabul edilir ve soru hakkınız azalmaz.</string>
+    <string name="how_to_play_four">• "Soru Sor" özelliğini kullanarak kelimeyi tahmin etmenize yardımcı olacak bir soru sorun. Üç farklı mod seçeneğiniz var: Kolay, Orta ve Zor.
+    Kolay Mod: Kelimeyi tahmin etmenize yardımcı olacak herhangi bir soru sorabilirsiniz.
+    Orta Mod: Sadece "evet" veya "hayır" ile cevaplanabilecek sorular sorabilirsiniz.
+    Zor Mod: Orta Mod ile aynı, ancak daha zorlu bir kelime listesiyle.</string>
     <string name="how_to_play_five">Denemeler yaparak, doğru harf ve yerini belirleyebilirsiniz:</string>
     <string name="how_to_play_six">Doğru harf ve yerdeyse yeşil renk.</string>
     <string name="how_to_play_seven">Doğru harf ama yanlış yerdeyse sarı renk.</string>
@@ -44,4 +48,15 @@
 
     <string name="no_internet">İnternet bağlantısı yok</string>
     <string name="choose_category">Lütfen kategoriyi seçiniz</string>
+
+    <string name="profile">profil</string>
+    <string name="nickname">isim</string>
+    <string name="filters">filtreler</string>
+    <string name="played">oynandı</string>
+    <string name="wins">kazançlar</string>
+    <string name="loses">kayıplar</string>
+    <string name="questions_per_game">oyun başına sorular</string>
+    <string name="attempts_per_game">oyun başına denemeler</string>
+    <string name="max_streak">maksimum seri</string>
+    <string name="current_streak">mevcut seri</string>
 </resources>

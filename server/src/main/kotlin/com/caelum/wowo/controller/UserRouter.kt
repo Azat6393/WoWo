@@ -5,6 +5,7 @@ import com.caelum.wowo.utils.ApiPaths
 import com.caelum.wowo.models.response.SuccessResponse
 import com.caelum.wowo.models.wowo.User
 import com.caelum.wowo.utils.fetchError
+import com.caelum.wowo.utils.responseError
 import io.ktor.http.HttpStatusCode
 import io.ktor.server.application.call
 import io.ktor.server.response.respond
@@ -22,10 +23,7 @@ fun Route.userRouter() {
     route(ApiPaths.USERS) {
         get("/statistics/{user_id?}") {
             try {
-                val userId = call.parameters["user_id"] ?: return@get call.respondText(
-                    text = "Missing user id",
-                    status = HttpStatusCode.BadRequest
-                )
+                val userId = call.parameters["user_id"] ?: return@get responseError("Missing user id")
                 val result = userService.getUserStatistics(userId).firstOrNull()
                 call.respond(
                     HttpStatusCode.OK,
@@ -42,10 +40,7 @@ fun Route.userRouter() {
 
         get("/{user_id?}") {
             try {
-                val userId = call.parameters["user_id"] ?: return@get call.respondText(
-                    text = "Missing user id",
-                    status = HttpStatusCode.BadRequest
-                )
+                val userId = call.parameters["user_id"] ?: return@get responseError("Missing user id")
                 val result = userService.getUser(userId).firstOrNull()
                 call.respond(
                     HttpStatusCode.OK,

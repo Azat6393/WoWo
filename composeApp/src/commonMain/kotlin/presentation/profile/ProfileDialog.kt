@@ -34,9 +34,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
-import component.ui.ColorBackground
-import component.ui.ColorLightGray
-import component.ui.ColorPrimary
+import presentation.component.ui.ColorBackground
+import presentation.component.ui.ColorLightGray
+import presentation.component.ui.ColorPrimary
 import org.jetbrains.compose.resources.Font
 import org.jetbrains.compose.resources.stringResource
 import presentation.profile.compontent.NicknameTextField

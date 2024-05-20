@@ -1,4 +1,4 @@
-package component
+package presentation.component
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Arrangement
@@ -19,10 +19,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import component.ui.ColorBackground
-import component.ui.ColorOnBackground
-import component.ui.ColorPrimary
-import component.ui.ColorSecondary
+import presentation.component.ui.ColorBackground
+import presentation.component.ui.ColorOnBackground
+import presentation.component.ui.ColorPrimary
+import presentation.component.ui.ColorSecondary
 import domain.model.Category
 import org.jetbrains.compose.resources.Font
 import org.jetbrains.compose.resources.stringResource

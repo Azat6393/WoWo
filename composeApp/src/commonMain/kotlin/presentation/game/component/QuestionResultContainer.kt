@@ -22,11 +22,11 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import component.ui.ColorBackground
-import component.ui.ColorGreen
-import component.ui.ColorOnBackground
-import component.ui.ColorRed
-import component.ui.ColorYellow
+import presentation.component.ui.ColorBackground
+import presentation.component.ui.ColorGreen
+import presentation.component.ui.ColorOnBackground
+import presentation.component.ui.ColorRed
+import presentation.component.ui.ColorYellow
 import org.jetbrains.compose.resources.Font
 import org.jetbrains.compose.resources.stringResource
 import presentation.game.AiResult

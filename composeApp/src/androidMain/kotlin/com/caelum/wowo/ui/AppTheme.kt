@@ -10,8 +10,8 @@ import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
-import component.ui.ColorBackground
-import component.ui.WoWoTheme
+import presentation.component.ui.ColorBackground
+import presentation.component.ui.WoWoTheme
 
 
 @Composable

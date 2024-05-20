@@ -33,7 +33,11 @@
     <string name="how_to_play_one">Try to find the unknown word by collecting clues.</string>
     <string name="how_to_play_two">• The first step is to choose the language, category, and difficulty level and start the game.</string>
     <string name="how_to_play_three">• You will then be given a word.</string>
-    <string name="how_to_play_four">• In the "Ask" section, you can ask questions with yes or no answers to gather clues. Other types of questions are considered invalid, and your question count does not decrease.</string>
+    <string name="how_to_play_four">• Use the "Ask a Question" feature that will help you guess the word. You have three modes to choose from: Easy, Medium, and Hard.
+    Easy Mode: Ask any question to help you guess the word.
+    Medium Mode: You can only ask questions that can be answered with "yes" or "no".
+    Hard Mode: Same as Medium Mode, but with a more challenging word list.
+    </string>
     <string name="how_to_play_five">You can determine the correct letter and its position by making attempts:</string>
     <string name="how_to_play_six">If the letter is correct and in the right place, it will be in green color.</string>
     <string name="how_to_play_seven">If the letter is correct but in the wrong place, it will be in yellow color.</string>

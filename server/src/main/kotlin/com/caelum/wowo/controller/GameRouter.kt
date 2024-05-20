@@ -7,6 +7,7 @@ import com.caelum.wowo.models.response.SuccessResponse
 import com.caelum.wowo.service.GameService
 import com.caelum.wowo.utils.ApiPaths
 import com.caelum.wowo.utils.fetchError
+import com.caelum.wowo.utils.responseError
 import io.ktor.client.request.request
 import io.ktor.http.HttpStatusCode
 import io.ktor.server.application.call
@@ -26,18 +27,12 @@ fun Route.gameRouter() {
 
         get("/word/{category?}/{language?}/{difficulty?}") {
             try {
-                val language = call.parameters["language"] ?: return@get call.respondText(
-                    text = "Missing language",
-                    status = HttpStatusCode.BadRequest
-                )
-                val category = call.parameters["category"] ?: return@get call.respondText(
-                    text = "Missing category",
-                    status = HttpStatusCode.BadRequest
-                )
-                val difficulty = call.parameters["difficulty"] ?: return@get call.respondText(
-                    text = "Missing difficulty",
-                    status = HttpStatusCode.BadRequest
-                )
+                val language =
+                    call.parameters["language"] ?: return@get responseError("Missing language")
+                val category =
+                    call.parameters["category"] ?: return@get responseError("Missing category")
+                val difficulty =
+                    call.parameters["difficulty"] ?: return@get responseError("Missing difficulty")
                 val result = gameService.getRandomWord(
                     language = language,
                     category = category,
@@ -59,10 +54,8 @@ fun Route.gameRouter() {
 
         get("/categories/{language?}") {
             try {
-                val language = call.parameters["language"] ?: return@get call.respondText(
-                    text = "Missing language",
-                    status = HttpStatusCode.BadRequest
-                )
+                val language =
+                    call.parameters["language"] ?: return@get responseError("Missing language")
                 val result = gameService.getCategories(language).firstOrNull()
                 call.respond(
                     HttpStatusCode.OK,

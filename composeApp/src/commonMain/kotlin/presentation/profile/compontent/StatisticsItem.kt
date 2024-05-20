@@ -7,8 +7,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.sp
-import component.ui.ColorOnBackground
-import component.ui.ColorSecondary
+import presentation.component.ui.ColorOnBackground
+import presentation.component.ui.ColorSecondary
 import org.jetbrains.compose.resources.Font
 import wowo.composeapp.generated.resources.Res
 import wowo.composeapp.generated.resources.geologica_medium

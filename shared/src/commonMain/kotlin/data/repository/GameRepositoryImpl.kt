@@ -10,7 +10,6 @@ import domain.model.QuestionEasyModeResult
 import domain.model.QuestionResult
 import domain.model.Word
 import domain.repository.GameRepository
-import io.ktor.util.logging.Logger
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
@@ -23,7 +22,7 @@ class GameRepositoryImpl(private val woWoApi: WoWoApi) : GameRepository {
     ): Flow<Result<Word>> = flow {
         try {
             val response = woWoApi.getWord(category, language, difficulty.toString())
-            emit(Result.success(response.data))
+            response.data?.let { emit(Result.success(it)) }
         } catch (e: Exception) {
             emit(Result.failure(e))
         }
@@ -32,7 +31,7 @@ class GameRepositoryImpl(private val woWoApi: WoWoApi) : GameRepository {
     override fun getCategories(language: String): Flow<Result<List<Category>>> = flow {
         try {
             val response = woWoApi.getCategories(language)
-            emit(Result.success(response.data))
+            response.data?.let { emit(Result.success(it)) }
         } catch (e: Exception) {
             emit(Result.failure(e))
         }
@@ -41,7 +40,7 @@ class GameRepositoryImpl(private val woWoApi: WoWoApi) : GameRepository {
     override fun inputWord(inputWordBody: InputWordBody): Flow<Result<InputResult>> = flow {
         try {
             val response = woWoApi.inputWord(inputWordBody)
-            emit(Result.success(response.data))
+            response.data?.let { emit(Result.success(it)) }
         } catch (e: Exception) {
             emit(Result.failure(e))
         }
@@ -51,7 +50,7 @@ class GameRepositoryImpl(private val woWoApi: WoWoApi) : GameRepository {
         try {
             woWoApi.gameResult(resultGameBody)
         } catch (e: Exception) {
-            println("Game result error: ${e.message}")
+            println("error: ${e.message}")
         }
     }
 
@@ -59,7 +58,7 @@ class GameRepositoryImpl(private val woWoApi: WoWoApi) : GameRepository {
         flow {
             try {
                 val response = woWoApi.sendQuestion(questionBody)
-                emit(Result.success(response.data))
+                response.data?.let { emit(Result.success(it)) }
             } catch (e: Exception) {
                 emit(Result.failure(e))
             }
@@ -69,7 +68,7 @@ class GameRepositoryImpl(private val woWoApi: WoWoApi) : GameRepository {
         flow {
             try {
                 val response = woWoApi.sendQuestionForEasyMode(questionBody)
-                emit(Result.success(response.data))
+                response.data?.let { emit(Result.success(it)) }
             } catch (e: Exception) {
                 emit(Result.failure(e))
             }

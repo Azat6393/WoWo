@@ -21,10 +21,10 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import component.DifficultyButtons
-import component.ui.ColorLightGray
-import component.ui.ColorOnBackground
-import component.ui.ColorSecondary
+import presentation.component.DifficultyButtons
+import presentation.component.ui.ColorLightGray
+import presentation.component.ui.ColorOnBackground
+import presentation.component.ui.ColorSecondary
 import domain.model.Statistics
 import org.jetbrains.compose.resources.Font
 import org.jetbrains.compose.resources.stringResource

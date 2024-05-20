@@ -1,4 +1,4 @@
-package component
+package presentation.component
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
@@ -32,9 +32,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
-import component.ui.ColorBackground
-import component.ui.ColorOnBackground
-import component.ui.ColorSecondary
+import presentation.component.ui.ColorBackground
+import presentation.component.ui.ColorOnBackground
+import presentation.component.ui.ColorSecondary
 import org.jetbrains.compose.resources.Font
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
@@ -123,14 +123,14 @@ fun HowToPlayDialog(onDismissRequest: () -> Unit) {
                         color = ColorSecondary,
                         modifier = Modifier.fillMaxWidth()
                     )
-                    Spacer(modifier = Modifier.height(5.dp))
+                    Spacer(modifier = Modifier.height(15.dp))
                     Image(
                         painter = painterResource(Res.drawable.ask_image),
                         contentDescription = null,
                         contentScale = ContentScale.FillWidth,
                         modifier = Modifier.fillMaxWidth().padding(horizontal = 30.dp)
                     )
-                    Spacer(modifier = Modifier.height(15.dp))
+                    Spacer(modifier = Modifier.height(5.dp))
                     Text(
                         text = stringResource(Res.string.how_to_play_four),
                         fontSize = 14.sp,

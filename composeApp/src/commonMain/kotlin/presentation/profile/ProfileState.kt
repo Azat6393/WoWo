@@ -1,6 +1,6 @@
 package presentation.profile
 
-import component.MessageBarState
+import presentation.component.MessageBarState
 import domain.model.Statistics
 
 

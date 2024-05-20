@@ -1,4 +1,4 @@
-package component
+package presentation.component
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -22,8 +22,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.max
-import component.ui.ColorBackground
-import component.ui.ColorOnBackground
+import presentation.component.ui.ColorBackground
+import presentation.component.ui.ColorOnBackground
 
 @Composable
 fun CustomDialogLayout(

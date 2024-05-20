@@ -1,4 +1,4 @@
-package component
+package presentation.component
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -35,11 +35,11 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.unit.toSize
-import component.ui.ColorBackground
-import component.ui.ColorKeyboardColor
-import component.ui.ColorKeyboardNotInWordColor
-import component.ui.ColorOnBackground
-import component.ui.ColorPrimary
+import presentation.component.ui.ColorBackground
+import presentation.component.ui.ColorKeyboardColor
+import presentation.component.ui.ColorKeyboardNotInWordColor
+import presentation.component.ui.ColorOnBackground
+import presentation.component.ui.ColorPrimary
 import org.jetbrains.compose.resources.Font
 import utils.pxToDp
 import wowo.composeapp.generated.resources.Res

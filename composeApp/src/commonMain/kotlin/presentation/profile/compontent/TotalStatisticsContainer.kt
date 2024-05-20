@@ -9,8 +9,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import component.ui.ColorGreen
-import component.ui.ColorRed
+import presentation.component.ui.ColorGreen
+import presentation.component.ui.ColorRed
 import org.jetbrains.compose.resources.stringResource
 import wowo.composeapp.generated.resources.Res
 import wowo.composeapp.generated.resources.attempts_per_game

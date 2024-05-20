@@ -13,6 +13,7 @@ import com.mongodb.client.model.Updates
 import com.mongodb.kotlin.client.coroutine.MongoDatabase
 import kotlinx.coroutines.flow.firstOrNull
 import org.bson.types.ObjectId
+import java.time.LocalDateTime
 import java.util.UUID
 
 class UserRepository(private val database: MongoDatabase) {
@@ -71,7 +72,8 @@ class UserRepository(private val database: MongoDatabase) {
                 uuid = userId,
                 nickname = UUID.randomUUID().toString(),
                 totalScore = 0,
-                email = null
+                email = null,
+                createdDate = LocalDateTime.now()
             )
             val result = collection.insertOne(item)
 

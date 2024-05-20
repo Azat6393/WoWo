@@ -5,12 +5,14 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import component.MessageBarState
+import presentation.component.MessageBarState
 import domain.model.User
 import domain.model.UserStatistics
 import domain.repository.UserRepository
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.getString
 import utils.UniqueIdGenerator
@@ -51,7 +53,9 @@ class ProfileViewModel(
                     onSuccess = (::processUserResult),
                     onFailure = (::showErrorMessage)
                 )
-            }.launchIn(viewModelScope)
+            }
+                .catch { showErrorMessage(it) }
+                .launchIn(viewModelScope)
         }
     }
 
@@ -60,25 +64,29 @@ class ProfileViewModel(
     }
 
     private fun getUser(userId: String) {
-        state = state.copy(userLoading = true)
         userRepository.getUser(userId)
+            .onStart { state = state.copy(userLoading = true) }
             .onEach { result ->
                 result.fold(
                     onSuccess = (::processUserResult),
                     onFailure = (::showErrorMessage)
                 )
-            }.launchIn(viewModelScope)
+            }
+            .catch { showErrorMessage(it) }
+            .launchIn(viewModelScope)
     }
 
     private fun getStatistics(userId: String) {
-        state = state.copy(statisticsLoading = true)
         userRepository.getUserStatistics(userId)
+            .onStart { state = state.copy(statisticsLoading = true) }
             .onEach { result ->
                 result.fold(
                     onSuccess = (::processUserStatisticsResult),
                     onFailure = (::showErrorMessage)
                 )
-            }.launchIn(viewModelScope)
+            }
+            .catch { showErrorMessage(it) }
+            .launchIn(viewModelScope)
     }
 
     private fun processUserStatisticsResult(userStatistics: UserStatistics) {
@@ -99,8 +107,8 @@ class ProfileViewModel(
                     userStatistics.medium.loses +
                     userStatistics.hard.loses,
             totalPlayed = totalPlayed,
-            questionsPerGame = totalQuestions / totalPlayed,
-            attemptsPerGame = totalAttempts / totalPlayed,
+            questionsPerGame = if (totalQuestions != 0) totalQuestions / totalPlayed else 0,
+            attemptsPerGame = if (totalAttempts != 0) totalAttempts / totalPlayed else 0,
             easyStatistics = userStatistics.easy,
             mediumStatistics = userStatistics.medium,
             hardStatistics = userStatistics.hard,

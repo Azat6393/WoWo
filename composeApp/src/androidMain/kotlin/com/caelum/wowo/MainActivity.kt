@@ -48,7 +48,7 @@ import org.koin.androidx.compose.koinViewModel
 import presentation.game.GameEvent
 import presentation.game.GameScreen
 import presentation.game.GameViewModel
-import component.CustomAlertDialog
+import presentation.component.CustomAlertDialog
 import wowo.composeapp.generated.resources.Res
 import wowo.composeapp.generated.resources.exit
 import wowo.composeapp.generated.resources.exit_text

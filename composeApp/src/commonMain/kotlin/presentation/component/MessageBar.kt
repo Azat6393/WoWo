@@ -1,4 +1,4 @@
-package component
+package presentation.component
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.tween
@@ -30,8 +30,8 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import component.ui.ColorGreen
-import component.ui.ColorRed
+import presentation.component.ui.ColorGreen
+import presentation.component.ui.ColorRed
 import kotlinx.coroutines.delay
 import org.jetbrains.compose.resources.Font
 import wowo.composeapp.generated.resources.Res

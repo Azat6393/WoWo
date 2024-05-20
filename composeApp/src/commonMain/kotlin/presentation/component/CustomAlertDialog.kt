@@ -1,12 +1,12 @@
-package component
+package presentation.component
 
 import androidx.compose.material.AlertDialog
 import androidx.compose.material.Text
 import androidx.compose.material.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.text.font.FontFamily
-import component.ui.ColorBackground
-import component.ui.ColorPrimary
+import presentation.component.ui.ColorBackground
+import presentation.component.ui.ColorPrimary
 import org.jetbrains.compose.resources.Font
 import org.jetbrains.compose.resources.stringResource
 import wowo.composeapp.generated.resources.Res

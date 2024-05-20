@@ -10,13 +10,24 @@ import io.ktor.util.pipeline.PipelineContext
 
 suspend fun PipelineContext<Unit, ApplicationCall>.fetchError(exception: Exception) {
     call.respond(
-        HttpStatusCode.NotFound,
+        HttpStatusCode.BadRequest,
         ErrorResponse(
             exception.message.toString(),
-            HttpStatusCode.NotFound.value
+            HttpStatusCode.BadRequest.value
         )
     )
 }
+
+suspend fun PipelineContext<Unit, ApplicationCall>.responseError(text: String) {
+    call.respond(
+        HttpStatusCode.BadRequest,
+        ErrorResponse(
+            text,
+            HttpStatusCode.BadRequest.value
+        )
+    )
+}
+
 
 fun calculateScore(seconds: Int, attempts: Int, questions: Int, difficulty: Int): Int {
     return ((12 - attempts) + (18 - questions) * difficulty)

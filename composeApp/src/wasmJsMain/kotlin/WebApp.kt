@@ -2,7 +2,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
-import component.ui.WoWoTheme
+import presentation.component.ui.WoWoTheme
 import di.KoinInitializer
 import di.viewModelModule
 import di.domainModule

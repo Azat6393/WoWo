@@ -2,7 +2,7 @@ package presentation.game
 
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.snapshots.SnapshotStateList
-import component.MessageBarState
+import presentation.component.MessageBarState
 import domain.model.Category
 import presentation.game.LetterCondition.Blank
 

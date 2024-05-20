@@ -12,7 +12,9 @@ class UserRepositoryImpl(private val woWoApi: WoWoApi) : UserRepository {
     override fun getUser(userId: String): Flow<Result<User>> = flow {
         try {
             val response = woWoApi.getUser(userId)
-            emit(Result.success(response.data))
+            response.data?.let {
+                emit(Result.success(it))
+            }
         } catch (e: Exception) {
             emit(Result.failure(e))
         }
@@ -21,7 +23,9 @@ class UserRepositoryImpl(private val woWoApi: WoWoApi) : UserRepository {
     override fun getUserStatistics(userId: String): Flow<Result<UserStatistics>> = flow {
         try {
             val response = woWoApi.getUserStatistics(userId)
-            emit(Result.success(response.data))
+            response.data?.let {
+                emit(Result.success(it))
+            }
         } catch (e: Exception) {
             emit(Result.failure(e))
         }
@@ -30,7 +34,9 @@ class UserRepositoryImpl(private val woWoApi: WoWoApi) : UserRepository {
     override fun updateUser(user: User): Flow<Result<User>> = flow {
         try {
             val response = woWoApi.updateUser(user)
-            emit(Result.success(response.data))
+            response.data?.let {
+                emit(Result.success(it))
+            }
         } catch (e: Exception) {
             emit(Result.failure(e))
         }

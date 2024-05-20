@@ -1,4 +1,4 @@
-package component
+package presentation.component
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -20,7 +20,7 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import component.ui.ColorOnBackground
+import presentation.component.ui.ColorOnBackground
 import org.jetbrains.compose.resources.Font
 import org.jetbrains.compose.resources.painterResource
 import wowo.composeapp.generated.resources.Res

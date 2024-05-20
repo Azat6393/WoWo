@@ -1,4 +1,4 @@
-package component
+package presentation.component
 
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.animateDpAsState
@@ -30,11 +30,11 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import component.ui.ColorBackground
-import component.ui.ColorGray
-import component.ui.ColorGreen
-import component.ui.ColorRed
-import component.ui.ColorYellow
+import presentation.component.ui.ColorBackground
+import presentation.component.ui.ColorGray
+import presentation.component.ui.ColorGreen
+import presentation.component.ui.ColorRed
+import presentation.component.ui.ColorYellow
 import org.jetbrains.compose.resources.Font
 import presentation.game.LetterCondition
 import presentation.game.WordLetterUI
