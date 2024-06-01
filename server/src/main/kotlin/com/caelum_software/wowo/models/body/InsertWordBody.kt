@@ -7,5 +7,6 @@ import kotlinx.serialization.Serializable
 data class InsertWordBody(
     @SerialName("words") val words: List<String>,
     @SerialName("category") val category: String,
-    @SerialName("language") val language: String
+    @SerialName("language") val language: String,
+    @SerialName("difficulty") val difficulty: Int
 )

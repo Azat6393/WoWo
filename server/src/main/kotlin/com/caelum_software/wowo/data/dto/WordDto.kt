@@ -17,5 +17,7 @@ data class WordDto(
     @BsonProperty("language")
     val language: String,
     @BsonProperty("created_date")
-    val createdData: LocalDateTime
+    val createdData: LocalDateTime,
+    @BsonProperty("difficulty")
+    val difficulty: Int
 )

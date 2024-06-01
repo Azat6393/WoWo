@@ -20,6 +20,7 @@ class WordRepository(private val mongoDatabase: MongoDatabase) {
         words: List<String>,
         category: String,
         language: String,
+        difficulty: Int,
     ): IsSuccess {
         return try {
             val collection =
@@ -31,7 +32,8 @@ class WordRepository(private val mongoDatabase: MongoDatabase) {
                     word = word,
                     category = category,
                     language = language,
-                    createdData = LocalDateTime.now()
+                    createdData = LocalDateTime.now(),
+                    difficulty = difficulty
                 )
             }
 
@@ -43,15 +45,22 @@ class WordRepository(private val mongoDatabase: MongoDatabase) {
         }
     }
 
-    suspend fun getRandomWord(language: String, category: String): Result<WordDto> {
+    suspend fun getRandomWord(
+        language: String,
+        category: String,
+        difficulty: Int,
+    ): Result<WordDto> {
         return try {
-            val collection = mongoDatabase.getCollection<WordDto>(collectionName = "$COLLECTION_WORDS-$language")
-            val queryParams = Filters
-                .and(
-                    listOf(
-                        eq(WordDto::language.name, language), eq(WordDto::category.name, category)
-                    )
-                )
+            val collection =
+                mongoDatabase.getCollection<WordDto>(collectionName = "$COLLECTION_WORDS-$language")
+            val filters = arrayListOf(
+                eq(WordDto::language.name, language),
+                eq(WordDto::category.name, category)
+            )
+            if (difficulty < 3) {
+                filters.add(eq(WordDto::difficulty.name, 1))
+            }
+            val queryParams = Filters.and(filters)
 
             val resultFlow = collection.aggregate<WordDto>(
                 listOf(

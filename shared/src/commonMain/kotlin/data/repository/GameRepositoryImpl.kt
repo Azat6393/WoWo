@@ -10,6 +10,7 @@ import domain.model.QuestionEasyModeResult
 import domain.model.QuestionResult
 import domain.model.Word
 import domain.repository.GameRepository
+import io.ktor.client.call.NoTransformationFoundException
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
@@ -23,6 +24,8 @@ class GameRepositoryImpl(private val woWoApi: WoWoApi) : GameRepository {
         try {
             val response = woWoApi.getWord(category, language, difficulty.toString())
             response.data?.let { emit(Result.success(it)) }
+        } catch (e: NoTransformationFoundException) {
+            emit(Result.failure(Exception("Something went wrong")))
         } catch (e: Exception) {
             emit(Result.failure(e))
         }
@@ -32,6 +35,8 @@ class GameRepositoryImpl(private val woWoApi: WoWoApi) : GameRepository {
         try {
             val response = woWoApi.getCategories(language)
             response.data?.let { emit(Result.success(it)) }
+        } catch (e: NoTransformationFoundException) {
+            emit(Result.failure(Exception("Something went wrong")))
         } catch (e: Exception) {
             emit(Result.failure(e))
         }
@@ -41,6 +46,8 @@ class GameRepositoryImpl(private val woWoApi: WoWoApi) : GameRepository {
         try {
             val response = woWoApi.inputWord(inputWordBody)
             response.data?.let { emit(Result.success(it)) }
+        } catch (e: NoTransformationFoundException) {
+            emit(Result.failure(Exception("Something went wrong")))
         } catch (e: Exception) {
             emit(Result.failure(e))
         }
@@ -59,6 +66,8 @@ class GameRepositoryImpl(private val woWoApi: WoWoApi) : GameRepository {
             try {
                 val response = woWoApi.sendQuestion(questionBody)
                 response.data?.let { emit(Result.success(it)) }
+            } catch (e: NoTransformationFoundException) {
+                emit(Result.failure(Exception("Something went wrong")))
             } catch (e: Exception) {
                 emit(Result.failure(e))
             }
@@ -69,6 +78,8 @@ class GameRepositoryImpl(private val woWoApi: WoWoApi) : GameRepository {
             try {
                 val response = woWoApi.sendQuestionForEasyMode(questionBody)
                 response.data?.let { emit(Result.success(it)) }
+            } catch (e: NoTransformationFoundException) {
+                emit(Result.failure(Exception("Something went wrong")))
             } catch (e: Exception) {
                 emit(Result.failure(e))
             }

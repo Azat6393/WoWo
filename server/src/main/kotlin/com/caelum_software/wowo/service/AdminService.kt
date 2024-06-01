@@ -10,8 +10,8 @@ class AdminService(
     private val wordRepository: WordRepository,
     private val categoryRepository: CategoryRepository,
 ) {
-    suspend fun insertWord(words: List<String>, language: String, category: String): IsSuccess {
-        return wordRepository.addWord(words, category, language)
+    suspend fun insertWord(words: List<String>, language: String, category: String, difficulty: Int): IsSuccess {
+        return wordRepository.addWord(words, category, language, difficulty)
     }
 
     fun insertCategory(category: String, language: String): Flow<IsSuccess> = flow {

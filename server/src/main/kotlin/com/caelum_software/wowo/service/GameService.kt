@@ -31,7 +31,7 @@ class GameService(
 
     suspend fun getRandomWord(language: String, category: String, difficulty: Int): Flow<Word> =
         flow {
-            val result = wordRepository.getRandomWord(language, category)
+            val result = wordRepository.getRandomWord(language, category, difficulty)
             result.fold(
                 onSuccess = { wordDto ->
                     emit(wordDto.toWord(difficulty = difficulty))

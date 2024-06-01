@@ -15,7 +15,9 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.widthIn
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Divider
 import androidx.compose.material.Icon
 import androidx.compose.material.Surface
@@ -34,11 +36,11 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
+import org.jetbrains.compose.resources.Font
+import org.jetbrains.compose.resources.stringResource
 import presentation.component.ui.ColorBackground
 import presentation.component.ui.ColorLightGray
 import presentation.component.ui.ColorPrimary
-import org.jetbrains.compose.resources.Font
-import org.jetbrains.compose.resources.stringResource
 import presentation.profile.compontent.NicknameTextField
 import presentation.profile.compontent.StatisticsContainer
 import presentation.profile.compontent.TotalStatisticsContainer
@@ -89,64 +91,69 @@ fun ProfileDialog(onDismissRequest: () -> Unit) {
                             .clickable { onDismissRequest() }
                     )
                 }
-                Spacer(Modifier.height(30.dp))
                 Column(
                     modifier = Modifier
-                        .fillMaxWidth()
-                        .clip(RoundedCornerShape(10.dp))
-                        .background(ColorLightGray)
-                        .padding(vertical = 20.dp, horizontal = 20.dp),
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.Center
+                        .verticalScroll(rememberScrollState())
                 ) {
-                    NicknameTextField(
-                        modifier = Modifier.fillMaxWidth(),
-                        onTextChange = { viewModel.onEvent(ProfileEvent.OnNickNameChanged(it)) },
-                        saveNickname = { viewModel.onEvent(ProfileEvent.SaveNickname) },
-                        nickname = state.nickname
-                    )
-                    Spacer(Modifier.height(15.dp))
-                    Row(
-                        verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.Center
+                    Spacer(Modifier.height(30.dp))
+                    Column(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .clip(RoundedCornerShape(10.dp))
+                            .background(ColorLightGray)
+                            .padding(vertical = 20.dp, horizontal = 20.dp),
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        verticalArrangement = Arrangement.Center
                     ) {
-                        Text(
-                            text = state.score.toString(),
-                            fontSize = 20.sp,
-                            fontWeight = FontWeight.SemiBold,
-                            color = ColorPrimary,
-                            fontFamily = FontFamily(Font(Res.font.geologica_semibold))
+                        NicknameTextField(
+                            modifier = Modifier.fillMaxWidth(),
+                            onTextChange = { viewModel.onEvent(ProfileEvent.OnNickNameChanged(it)) },
+                            saveNickname = { viewModel.onEvent(ProfileEvent.SaveNickname) },
+                            nickname = state.nickname
                         )
-                        Spacer(modifier = Modifier.width(5.dp))
-                        Icon(
-                            imageVector = Icons.Filled.Star,
-                            contentDescription = null,
-                            tint = ColorPrimary,
-                            modifier = Modifier.size(20.dp)
+                        Spacer(Modifier.height(15.dp))
+                        Row(
+                            verticalAlignment = Alignment.CenterVertically,
+                            horizontalArrangement = Arrangement.Center
+                        ) {
+                            Text(
+                                text = state.score.toString(),
+                                fontSize = 20.sp,
+                                fontWeight = FontWeight.SemiBold,
+                                color = ColorPrimary,
+                                fontFamily = FontFamily(Font(Res.font.geologica_semibold))
+                            )
+                            Spacer(modifier = Modifier.width(5.dp))
+                            Icon(
+                                imageVector = Icons.Filled.Star,
+                                contentDescription = null,
+                                tint = ColorPrimary,
+                                modifier = Modifier.size(20.dp)
+                            )
+                        }
+                        Spacer(Modifier.height(15.dp))
+                        Divider(
+                            modifier = Modifier.fillMaxWidth(), color = ColorBackground,
+                            thickness = 2.dp, startIndent = 2.dp
+                        )
+                        Spacer(Modifier.height(15.dp))
+                        TotalStatisticsContainer(
+                            modifier = Modifier.fillMaxWidth(),
+                            wins = state.totalWins,
+                            loses = state.totalLoses,
+                            played = state.totalPlayed,
+                            questions = state.questionsPerGame,
+                            attempts = state.attemptsPerGame
                         )
                     }
-                    Spacer(Modifier.height(15.dp))
-                    Divider(
-                        modifier = Modifier.fillMaxWidth(), color = ColorBackground,
-                        thickness = 2.dp, startIndent = 2.dp
-                    )
-                    Spacer(Modifier.height(15.dp))
-                    TotalStatisticsContainer(
+                    Spacer(Modifier.height(30.dp))
+                    StatisticsContainer(
                         modifier = Modifier.fillMaxWidth(),
-                        wins = state.totalWins,
-                        loses = state.totalLoses,
-                        played = state.totalPlayed,
-                        questions = state.questionsPerGame,
-                        attempts = state.attemptsPerGame
+                        easyStatistics = state.easyStatistics,
+                        mediumStatistics = state.mediumStatistics,
+                        hardStatistics = state.hardStatistics
                     )
                 }
-                Spacer(Modifier.height(30.dp))
-                StatisticsContainer(
-                    modifier = Modifier.fillMaxWidth(),
-                    easyStatistics = state.easyStatistics,
-                    mediumStatistics = state.mediumStatistics,
-                    hardStatistics = state.hardStatistics
-                )
             }
         }
     }

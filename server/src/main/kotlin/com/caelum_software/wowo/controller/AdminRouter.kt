@@ -44,7 +44,8 @@ fun Route.adminRouter() {
                 val result = adminService.insertWord(
                     words = request.words,
                     category = request.category,
-                    language = request.language
+                    language = request.language,
+                    difficulty = request.difficulty
                 )
                 call.respond(
                     HttpStatusCode.OK,

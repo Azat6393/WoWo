@@ -12,7 +12,7 @@ plugins {
 group = "com.caelum.wowo"
 version = "1.0.0"
 application {
-    mainClass.set("com.caelum.wowo.ApplicationKt")
+    mainClass.set("com.caelum_software.wowo.ApplicationKt")
     applicationDefaultJvmArgs = listOf("-Dio.ktor.development=${extra["development"] ?: "false"}")
 }
 
