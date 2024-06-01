@@ -27,6 +27,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.dp
 import presentation.component.HowToPlayDialog
@@ -41,6 +43,8 @@ import org.jetbrains.compose.resources.Font
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import presentation.component.CustomAlertDialog
+import presentation.component.ui.ColorGray
+import presentation.component.ui.ColorLightGray
 import presentation.game.component.GameConditionContainer
 import presentation.game.component.GameResultContainer
 import presentation.game.component.QuestionResultContainer
@@ -129,7 +133,8 @@ fun GameScreen(
             ) {
                 GameButtons(
                     onGiveUp = { showGiveUpDialog = true },
-                    onGetLetter = showRewardedAd
+                    onGetLetter = showRewardedAd,
+                    isRewardedAdLoaded = state.isRewardedAdReady
                 )
                 Spacer(Modifier.height(25.dp))
                 QuestionResultContainer(
@@ -197,6 +202,7 @@ fun GameScreen(
 private fun GameButtons(
     onGiveUp: () -> Unit,
     onGetLetter: () -> Unit,
+    isRewardedAdLoaded: Boolean = false
 ) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
@@ -207,8 +213,11 @@ private fun GameButtons(
                 onClick = onGetLetter,
                 colors = ButtonDefaults.buttonColors(
                     contentColor = ColorOnBackground,
-                    backgroundColor = ColorBackground
+                    backgroundColor = ColorBackground,
+                    disabledBackgroundColor = ColorLightGray,
+                    disabledContentColor = ColorOnBackground.copy(alpha = 0.6f)
                 ),
+                enabled = isRewardedAdLoaded,
                 shape = RoundedCornerShape(30.dp),
                 contentPadding = PaddingValues(10.dp, 2.dp, 45.dp, 2.dp),
                 modifier = Modifier.align(Alignment.CenterEnd),
@@ -222,6 +231,7 @@ private fun GameButtons(
             Image(
                 painter = painterResource(Res.drawable.tips_icon),
                 contentDescription = null,
+                alpha = if (isRewardedAdLoaded) 1f else 0.5f,
                 modifier = Modifier.size(35.dp).align(Alignment.CenterEnd)
             )
         }

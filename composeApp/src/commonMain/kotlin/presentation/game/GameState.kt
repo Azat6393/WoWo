@@ -21,6 +21,7 @@ data class GameState(
     val isGameStarted: Boolean = false,
     val isEnterEnable: Boolean = false,
     val isQuestionEnable: Boolean = false,
+    val isRewardedAdReady: Boolean = false,
     val message: MessageBarState = MessageBarState(),
     val gameResult: GameResult? = null,
     val showProfile: Boolean = false

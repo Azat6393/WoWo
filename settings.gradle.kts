@@ -9,6 +9,7 @@ pluginManagement {
         google()
         gradlePluginPortal()
         mavenCentral()
+        maven("https://artifactory.appodeal.com/appodeal")
     }
     resolutionStrategy {
         eachPlugin {
@@ -25,6 +26,7 @@ dependencyResolutionManagement {
         mavenCentral()
         maven("https://maven.pkg.jetbrains.space/public/p/compose/dev")
         maven("https://maven.pkg.jetbrains.space/kotlin/p/wasm/experimental")
+        maven("https://artifactory.appodeal.com/appodeal")
     }
 }
 

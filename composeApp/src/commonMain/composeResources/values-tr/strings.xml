@@ -33,7 +33,6 @@
     <string name="how_to_play_one">Bilinmeyen kelimeyi ipuçları toplayarak bulmaya çalışınız.</string>
     <string name="how_to_play_two">• İlk adım, dil, kategori ve zorluk seviyesini seçmek ve oyuna başlamak olacak.</string>
     <string name="how_to_play_three">• Ardından size bir kelime verilecek. </string>
-    <string name="how_to_play_four">• "Soru Sor" kısmında evet veya hayır cevaplarıyla ipuçları alabileceğiniz sorular sorabilirsiniz. Diğer türdeki sorular geçersiz kabul edilir ve soru hakkınız azalmaz.</string>
     <string name="how_to_play_four">• "Soru Sor" özelliğini kullanarak kelimeyi tahmin etmenize yardımcı olacak bir soru sorun. Üç farklı mod seçeneğiniz var: Kolay, Orta ve Zor.
     Kolay Mod: Kelimeyi tahmin etmenize yardımcı olacak herhangi bir soru sorabilirsiniz.
     Orta Mod: Sadece "evet" veya "hayır" ile cevaplanabilecek sorular sorabilirsiniz.

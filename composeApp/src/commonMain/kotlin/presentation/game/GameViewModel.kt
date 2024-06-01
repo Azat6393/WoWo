@@ -7,7 +7,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import presentation.component.MessageBarState
 import data.remote.body.InputWordBody
 import data.remote.body.QuestionBody
 import data.remote.body.ResultGameBody
@@ -26,10 +25,12 @@ import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.getString
+import presentation.component.MessageBarState
 import utils.UniqueIdGenerator
 import wowo.composeapp.generated.resources.Res
 import wowo.composeapp.generated.resources.choose_category
 import wowo.composeapp.generated.resources.no_internet
+import kotlin.random.Random
 
 class GameViewModel(
     private val gameRepository: GameRepository,
@@ -41,6 +42,8 @@ class GameViewModel(
         private set
 
     private val userId: String by lazy { uniqueIdGenerator.getId() }
+
+    var showedAds = 0
 
     init {
         userRepository
@@ -63,6 +66,8 @@ class GameViewModel(
             is GameEvent.OnLanguageChange -> onLanguageChange(event.language)
             GameEvent.GiveUp -> giveUp()
             GameEvent.GetTips -> getTips()
+            is GameEvent.OnRewardedAdStateChange -> state =
+                state.copy(isRewardedAdReady = event.isLoaded)
         }
     }
 
@@ -76,16 +81,18 @@ class GameViewModel(
     }
 
     private fun getTips() {
-        state.word.forEachIndexed { index, word ->
-            if (word.condition != LetterCondition.InCorrectSpot && word.condition != LetterCondition.Space) {
-                state.word[index] = state.word[index].copy(
-                    letter = state.actualWord[index].toString(),
-                    condition = LetterCondition.InCorrectSpot
-                )
-                checkEnterEnable()
-                return
-            }
+        val enabledIndexes = state.word.filter { word ->
+            word.condition != LetterCondition.InCorrectSpot && word.condition != LetterCondition.Space
         }
+        if (enabledIndexes.isEmpty()) return
+
+        val index = if (enabledIndexes.lastIndex == 0) enabledIndexes[0].index
+        else enabledIndexes[Random.nextInt(0, enabledIndexes.lastIndex)].index
+        state.word[index] = state.word[index].copy(
+            letter = state.actualWord[index].toString(),
+            condition = LetterCondition.InCorrectSpot
+        )
+        checkEnterEnable()
     }
 
     private fun giveUp() {
@@ -417,6 +424,7 @@ class GameViewModel(
     }
 
     private fun sendGameResult(isWin: Boolean) {
+        showedAds = 0
         viewModelScope.launch {
             gameRepository.gameResult(
                 resultGameBody = ResultGameBody(

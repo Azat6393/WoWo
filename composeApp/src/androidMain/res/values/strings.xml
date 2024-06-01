@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name" translatable="false">WoWo</string>
-    <string name="ad_id_banner" translatable="false">ca-app-pub-6215832234139822/3692814250</string>
-    <string name="ad_id_rewarded" translatable="false">ca-app-pub-6215832234139822/5141842892</string>
+    <string name="appodeal_app_key" translatable="false">0e295c9bd414c561663ba50ac08621e462d24241ffdbffe9</string>
     <string name="something_went_wrong_please_try_again_later">Something went wrong, please try again later!</string>
+    <string name="rewarded_ad_message">You can\'t get more than 4 letters</string>
 </resources>

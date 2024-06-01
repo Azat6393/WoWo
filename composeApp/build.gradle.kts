@@ -43,9 +43,8 @@ kotlin {
             implementation(libs.androidx.activity.compose)
 
             implementation(libs.koin.androidx.compose.wasm)
+            implementation(libs.koin.android.wasm)
             implementation(libs.androidx.core.splashscreen)
-
-            implementation(libs.play.services.ads)
 
             implementation(libs.review)
             implementation(libs.review.ktx)
@@ -55,7 +54,9 @@ kotlin {
 
             implementation(project.dependencies.platform("com.google.firebase:firebase-bom:33.0.0"))
             implementation("com.google.firebase:firebase-analytics")
-            implementation ("com.google.firebase:firebase-messaging-ktx")
+            implementation("com.google.firebase:firebase-messaging-ktx")
+
+            implementation(libs.appodeal.sdk)
         }
         commonMain.dependencies {
             implementation(compose.runtime)
@@ -74,7 +75,7 @@ kotlin {
 }
 
 android {
-    namespace = "com.caelum.wowo"
+    namespace = "com.caelum_software.wowo"
     compileSdk = libs.versions.android.compileSdk.get().toInt()
 
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
@@ -82,11 +83,11 @@ android {
     sourceSets["main"].resources.srcDirs("src/commonMain/resources")
 
     defaultConfig {
-        applicationId = "com.caelum.wowo"
+        applicationId = "com.caelum_software.wowo"
         minSdk = libs.versions.android.minSdk.get().toInt()
         targetSdk = libs.versions.android.targetSdk.get().toInt()
-        versionCode = 6
-        versionName = "1.0.6"
+        versionCode = 2
+        versionName = "1.0.1"
     }
     packaging {
         resources {

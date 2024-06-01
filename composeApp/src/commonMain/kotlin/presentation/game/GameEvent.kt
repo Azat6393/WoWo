@@ -8,6 +8,7 @@ sealed class GameEvent {
     data class OnLanguageChange(val language: String) : GameEvent()
     data class OnCategorySelect(val category: Category) : GameEvent()
     data class OnDifficultyChange(val difficulty: Difficulty) : GameEvent()
+    data class OnRewardedAdStateChange(val isLoaded: Boolean) : GameEvent()
     data object OnDeleteLetter : GameEvent()
     data object Enter : GameEvent()
     data object AskQuestion : GameEvent()

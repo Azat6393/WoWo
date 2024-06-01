@@ -22,6 +22,26 @@
         "appinvite_service": {
           "other_platform_oauth_client": []
         }
+      },
+      "admob_app_id": "ca-app-pub-6215832234139822~7156797997"
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:427331935700:android:fcd280f675eae8ef2d0a41",
+        "android_client_info": {
+          "package_name": "com.caelum_software.wowo"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBetyFLqI8l6HBZITRpNwwoj4vLV5n5_kg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
       }
     }
   ],

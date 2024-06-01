@@ -9,10 +9,15 @@ actual class UniqueIdGenerator(
 ) {
     @SuppressLint("HardwareIds")
     actual fun getId(): String {
+        val sharedPref = SharedPreferencesHelper(getSharedPreferences(context))
+        if (!sharedPref.userId.isNullOrEmpty()) {
+            return sharedPref.userId!!
+        }
         val deviceId = Settings.Secure.getString(
             context.contentResolver,
             Settings.Secure.ANDROID_ID
         )
+        sharedPref.userId = deviceId
         return deviceId ?: "guest_user"
     }
 }
