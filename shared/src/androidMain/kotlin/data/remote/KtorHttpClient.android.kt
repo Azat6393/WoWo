@@ -38,14 +38,14 @@ actual val ktorHttpClient: HttpClient
         install(Logging) {
             logger = object : Logger {
                 override fun log(message: String) {
-                    println("Logger Ktor => :$message")
+                    //println("Logger Ktor => :$message")
                 }
             }
         }
 
         install(ResponseObserver) {
             onResponse { response ->
-                println("HTTP status: ${response.status.value}")
+                //println("HTTP status: ${response.status.value}")
             }
         }
 
