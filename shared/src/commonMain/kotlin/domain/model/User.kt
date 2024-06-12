@@ -7,6 +7,6 @@ import kotlinx.serialization.Serializable
 data class User(
     @SerialName("uuid") val uuid: String,
     @SerialName("nickname") val nickname: String,
-    @SerialName("total_score") val totalScore: Int,
+    @SerialName("total_score") val total_score: Int,
     @SerialName("email") val email: String? = null,
 )

@@ -1,0 +1,61 @@
+<resources>
+    <string name="language">dil</string>
+    <string name="easy">kolay</string>
+    <string name="medium">orta</string>
+    <string name="hard">zor</string>
+    <string name="category">kategori</string>
+    <string name="difficulty">seviye</string>
+    <string name="play">başla</string>
+    <string name="play_again">tekrar oyna</string>
+    <string name="incorrect">yanlış</string>
+    <string name="questions">sorular</string>
+    <string name="question">soru</string>
+    <string name="yes">evet</string>
+    <string name="no">hayır</string>
+    <string name="invalid">geçersiz</string>
+    <string name="ask">sor</string>
+    <string name="ask_hint">Bu ... ?</string>
+    <string name="lose">KAYBETTİN</string>
+    <string name="win">KAZANDIN</string>
+    <string name="how_to_play">nasıl oynanır</string>
+    <string name="welcome">hoşgeldiniz</string>
+    <string name="share">paylaş</string>
+    <string name="confirm">onayla</string>
+    <string name="dismiss">reddet</string>
+    <string name="give_up">pes et</string>
+    <string name="give_up_title">pes et</string>
+    <string name="give_up_text">pes etmek istediğinizden emin misiniz?</string>
+    <string name="exit">çıkış</string>
+    <string name="exit_title">çıkış</string>
+    <string name="exit_text">WoWo'dan çıkmak istediğinizden emin misiniz?</string>
+    <string name="get_letter">harf al</string>
+
+    <string name="how_to_play_one">Bilinmeyen kelimeyi ipuçları toplayarak bulmaya çalışınız.</string>
+    <string name="how_to_play_two">• İlk adım, dil, kategori ve zorluk seviyesini seçmek ve oyuna başlamak olacak.</string>
+    <string name="how_to_play_three">• Ardından size bir kelime verilecek. </string>
+    <string name="how_to_play_four">• "Soru Sor" özelliğini kullanarak kelimeyi tahmin etmenize yardımcı olacak bir soru sorun. Üç farklı mod seçeneğiniz var: Kolay, Orta ve Zor.
+    Kolay Mod: Kelimeyi tahmin etmenize yardımcı olacak herhangi bir soru sorabilirsiniz.
+    Orta Mod: Sadece "evet" veya "hayır" ile cevaplanabilecek sorular sorabilirsiniz.
+    Zor Mod: Orta Mod ile aynı, ancak daha zorlu bir kelime listesiyle.</string>
+    <string name="how_to_play_five">Denemeler yaparak, doğru harf ve yerini belirleyebilirsiniz:</string>
+    <string name="how_to_play_six">Doğru harf ve yerdeyse yeşil renk.</string>
+    <string name="how_to_play_seven">Doğru harf ama yanlış yerdeyse sarı renk.</string>
+    <string name="how_to_play_eight">Harf kelime içinde yoksa kırmızı renk.</string>
+    <string name="how_to_play_nine">• "Harf Al" butonuyla kısa bir reklam izleyerek rastgele bir harf alabilirsiniz.</string>
+    <string name="how_to_play_ten">• Eğer pes etmek isterseniz, "Pes Et" butonunu kullanabilir ve yeni bir oyun başlatabilirsiniz.</string>
+    <string name="how_to_play_eleven">• "Yanlış Cevap" hakkınız bitene kadar doğru kelimeyi bulmanız gerekmektedir.</string>
+
+    <string name="no_internet">İnternet bağlantısı yok</string>
+    <string name="choose_category">Lütfen kategoriyi seçiniz</string>
+
+    <string name="profile">profil</string>
+    <string name="nickname">isim</string>
+    <string name="filters">filtreler</string>
+    <string name="played">oynandı</string>
+    <string name="wins">kazançlar</string>
+    <string name="loses">kayıplar</string>
+    <string name="questions_per_game">oyun başına sorular</string>
+    <string name="attempts_per_game">oyun başına denemeler</string>
+    <string name="max_streak">maksimum seri</string>
+    <string name="current_streak">mevcut seri</string>
+</resources>

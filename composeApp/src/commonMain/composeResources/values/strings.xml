@@ -1,0 +1,62 @@
+<resources>
+    <string name="language">language</string>
+    <string name="easy">easy</string>
+    <string name="medium">medium</string>
+    <string name="hard">hard</string>
+    <string name="category">category</string>
+    <string name="difficulty">difficulty</string>
+    <string name="play">play</string>
+    <string name="play_again">play again</string>
+    <string name="incorrect">incorrect</string>
+    <string name="questions">questions</string>
+    <string name="question">Question</string>
+    <string name="yes">yes</string>
+    <string name="no">no</string>
+    <string name="invalid">invalid</string>
+    <string name="ask">ask</string>
+    <string name="ask_hint">Is this ... ?</string>
+    <string name="lose">LOSE</string>
+    <string name="win">WIN</string>
+    <string name="how_to_play">how to play</string>
+    <string name="welcome">welcome</string>
+    <string name="share">share</string>
+    <string name="confirm">confirm</string>
+    <string name="dismiss">dismiss</string>
+    <string name="give_up">give up</string>
+    <string name="give_up_title">give up</string>
+    <string name="give_up_text">are you sure you want to give up?</string>
+    <string name="exit">exit</string>
+    <string name="exit_title">exit</string>
+    <string name="exit_text">are you sure you want to exit from WoWo?</string>
+    <string name="get_letter">get a letter</string>
+
+    <string name="how_to_play_one">Try to find the unknown word by collecting clues.</string>
+    <string name="how_to_play_two">• The first step is to choose the language, category, and difficulty level and start the game.</string>
+    <string name="how_to_play_three">• You will then be given a word.</string>
+    <string name="how_to_play_four">• Use the "Ask a Question" feature that will help you guess the word. You have three modes to choose from: Easy, Medium, and Hard.
+    Easy Mode: Ask any question to help you guess the word.
+    Medium Mode: You can only ask questions that can be answered with "yes" or "no".
+    Hard Mode: Same as Medium Mode, but with a more challenging word list.
+    </string>
+    <string name="how_to_play_five">You can determine the correct letter and its position by making attempts:</string>
+    <string name="how_to_play_six">If the letter is correct and in the right place, it will be in green color.</string>
+    <string name="how_to_play_seven">If the letter is correct but in the wrong place, it will be in yellow color.</string>
+    <string name="how_to_play_eight">If the letter is not in the word, it will be in red color.</string>
+    <string name="how_to_play_nine">• You can use the "Get a Letter" button to watch a short ad and receive a random letter.</string>
+    <string name="how_to_play_ten">• If you want to give up, you can use the "Give Up" button and start a new game.</string>
+    <string name="how_to_play_eleven">• You need to find the correct word before your "Incorrect Answer" count runs out.</string>
+
+    <string name="no_internet">No internet connection</string>
+    <string name="choose_category">Please choose category</string>
+
+    <string name="profile">profile</string>
+    <string name="nickname">nickname</string>
+    <string name="filters">filters</string>
+    <string name="played">played</string>
+    <string name="wins">wins</string>
+    <string name="loses">loses</string>
+    <string name="questions_per_game">questions per game</string>
+    <string name="attempts_per_game">attempts per game</string>
+    <string name="max_streak">max streak</string>
+    <string name="current_streak">current streak</string>
+</resources>

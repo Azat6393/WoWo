@@ -1,0 +1,61 @@
+<resources>
+    <string name="language">язык</string>
+    <string name="easy">легкий</string>
+    <string name="medium">средний</string>
+    <string name="hard">cложный</string>
+    <string name="category">категория</string>
+    <string name="difficulty">уровень</string>
+    <string name="play">играть</string>
+    <string name="play_again">сыграй еще раз</string>
+    <string name="incorrect">попытки</string>
+    <string name="questions">вопросы</string>
+    <string name="question">Вопрос</string>
+    <string name="yes">да</string>
+    <string name="no">нет</string>
+    <string name="invalid">invalid</string>
+    <string name="ask">cпросить</string>
+    <string name="ask_hint">Это ... ?</string>
+    <string name="lose">ПРОИГРАЛ</string>
+    <string name="win">ПОБЕДИЛ</string>
+    <string name="how_to_play">как играть</string>
+    <string name="welcome">добро пожаловать</string>
+    <string name="share">поделиться</string>
+    <string name="confirm">подтверждить</string>
+    <string name="dismiss">отменить</string>
+    <string name="give_up">сдаться</string>
+    <string name="give_up_title">сдаться</string>
+    <string name="give_up_text">ты уверен, что хочешь сдаться?</string>
+    <string name="exit">выйти</string>
+    <string name="exit_title">выход</string>
+    <string name="exit_text">вы уверены, что хотите выйти из WoWo?</string>
+    <string name="get_letter">получить букву</string>
+
+    <string name="how_to_play_one">Найдите неизвестное слово, собирая подсказки.</string>
+    <string name="how_to_play_two">• Сначала нужно выбрать язык, категорию и уровень сложности и начать игру.</string>
+    <string name="how_to_play_three">• Затем вам будет дано слово. </string>
+    <string name="how_to_play_four">• Используйте функцию "Задать вопрос", чтобы помочь вам угадать слово. У вас есть три режима: Легкий, Средний и Сложный.
+    Легкий режим: Задайте любой вопрос, чтобы помочь вам угадать слово.
+    Средний режим: Вы можете задавать вопросы, на которые можно ответить "да" или "нет".
+    Сложный режим: То же самое, что и в Среднем режиме, но с более сложным списком слов.</string>
+    <string name="how_to_play_five">Вы можете определить правильную букву и ее положение, делая попытки:</string>
+    <string name="how_to_play_six">Если буква правильная и находится в нужном месте, она будет выделена зеленым цветом.</string>
+    <string name="how_to_play_seven">Если буква правильная, но находится не на своем месте, она будет окрашена в желтый цвет.</string>
+    <string name="how_to_play_eight">Если буквы нет в слове, она будет выделена красным цветом.</string>
+    <string name="how_to_play_nine">• Вы можете воспользоваться кнопкой "Получить букву", чтобы посмотреть короткую рекламу и получить случайную букву.</string>
+    <string name="how_to_play_ten">• Если вы хотите сдаться, то можете воспользоваться кнопкой "cдаться" и начать новую игру.</string>
+    <string name="how_to_play_eleven">• Вам нужно найти правильное слово до того, как закончится счетчик "попытки".</string>
+
+    <string name="no_internet">Нет подключения к Интернету</string>
+    <string name="choose_category">Выберите категорию</string>
+
+    <string name="profile">профиль</string>
+    <string name="nickname">никнейм</string>
+    <string name="filters">фильтры</string>
+    <string name="played">сыграно</string>
+    <string name="wins">победы</string>
+    <string name="loses">поражения</string>
+    <string name="questions_per_game">вопросы за игру</string>
+    <string name="attempts_per_game">попытки за игру</string>
+    <string name="max_streak">максимальная серия</string>
+    <string name="current_streak">текущая серия</string>
+</resources>

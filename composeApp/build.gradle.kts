@@ -5,6 +5,7 @@ plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsCompose)
+    id("com.google.gms.google-services")
 }
 
 kotlin {
@@ -24,7 +25,7 @@ kotlin {
         }
         binaries.executable()
     }
-    
+
     androidTarget {
         compilations.all {
             kotlinOptions {
@@ -36,10 +37,26 @@ kotlin {
     task("testClasses")
 
     sourceSets {
-        
+
         androidMain.dependencies {
             implementation(libs.compose.ui.tooling.preview)
             implementation(libs.androidx.activity.compose)
+
+            implementation(libs.koin.androidx.compose.wasm)
+            implementation(libs.koin.android.wasm)
+            implementation(libs.androidx.core.splashscreen)
+
+            implementation(libs.review)
+            implementation(libs.review.ktx)
+
+            implementation(libs.app.update)
+            implementation(libs.app.update.ktx)
+
+            implementation(project.dependencies.platform("com.google.firebase:firebase-bom:33.0.0"))
+            implementation("com.google.firebase:firebase-analytics")
+            implementation("com.google.firebase:firebase-messaging-ktx")
+
+            implementation(libs.appodeal.sdk)
         }
         commonMain.dependencies {
             implementation(compose.runtime)
@@ -58,7 +75,7 @@ kotlin {
 }
 
 android {
-    namespace = "com.caelum.wowo"
+    namespace = "com.caelum_software.wowo"
     compileSdk = libs.versions.android.compileSdk.get().toInt()
 
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
@@ -66,11 +83,11 @@ android {
     sourceSets["main"].resources.srcDirs("src/commonMain/resources")
 
     defaultConfig {
-        applicationId = "com.caelum.wowo"
+        applicationId = "com.caelum_software.wowo"
         minSdk = libs.versions.android.minSdk.get().toInt()
         targetSdk = libs.versions.android.targetSdk.get().toInt()
-        versionCode = 1
-        versionName = "1.0"
+        versionCode = 3
+        versionName = "1.0.2"
     }
     packaging {
         resources {

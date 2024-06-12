@@ -1,4 +1,5 @@
 [versions]
+adqualitysdk = "7.19.2"
 agp = "8.2.2"
 android-compileSdk = "34"
 android-minSdk = "24"
@@ -10,8 +11,10 @@ androidx-core-ktx = "1.13.0"
 androidx-espresso-core = "3.5.1"
 androidx-material = "1.11.0"
 androidx-test-junit = "1.1.5"
+appUpdate = "2.1.0"
 compose = "1.6.6"
-compose-plugin = "1.6.10-beta02"
+compose-plugin = "1.6.11"
+coreSplashscreen = "1.0.1"
 junit = "4.13.2"
 koinCore = "3.5.6"
 koinCoreWasm = "3.6.0-wasm-alpha2"
@@ -24,8 +27,13 @@ ktorWasm = "3.0.0-wasm2"
 lifecycleViewmodelCompose = "2.8.0-beta01"
 logback = "1.5.5"
 mongodbDriverKotlinCoroutine = "5.0.0"
+review = "2.0.1"
+sdk = "3.3.0.0"
 
 [libraries]
+androidx-core-splashscreen = { module = "androidx.core:core-splashscreen", version.ref = "coreSplashscreen" }
+app-update = { module = "com.google.android.play:app-update", version.ref = "appUpdate" }
+app-update-ktx = { module = "com.google.android.play:app-update-ktx", version.ref = "appUpdate" }
 bson-kotlinx = { module = "org.mongodb:bson-kotlinx", version.ref = "mongodbDriverKotlinCoroutine" }
 koin-core = { module = "io.insert-koin:koin-core", version.ref = "koinCore" }
 koin-core-wasm = { module = "io.insert-koin:koin-core", version.ref = "koinCoreWasm" }
@@ -56,6 +64,7 @@ ktor-client-cio = { module = "io.ktor:ktor-client-cio", version.ref = "ktor" }
 ktor-client-logging-jvm = { module = "io.ktor:ktor-client-logging-jvm", version.ref = "ktor" }
 ktor-client-content-negotiation = { module = "io.ktor:ktor-client-content-negotiation", version.ref = "ktor" }
 
+ktor-serialization-kotlinx-json-jvm = { module = "io.ktor:ktor-serialization-kotlinx-json-jvm" }
 ktor-server-rate-limit = { module = "io.ktor:ktor-server-rate-limit", version.ref = "ktor" }
 ktorWasm = { group = "io.ktor", name = "ktor", version.ref = "ktorWasm" }
 ktor-client-core-wasm = { group = "io.ktor", name = "ktor-client-core", version.ref = "ktorWasm" }
@@ -83,6 +92,9 @@ ktor-server-core = { module = "io.ktor:ktor-server-core-jvm", version.ref = "kto
 ktor-server-netty = { module = "io.ktor:ktor-server-netty-jvm", version.ref = "ktor" }
 ktor-server-tests = { module = "io.ktor:ktor-server-tests-jvm", version.ref = "ktor" }
 mongodb-driver-kotlin-coroutine = { module = "org.mongodb:mongodb-driver-kotlin-coroutine", version.ref = "mongodbDriverKotlinCoroutine" }
+review = { module = "com.google.android.play:review", version.ref = "review" }
+review-ktx = { module = "com.google.android.play:review-ktx", version.ref = "review" }
+appodeal-sdk = { module = "com.appodeal.ads:sdk", version.ref = "sdk" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
