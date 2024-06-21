@@ -24,8 +24,14 @@ data class GameState(
     val isRewardedAdReady: Boolean = false,
     val message: MessageBarState = MessageBarState(),
     val gameResult: GameResult? = null,
-    val showProfile: Boolean = false
+    val showProfile: Boolean = false,
+    val focusedCompose: FocusedCompose = FocusedCompose.Word
 )
+
+sealed class FocusedCompose {
+    data object Question: FocusedCompose()
+    data object Word: FocusedCompose()
+}
 
 data class GameConditionsUI(
     val question: Int = 0,

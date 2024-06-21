@@ -6,6 +6,7 @@ import androidx.compose.animation.core.tween
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
@@ -22,6 +23,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontFamily
@@ -36,6 +38,7 @@ import presentation.component.ui.ColorGreen
 import presentation.component.ui.ColorRed
 import presentation.component.ui.ColorYellow
 import org.jetbrains.compose.resources.Font
+import presentation.game.FocusedCompose
 import presentation.game.LetterCondition
 import presentation.game.WordLetterUI
 import wowo.composeapp.generated.resources.Res
@@ -71,9 +74,19 @@ fun WordContainer(
     modifier: Modifier,
     wordLetters: List<WordLetterUI>,
     style: WordStyle = WordStyle(),
+    onFocusChanged: (FocusedCompose) -> Unit = {},
+    focusedCompose: FocusedCompose? = null,
 ) {
 
-    FlowRow(modifier = modifier, horizontalArrangement = Arrangement.Center) {
+    FlowRow(
+        modifier = modifier
+            .alpha(
+                if (focusedCompose is FocusedCompose.Question) 0.5f
+                else 1f
+            )
+            .clickable { onFocusChanged(FocusedCompose.Word) },
+        horizontalArrangement = Arrangement.Center
+    ) {
         wordLetters.forEach { letter ->
             Spacer(modifier = Modifier.width(style.spaceBetween))
             WordItem(

@@ -3,6 +3,7 @@ package com.caelum_software.wowo
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
+import android.view.WindowManager
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.compose.setContent
@@ -11,12 +12,20 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.viewinterop.AndroidView
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.WindowCompat
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import com.appodeal.ads.Appodeal
+import com.appodeal.ads.BannerCallbacks
+import com.appodeal.ads.BannerView
+import com.appodeal.ads.InterstitialCallbacks
 import com.appodeal.ads.RewardedVideoCallbacks
 import com.caelum_software.wowo.compontent.ExitHandler
 import com.caelum_software.wowo.ui.WoWoAppTheme
@@ -30,6 +39,9 @@ import com.google.android.play.core.install.model.UpdateAvailability
 import com.google.android.play.core.ktx.isFlexibleUpdateAllowed
 import com.google.android.play.core.ktx.isImmediateUpdateAllowed
 import com.google.android.play.core.review.ReviewManagerFactory
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import presentation.game.GameEvent
 import presentation.game.GameScreen
@@ -57,6 +69,7 @@ class MainActivity : ComponentActivity() {
         checkForAppUpdates()
         setContent {
             WoWoAppTheme {
+
                 val permissionResultLauncher = rememberLauncherForActivityResult(
                     contract = ActivityResultContracts.RequestPermission(),
                     onResult = {}
@@ -93,11 +106,28 @@ class MainActivity : ComponentActivity() {
                         },
                         share = { shareAppWithFriends() }
                     )
+                    AndroidView(
+                        modifier = Modifier.fillMaxWidth(),
+                        factory = { context ->
+                            Appodeal.getBannerView(context)
+                        }
+                    )
                 }
             }
         }
         showFeedbackDialog()
         initAds()
+        observe()
+    }
+
+    private fun observe() {
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.shouldShowInterstitialAd.collectLatest { shouldShow ->
+                    if (shouldShow) Appodeal.show(this@MainActivity, Appodeal.INTERSTITIAL)
+                }
+            }
+        }
     }
 
     private fun checkForAppUpdates() {
@@ -134,13 +164,16 @@ class MainActivity : ComponentActivity() {
     }
 
     private fun initAds() {
+        Appodeal.setTesting(true)
         Appodeal.initialize(
             this,
             getString(R.string.appodeal_app_key),
-            Appodeal.REWARDED_VIDEO
+            Appodeal.REWARDED_VIDEO or Appodeal.INTERSTITIAL //or Appodeal.BANNER_VIEW
         )
         Appodeal.setRewardedVideoCallbacks(rewardedVideoListener)
         Appodeal.cache(this@MainActivity, Appodeal.REWARDED_VIDEO)
+        Appodeal.cache(this@MainActivity, Appodeal.INTERSTITIAL)
+        Appodeal.show(this@MainActivity, Appodeal.BANNER_VIEW)
     }
 
     private var rewardedVideoListener = object : RewardedVideoCallbacks {
