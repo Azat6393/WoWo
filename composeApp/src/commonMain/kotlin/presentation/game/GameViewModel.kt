@@ -19,6 +19,8 @@ import domain.model.User
 import domain.model.Word
 import domain.repository.GameRepository
 import domain.repository.UserRepository
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -45,6 +47,10 @@ class GameViewModel(
 
     var showedAds = 0
 
+    private var startedGames = 0
+    private val _shouldShowInterstitialAd = MutableSharedFlow<Boolean>()
+    val shouldShowInterstitialAd = _shouldShowInterstitialAd.asSharedFlow()
+
     init {
         userRepository
             .getUser(userId)
@@ -60,7 +66,6 @@ class GameViewModel(
             GameEvent.Enter -> onEnter()
             GameEvent.AskQuestion -> askQuestion()
             GameEvent.StartGame -> startGame()
-            is GameEvent.OnQuestionInput -> inputQuestionText(event.text)
             is GameEvent.OnCategorySelect -> onCategorySelect(event.category)
             is GameEvent.OnDifficultyChange -> onDifficultyChange(event.difficulty)
             is GameEvent.OnLanguageChange -> onLanguageChange(event.language)
@@ -68,6 +73,12 @@ class GameViewModel(
             GameEvent.GetTips -> getTips()
             is GameEvent.OnRewardedAdStateChange -> state =
                 state.copy(isRewardedAdReady = event.isLoaded)
+
+            is GameEvent.OnFocusChange -> state = state.copy(
+                focusedCompose = event.focusedCompose
+            )
+
+            GameEvent.OnClearText -> onClearText()
         }
     }
 
@@ -144,6 +155,22 @@ class GameViewModel(
     }
 
     private fun onInputLetter(letter: String) {
+        when (state.focusedCompose) {
+            FocusedCompose.Question -> inputQuestionLetter(letter)
+            FocusedCompose.Word -> inputWordLetter(letter)
+        }
+    }
+
+    private fun inputQuestionLetter(letter: String) {
+        if (state.question.length >= 40) return
+        var question = state.question + letter
+        state = state.copy(
+            question = (question).lowercase()
+        )
+        checkQuestionEnable()
+    }
+
+    private fun inputWordLetter(letter: String) {
         if (letter.isBlank()) return
         var index = 0
         while (index <= state.word.lastIndex) {
@@ -159,20 +186,51 @@ class GameViewModel(
         checkEnterEnable()
     }
 
-    private fun onDeleteLetter() {
-        var lastIndex = state.word.lastIndex
-        while (lastIndex >= 0) {
-            if (state.word[lastIndex].condition != LetterCondition.InCorrectSpot &&
-                state.word[lastIndex].condition != LetterCondition.Blank &&
-                state.word[lastIndex].condition != LetterCondition.Space
-            ) {
-                state.word[lastIndex] =
-                    state.word[lastIndex].copy(condition = LetterCondition.Blank)
-                break
+    private fun onClearText() {
+        when(state.focusedCompose) {
+            FocusedCompose.Question -> {
+                state = state.copy(question = "")
             }
-            lastIndex--
+            FocusedCompose.Word -> {
+                var lastIndex = state.word.lastIndex
+                while (lastIndex >= 0) {
+                    if (state.word[lastIndex].condition != LetterCondition.InCorrectSpot &&
+                        state.word[lastIndex].condition != LetterCondition.Blank &&
+                        state.word[lastIndex].condition != LetterCondition.Space
+                    ) {
+                        state.word[lastIndex] =
+                            state.word[lastIndex].copy(condition = LetterCondition.Blank)
+                    }
+                    lastIndex--
+                }
+                checkEnterEnable()            }
         }
-        checkEnterEnable()
+    }
+
+    private fun onDeleteLetter() {
+        when (state.focusedCompose) {
+            FocusedCompose.Question -> {
+                if (state.question.isEmpty() || state.question.isBlank()) return
+                val question = state.question.dropLast(1)
+                state = state.copy(question = question)
+            }
+
+            FocusedCompose.Word -> {
+                var lastIndex = state.word.lastIndex
+                while (lastIndex >= 0) {
+                    if (state.word[lastIndex].condition != LetterCondition.InCorrectSpot &&
+                        state.word[lastIndex].condition != LetterCondition.Blank &&
+                        state.word[lastIndex].condition != LetterCondition.Space
+                    ) {
+                        state.word[lastIndex] =
+                            state.word[lastIndex].copy(condition = LetterCondition.Blank)
+                        break
+                    }
+                    lastIndex--
+                }
+                checkEnterEnable()
+            }
+        }
     }
 
     private fun onEnter() {
@@ -212,7 +270,7 @@ class GameViewModel(
                 language = state.gameSettings.selectedLanguage
             )
         )
-            .onStart { state = state.copy(aiLoading = true) }
+            .onStart { state = state.copy(aiLoading = true, aiResult = AiResult.No) }
             .onEach(::processAiResult)
             .catch { showErrorMessage(it) }.launchIn(viewModelScope)
     }
@@ -222,7 +280,7 @@ class GameViewModel(
             questionBody = QuestionBody(
                 word = state.actualWord,
                 category = state.gameSettings.selectedCategory!!.name,
-                question = state.question,
+                question = if (state.question.last() != '?') "${state.question}?" else state.question,
                 language = state.gameSettings.selectedLanguage
             )
         )
@@ -246,22 +304,20 @@ class GameViewModel(
             language = state.gameSettings.selectedLanguage,
             difficulty = state.gameSettings.difficulty.getDifficulty()
         )
-            .onStart { state = state.copy(loading = true) }
+            .onStart {
+                state = state.copy(
+                    loading = true,
+                    focusedCompose = FocusedCompose.Word,
+                    isEnterEnable = false
+                )
+            }
             .onEach(::processWordResult)
             .catch { showErrorMessage(it) }
             .launchIn(viewModelScope)
     }
 
-
-    private fun inputQuestionText(text: String) {
-        if (text.length > 40) return
-        state = state.copy(
-            question = text
-        )
-        checkQuestionEnable()
-    }
-
     private fun processWordResult(result: Result<Word>) {
+        checkForShowInterstitialAd()
         result.fold(
             onSuccess = { word ->
                 state = state.copy(
@@ -421,6 +477,16 @@ class GameViewModel(
         state = state.copy(
             isEnterEnable = state.word.find { it.condition == LetterCondition.Blank } == null
         )
+    }
+
+    private fun checkForShowInterstitialAd() {
+        viewModelScope.launch {
+            startedGames++
+            if (startedGames >= 3) {
+                _shouldShowInterstitialAd.emit(true)
+                startedGames = 0
+            }
+        }
     }
 
     private fun sendGameResult(isWin: Boolean) {

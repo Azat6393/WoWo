@@ -116,7 +116,9 @@ fun GameScreen(
                 Spacer(Modifier.height(40.dp))
                 WordContainer(
                     modifier = Modifier.fillMaxWidth().padding(start = 15.dp, end = 15.dp),
-                    wordLetters = state.word
+                    wordLetters = state.word,
+                    onFocusChanged = { onEvent(GameEvent.OnFocusChange(it)) },
+                    focusedCompose = state.focusedCompose
                 )
                 Spacer(Modifier.height(25.dp))
                 GameConditionContainer(
@@ -150,14 +152,16 @@ fun GameScreen(
                     onAskQuestion = { onEvent(GameEvent.AskQuestion) },
                     isAskQuestionEnable = state.isQuestionEnable,
                     isLoading = state.aiLoading,
-                    onTextChange = { onEvent(GameEvent.OnQuestionInput(it)) },
-                    isEasyMode = state.gameSettings.difficulty == Difficulty.Easy
+                    isEasyMode = state.gameSettings.difficulty == Difficulty.Easy,
+                    onFocusChanged = { onEvent(GameEvent.OnFocusChange(it)) },
+                    focusedCompose = state.focusedCompose
                 )
                 Spacer(Modifier.height(30.dp))
                 Keyboard(
                     modifier = Modifier.widthIn(max = 800.dp),
                     onInputValue = { onEvent(GameEvent.OnInputLetter(it)) },
                     onDeleteValue = { onEvent(GameEvent.OnDeleteLetter) },
+                    onClearText = { onEvent(GameEvent.OnClearText) },
                     onEnter = { onEvent(GameEvent.Enter) },
                     isEnterEnable = state.isEnterEnable,
                     notInWordLetters = state.notInWordLetters,
@@ -202,7 +206,7 @@ fun GameScreen(
 private fun GameButtons(
     onGiveUp: () -> Unit,
     onGetLetter: () -> Unit,
-    isRewardedAdLoaded: Boolean = false
+    isRewardedAdLoaded: Boolean = false,
 ) {
     Row(
         verticalAlignment = Alignment.CenterVertically,

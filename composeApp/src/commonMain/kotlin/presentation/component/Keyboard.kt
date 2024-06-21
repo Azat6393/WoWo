@@ -1,7 +1,10 @@
 package presentation.component
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.combinedClickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -18,6 +21,7 @@ import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.ArrowBack
+import androidx.compose.material.ripple.rememberRipple
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -35,22 +39,24 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.unit.toSize
+import org.jetbrains.compose.resources.Font
 import presentation.component.ui.ColorBackground
 import presentation.component.ui.ColorKeyboardColor
 import presentation.component.ui.ColorKeyboardNotInWordColor
 import presentation.component.ui.ColorOnBackground
 import presentation.component.ui.ColorPrimary
-import org.jetbrains.compose.resources.Font
 import utils.pxToDp
 import wowo.composeapp.generated.resources.Res
 import wowo.composeapp.generated.resources.geologica_medium
 
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun Keyboard(
     modifier: Modifier,
     onInputValue: (String) -> Unit,
     onDeleteValue: () -> Unit,
+    onClearText: () -> Unit,
     onEnter: () -> Unit,
     language: String,
     isEnterEnable: Boolean,
@@ -59,6 +65,8 @@ fun Keyboard(
 
     var columnSize by remember { mutableStateOf(Size.Zero) }
     var itemWidth by remember { mutableStateOf(0f) }
+
+    val interactionSource = remember { MutableInteractionSource() }
 
     LaunchedEffect(columnSize, language) {
         itemWidth = columnSize.width / getLetters(language)[0].size
@@ -96,7 +104,10 @@ fun Keyboard(
                     .fillMaxHeight()
                     .clip(RoundedCornerShape(7.dp))
                     .background(if (!isEnterEnable) ColorKeyboardColor else ColorPrimary)
-                    .clickable { if (isEnterEnable) onEnter() },
+                    .clickable(
+                        interactionSource = interactionSource,
+                        indication = rememberRipple()
+                    ) { if (isEnterEnable) onEnter() },
                 contentAlignment = Alignment.Center
             ) {
                 Text(
@@ -114,7 +125,10 @@ fun Keyboard(
                     .fillMaxHeight()
                     .clip(RoundedCornerShape(7.dp))
                     .background(ColorKeyboardColor)
-                    .clickable { onInputValue(" ") }
+                    .clickable(
+                        interactionSource = interactionSource,
+                        indication = rememberRipple()
+                    ) { onInputValue(" ") }
             )
             Spacer(Modifier.width(4.dp))
             Box(
@@ -123,7 +137,10 @@ fun Keyboard(
                     .fillMaxHeight()
                     .clip(RoundedCornerShape(7.dp))
                     .background(ColorKeyboardColor)
-                    .clickable { onDeleteValue() },
+                    .combinedClickable(
+                        onClick = { onDeleteValue() },
+                        onLongClick = { onClearText() },
+                    ),
                 contentAlignment = Alignment.Center
             ) {
                 Icon(
@@ -144,11 +161,19 @@ private fun LetterItem(
     notInWord: Boolean,
     onClick: (String) -> Unit,
 ) {
+
+    val interactionSource = remember { MutableInteractionSource() }
+
     Box(
         modifier = modifier
             .clip(RoundedCornerShape(7.dp))
             .background(if (notInWord) ColorKeyboardNotInWordColor else ColorKeyboardColor)
-            .clickable { onClick(letter.toString()) },
+            .clickable(
+                interactionSource = interactionSource,
+                indication = rememberRipple()
+            ) {
+                onClick(letter.toString())
+            },
         contentAlignment = Alignment.Center
     ) {
         Text(
