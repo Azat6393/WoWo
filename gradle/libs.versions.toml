@@ -5,25 +5,23 @@ android-compileSdk = "34"
 android-minSdk = "24"
 android-targetSdk = "34"
 androidx-activityCompose = "1.9.0"
-androidx-appcompat = "1.6.1"
+androidx-appcompat = "1.7.0"
 androidx-constraintlayout = "2.1.4"
-androidx-core-ktx = "1.13.0"
+androidx-core-ktx = "1.13.1"
 androidx-espresso-core = "3.5.1"
-androidx-material = "1.11.0"
+androidx-material = "1.12.0"
 androidx-test-junit = "1.1.5"
 appUpdate = "2.1.0"
-compose = "1.6.6"
+compose = "1.6.8"
 compose-plugin = "1.6.11"
 coreSplashscreen = "1.0.1"
 junit = "4.13.2"
-koinCore = "3.5.6"
-koinCoreWasm = "3.6.0-wasm-alpha2"
+koinCore = "3.6.0-wasm-alpha2"
 koinKtor = "3.5.6"
 kotlin = "1.9.23"
 kotlinxCoroutinesCore = "1.8.0"
 kotlinxSerializationJson = "1.6.2"
-ktor = "2.3.10"
-ktorWasm = "3.0.0-wasm2"
+ktor = "2.3.12"
 lifecycleViewmodelCompose = "2.8.0-beta01"
 logback = "1.5.5"
 mongodbDriverKotlinCoroutine = "5.0.0"
@@ -36,10 +34,9 @@ app-update = { module = "com.google.android.play:app-update", version.ref = "app
 app-update-ktx = { module = "com.google.android.play:app-update-ktx", version.ref = "appUpdate" }
 bson-kotlinx = { module = "org.mongodb:bson-kotlinx", version.ref = "mongodbDriverKotlinCoroutine" }
 koin-core = { module = "io.insert-koin:koin-core", version.ref = "koinCore" }
-koin-core-wasm = { module = "io.insert-koin:koin-core", version.ref = "koinCoreWasm" }
-koin-compose-wasm = { module = "io.insert-koin:koin-compose", version.ref = "koinCoreWasm" }
-koin-android-wasm = { module = "io.insert-koin:koin-android", version.ref = "koinCoreWasm" }
-koin-androidx-compose-wasm = { module = "io.insert-koin:koin-androidx-compose", version.ref = "koinCoreWasm" }
+koin-compose = { module = "io.insert-koin:koin-compose", version.ref = "koinCore" }
+koin-android = { module = "io.insert-koin:koin-android", version.ref = "koinCore" }
+koin-androidx-compose = { module = "io.insert-koin:koin-androidx-compose", version.ref = "koinCore" }
 koin-ktor = { module = "io.insert-koin:koin-ktor", version.ref = "koinKtor" }
 koin-logger-slf4j = { module = "io.insert-koin:koin-logger-slf4j", version.ref = "koinKtor" }
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
@@ -57,41 +54,33 @@ compose-ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview"
 kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinxCoroutinesCore" }
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinxSerializationJson" }
 
-ktor-client-android = { module = "io.ktor:ktor-client-android", version.ref = "ktor" }
 ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }
 ktor-client-apache5 = { module = "io.ktor:ktor-client-apache5", version.ref = "ktor" }
 ktor-client-cio = { module = "io.ktor:ktor-client-cio", version.ref = "ktor" }
 ktor-client-logging-jvm = { module = "io.ktor:ktor-client-logging-jvm", version.ref = "ktor" }
 ktor-client-content-negotiation = { module = "io.ktor:ktor-client-content-negotiation", version.ref = "ktor" }
+ktor-client-okhttp = { module = "io.ktor:ktor-client-okhttp", version.ref = "ktor" }
+ktor-client-json = { group = "io.ktor", name = "ktor-client-json", version.ref = "ktor" }
+ktor-client-logging = { group = "io.ktor", name = "ktor-client-logging", version.ref = "ktor" }
+ktor-client-serialization = { group = "io.ktor", name = "ktor-client-serialization", version.ref = "ktor" }
 
 ktor-serialization-kotlinx-json-jvm = { module = "io.ktor:ktor-serialization-kotlinx-json-jvm" }
 ktor-server-rate-limit = { module = "io.ktor:ktor-server-rate-limit", version.ref = "ktor" }
-ktorWasm = { group = "io.ktor", name = "ktor", version.ref = "ktorWasm" }
-ktor-client-core-wasm = { group = "io.ktor", name = "ktor-client-core", version.ref = "ktorWasm" }
-ktor-client-okhttp-wasm = { module = "io.ktor:ktor-client-okhttp", version.ref = "ktorWasm" }
-ktor-client-js-wasm = { module = "io.ktor:ktor-client-js", version.ref = "ktorWasm" }
-ktor-client-cio-wasm = { module = "io.ktor:ktor-client-cio", version.ref = "ktorWasm" }
-ktor-client-json-wasm = { group = "io.ktor", name = "ktor-client-json", version.ref = "ktorWasm" }
-ktor-client-logging-wasm = { group = "io.ktor", name = "ktor-client-logging", version.ref = "ktorWasm" }
-ktor-client-serialization-wasm = { group = "io.ktor", name = "ktor-client-serialization", version.ref = "ktorWasm" }
-ktor-client-content-negotiation-wasm = { group = "io.ktor", name = "ktor-client-content-negotiation", version.ref = "ktorWasm" }
-ktor-serialization-kotlinx-json-wasm = { group = "io.ktor", name = "ktor-serialization-kotlinx-json", version.ref = "ktorWasm" }
+ktor-serialization-kotlinx-json = { group = "io.ktor", name = "ktor-serialization-kotlinx-json", version.ref = "ktor" }
 
-
-ktor-ktor-server-core = { module = "io.ktor:ktor-server-core", version.ref = "ktor" }
-ktor-serialization-kotlinx-json = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "ktor" }
 ktor-server-call-logging = { module = "io.ktor:ktor-server-call-logging", version.ref = "ktor" }
 ktor-server-content-negotiation = { module = "io.ktor:ktor-server-content-negotiation", version.ref = "ktor" }
 ktor-server-cors = { module = "io.ktor:ktor-server-cors", version.ref = "ktor" }
 ktor-server-host-common = { module = "io.ktor:ktor-server-host-common", version.ref = "ktor" }
 ktor-server-sessions = { module = "io.ktor:ktor-server-sessions", version.ref = "ktor" }
 ktor-server-status-pages = { module = "io.ktor:ktor-server-status-pages", version.ref = "ktor" }
-lifecycle-viewmodel-compose = { module = "org.jetbrains.androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "lifecycleViewmodelCompose" }
-logback = { module = "ch.qos.logback:logback-classic", version.ref = "logback" }
 ktor-server-core = { module = "io.ktor:ktor-server-core-jvm", version.ref = "ktor" }
 ktor-server-netty = { module = "io.ktor:ktor-server-netty-jvm", version.ref = "ktor" }
 ktor-server-tests = { module = "io.ktor:ktor-server-tests-jvm", version.ref = "ktor" }
+logback = { module = "ch.qos.logback:logback-classic", version.ref = "logback" }
 mongodb-driver-kotlin-coroutine = { module = "org.mongodb:mongodb-driver-kotlin-coroutine", version.ref = "mongodbDriverKotlinCoroutine" }
+
+lifecycle-viewmodel-compose = { module = "org.jetbrains.androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "lifecycleViewmodelCompose" }
 review = { module = "com.google.android.play:review", version.ref = "review" }
 review-ktx = { module = "com.google.android.play:review-ktx", version.ref = "review" }
 appodeal-sdk = { module = "com.appodeal.ads:sdk", version.ref = "sdk" }
@@ -106,4 +95,4 @@ kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref =
 kotlinSerialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 
 [bundles]
-ktor-common = ["ktor-client-core-wasm", "ktor-client-json-wasm", "ktor-client-logging-wasm", "ktor-client-serialization-wasm", "ktor-client-content-negotiation-wasm", "ktor-serialization-kotlinx-json-wasm"]
+ktor-common = ["ktor-client-core", "ktor-client-json", "ktor-client-logging", "ktor-client-serialization", "ktor-client-content-negotiation", "ktor-serialization-kotlinx-json"]

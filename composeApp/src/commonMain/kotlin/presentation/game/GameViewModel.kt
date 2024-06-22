@@ -270,7 +270,7 @@ class GameViewModel(
                 language = state.gameSettings.selectedLanguage
             )
         )
-            .onStart { state = state.copy(aiLoading = true, aiResult = AiResult.No) }
+            .onStart { state = state.copy(aiLoading = true, aiResult = AiResult.Empty) }
             .onEach(::processAiResult)
             .catch { showErrorMessage(it) }.launchIn(viewModelScope)
     }

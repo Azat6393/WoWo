@@ -164,11 +164,10 @@ class MainActivity : ComponentActivity() {
     }
 
     private fun initAds() {
-        Appodeal.setTesting(true)
         Appodeal.initialize(
             this,
             getString(R.string.appodeal_app_key),
-            Appodeal.REWARDED_VIDEO or Appodeal.INTERSTITIAL //or Appodeal.BANNER_VIEW
+            Appodeal.REWARDED_VIDEO or Appodeal.INTERSTITIAL or Appodeal.BANNER_VIEW
         )
         Appodeal.setRewardedVideoCallbacks(rewardedVideoListener)
         Appodeal.cache(this@MainActivity, Appodeal.REWARDED_VIDEO)

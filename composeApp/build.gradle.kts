@@ -1,6 +1,3 @@
-import org.jetbrains.kotlin.gradle.targets.js.dsl.ExperimentalWasmDsl
-import org.jetbrains.kotlin.gradle.targets.js.webpack.KotlinWebpackConfig
-
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.androidApplication)
@@ -9,23 +6,6 @@ plugins {
 }
 
 kotlin {
-    @OptIn(ExperimentalWasmDsl::class)
-    wasmJs {
-        moduleName = "composeApp"
-        browser {
-            commonWebpackConfig {
-                outputFileName = "composeApp.js"
-                devServer = (devServer ?: KotlinWebpackConfig.DevServer()).apply {
-                    static = (static ?: mutableListOf()).apply {
-                        // Serve sources to debug inside browser
-                        add(project.projectDir.path)
-                    }
-                }
-            }
-        }
-        binaries.executable()
-    }
-
     androidTarget {
         compilations.all {
             kotlinOptions {
@@ -42,8 +22,8 @@ kotlin {
             implementation(libs.compose.ui.tooling.preview)
             implementation(libs.androidx.activity.compose)
 
-            implementation(libs.koin.androidx.compose.wasm)
-            implementation(libs.koin.android.wasm)
+            implementation(libs.koin.androidx.compose)
+            implementation(libs.koin.android)
             implementation(libs.androidx.core.splashscreen)
 
             implementation(libs.review)
@@ -66,7 +46,8 @@ kotlin {
             implementation(compose.components.resources)
             implementation(compose.components.uiToolingPreview)
 
-            implementation(libs.koin.compose.wasm)
+            implementation(libs.koin.compose)
+
             implementation(libs.lifecycle.viewmodel.compose)
 
             implementation(projects.shared)
@@ -86,8 +67,8 @@ android {
         applicationId = "com.caelum_software.wowo"
         minSdk = libs.versions.android.minSdk.get().toInt()
         targetSdk = libs.versions.android.targetSdk.get().toInt()
-        versionCode = 4
-        versionName = "1.1.0"
+        versionCode = 6
+        versionName = "1.1.2"
     }
     packaging {
         resources {
@@ -106,9 +87,4 @@ android {
     dependencies {
         debugImplementation(libs.compose.ui.tooling)
     }
-}
-
-
-compose.experimental {
-    web.application {}
 }
