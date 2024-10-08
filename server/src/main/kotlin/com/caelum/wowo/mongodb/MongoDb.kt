@@ -21,7 +21,7 @@ class MongoDb(
         val connectString = if (System.getenv(connectionEnvVariable) != null) {
             System.getenv(connectionEnvVariable)
         } else {
-            "mongodb+srv://caelum6393:jXCYy57ouXcLRp26@wowo.3ehxnev.mongodb.net/?retryWrites=true&w=majority&appName=WoWo"
+            ""
         }
 
         val client = MongoClient.create(connectionString = connectString)
